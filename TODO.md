@@ -1,4 +1,4 @@
-# Coso che gestisce mappa
+# Coso che gestisce mappa @Luca_Barban
 
 - [ ] far muovere il personaggio senza andare sui muri
     - [ ] registrare ogni singola mossa del giocatore
@@ -10,7 +10,7 @@
 
 - [ ] genera una mappa casuale ad ogni gioco
 
-# Coso che gestisce UI
+# Coso che gestisce UI @Luca_Saccarola
 
 - [ ] implementare un menu iniziale
     - [ ] modalita di gioco (interattiva e AI)
@@ -21,7 +21,7 @@
 - [ ] mappa al centro che si scala in automatico a seconda del terminale (se terminale troppo piccolo stampare errore)
 - [ ] leggenda mutabile dei keybindings
 
-# Coso che risolve il labirinto
+# Coso che risolve il labirinto @Paolo_Mozzoni
 
 - [ ] algoritmo che solve con miglior punteggio
 - [ ] algoritmo sempre destra
