@@ -1,1 +1,7 @@
-# Progetto bello di introduzione alla programmazione
+# Snake Labyrinth
+
+## How to compile
+
+```sh
+make
+```
