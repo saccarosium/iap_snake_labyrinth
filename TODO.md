@@ -31,3 +31,29 @@
 
 * cosa viene compilato per il codice (se po usa make)?
 * si puo usa altri comandi oltre ad NSWO?
+
+# Notes
+
+- funzioni prefissate dal nome del file
+```c
+    // file: ai.c
+    ai_search_path();
+```
+
+- generalmente converrebbe avere all'interno del file una struttura con lo stesso nome
+```c
+    // file: ai.c
+    typedef struct ai {
+        // ...
+    } ai;
+```
+
+- avere una funzione per allocare e inizializzare le varie strutture
+```c
+    ai *ai_create() {
+        ai *a = xmalloc(sizeof(ai));
+        // set stuff up
+
+        return a;
+    }
+```
