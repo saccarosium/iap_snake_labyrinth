@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <string.h>
 
 typedef struct center {
     int x;
@@ -6,42 +7,49 @@ typedef struct center {
 } center;
 
 typedef struct win {
-    int width;
-    int height;
-    int x;
-    int y;
+    int max_x;
+    int max_y;
+    int min_x;
+    int min_y;
     center center;
 } win;
 
-void ui_create_win(const char *maze) {
-    int min_height, min_width;
+void ui_create_menu(win frame) {
+}
+
+void ui_create_win(char *maze) {
+    int min_col, min_row;
     win term;
     win frame;
 
-    min_width = 79;
-    min_height = 24;
+    // Minimum
+    min_row = 79;
+    min_col = 24;
 
-    frame.height = 40;
-    frame.width = 50;
+    frame.max_y = 40;
+    frame.max_x = 100;
 
     // Gets the current terminal max x and y
-    getmaxyx(stdscr, term.y, term.x);
-    getmaxyx(stdscr, term.height, term.width);
+    getbegyx(stdscr, term.min_y, term.min_x);
+    getmaxyx(stdscr, term.max_y, term.max_x);
 
-    if (term.y < min_height || term.x < min_width) {
+    if (term.max_y < min_col || term.max_x < min_row) {
         frame = term;
-        maze = "Too Small!";
+        maze = "Too Smoll!";
     } else {
-        frame.y = (term.y - frame.height) / 2;
-        frame.x = (term.x - frame.width) / 2;
-        frame.center.y = (frame.y + frame.height) / 2;
-        frame.center.x = (frame.x + frame.width) / 2;
+        frame.min_y = (term.max_y - frame.max_y) / 2;
+        frame.min_x = (term.max_x - frame.max_x) / 2;
     }
 
-    WINDOW *win = newwin(frame.height, frame.width, frame.y, frame.x);
+    frame.center.y = frame.max_y / 2;
+    frame.center.x = frame.max_x / 2;
+
+
+    // initialize the WINDOW
+    WINDOW *win = newwin(frame.max_y, frame.max_x, frame.min_y, frame.min_x);
     refresh();
     box(win, 0, 0);
 
-    mvwprintw(win, 10, 10, maze);
+    mvwprintw(win, frame.center.y, (frame.max_x - strlen(maze)) / 2, maze);
     wrefresh(win);
 }
