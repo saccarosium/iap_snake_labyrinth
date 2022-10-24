@@ -3,6 +3,6 @@
 
 void *xmalloc(long long int n);
 
-void ui_create_win(char* maze);
+void ui_init();
 
 #endif //INCLUDE_H

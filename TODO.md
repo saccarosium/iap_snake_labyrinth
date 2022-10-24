@@ -18,7 +18,7 @@
       * navigazione (HJKL, WASD, ARROWS)
       * personaggio
       * colorscheme
-- [ ] mappa al centro che si scala in automatico a seconda del terminale (se terminale troppo piccolo stampare errore)
+- [x] mappa al centro che si scala in automatico a seconda del terminale (se terminale troppo piccolo stampare errore)
 - [ ] leggenda mutabile dei keybindings
 
 # Coso che risolve il labirinto @Paolo_Mozzoni
