@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <string.h>
+#include "include.h"
 
 typedef struct center {
     int x;
@@ -12,9 +13,20 @@ typedef struct win {
     int min_x;
     int min_y;
     center center;
+    WINDOW *winid;
 } win;
 
 void ui_create_menu(win frame) {
+
+win *ui_get_term_info() {
+    win *term = xmalloc(sizeof(win));
+    // Gets the current terminal info
+    getbegyx(stdscr, term->min_y, term->min_x);
+    getmaxyx(stdscr, term->max_y, term->max_x);
+    term->winid = stdscr;
+    term->center.x = term->max_x / 2;
+    term->center.y = term->max_y / 2;
+    return term;
 }
 
 void ui_create_win(char *maze) {
