@@ -29,8 +29,10 @@
 
 # Q&A
 
-* cosa viene compilato per il codice (se po usa make)?
-* si puo usa altri comandi oltre ad NSWO?
+- [x] cosa viene compilato per il codice (se po usa make)?
+    - si
+- [x] si puo usa altri comandi oltre ad NSWO?
+    - quello che vogliamo
 
 # Notes
 
