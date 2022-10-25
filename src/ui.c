@@ -28,10 +28,10 @@ win *ui_get_term_info() {
     return term;
 }
 
-void ui_size_error() {
+void ui_size_error(win *term) {
     char *error = "Screen too small!";
-    win *term = ui_get_term_info();
-    mvprintw(term->center.y, (term->max_x - strlen(error)) / 2, error);
+    // win *term = ui_get_term_info();
+    mvprintw(term->center.y, (term->max_x - strlen(error)) / 2, "%s", error);
 }
 
 win *ui_create_win(int h, int w) {
@@ -59,7 +59,7 @@ win *ui_create_win(int h, int w) {
         box(frame->winid, 0, 0);
         wrefresh(frame->winid);
     } else {
-        ui_size_error();
+        ui_size_error(term);
     }
     return frame;
 }
