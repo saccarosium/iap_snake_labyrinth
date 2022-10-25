@@ -1,21 +1,7 @@
 #include <ncurses.h>
 #include <string.h>
-#include "include.h"
-
-typedef struct center {
-    int x;
-    int y;
-} center;
-
-typedef struct win {
-    int max_x;
-    int max_y;
-    int min_x;
-    int min_y;
-    center center;
-    WINDOW *winid;
-} win;
-
+#include "ui.h"
+#include "alloc.h"
 
 win *ui_get_term_info() {
     win *term = xmalloc(sizeof(win));
