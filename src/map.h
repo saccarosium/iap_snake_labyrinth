@@ -10,6 +10,13 @@ enum nodeType{
     COIN,
 };
 
+typedef enum direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+} direction;
+
 typedef struct node {
     enum nodeType type;
 } node;

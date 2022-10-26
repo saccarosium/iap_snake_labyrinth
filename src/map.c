@@ -47,7 +47,7 @@ map* map_load_from_file(char* filename){
     if (file == NULL) {
         return NULL;
     }
-    
+
     int buffer_size = 32;
     int currently_used = 0;
     char* read_buffer = malloc(sizeof(char) * buffer_size);

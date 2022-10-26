@@ -1,6 +1,7 @@
 #ifndef UI_H
 #define UI_H
 
+#include "map.h"
 #include <curses.h>
 
 typedef struct center {
@@ -18,5 +19,7 @@ typedef struct win {
 } win;
 
 void ui_init();
+win *ui_create_win(int h, int w);
+direction ui_get_input();
 
 #endif // !UI_H

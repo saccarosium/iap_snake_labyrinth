@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <string.h>
 #include "ui.h"
+#include "map.h"
 #include "alloc.h"
 
 win *ui_get_term_info() {
@@ -16,23 +17,17 @@ win *ui_get_term_info() {
 
 void ui_size_error(win *term) {
     char *error = "Screen too small!";
-    // win *term = ui_get_term_info();
-    mvprintw(term->center.y, (term->max_x - strlen(error)) / 2, "%s", error);
+    mvprintw(term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
 }
 
 win *ui_create_win(int h, int w) {
-    int min_col, min_row;
     win *term = ui_get_term_info();
     win *frame = xmalloc(sizeof(win));
-
-    // Minimum
-    min_row = 79;
-    min_col = 24;
 
     frame->max_y = h;
     frame->max_x = w;
 
-    if (term->max_y >= min_col || term->max_x >= min_row) {
+    if (term->max_y >= frame->max_y && term->max_x >= frame->max_x) {
         frame->min_y = (term->max_y - frame->max_y) / 2;
         frame->min_x = (term->max_x - frame->max_x) / 2;
 
@@ -52,4 +47,25 @@ win *ui_create_win(int h, int w) {
 
 void ui_init() {
     ui_create_win(40, 100);
+}
+
+void ui_print_map(win *win, map *map) {
+}
+
+direction ui_get_input() {
+    char ch;
+    ch = getchar();
+    switch (ch) {
+    case 'h':
+        return LEFT;
+    case 'l':
+        return RIGHT;
+    case 'k':
+        return UP;
+    case 'j':
+        return DOWN;
+    case 'q':
+        break;
+    }
+    return -1;
 }
