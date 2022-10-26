@@ -18,28 +18,26 @@ node *map_get_node(map* m, int y, int x) {
     return &m->grid[y * m->width + x];
 }
 
-int get_character_type(char c) {
+nodeType get_character_type(char c) {
     switch (c)
     {
-    case ' ':
-        return 1;
-    case '#':
-        return 1;
-    case 10: //LF Line Feed
-        return 2;
-    case 13: // CR Carriage Return
-        return 2;
-    case '$':
-        return 1;
-    case '!':
-        return 1; 
-    default:
-        return 0;
+        case ' ':
+            return EMPTY;
+        case '#':
+            return WALL;
+        case 10: //LF Line Feed
+        case 13: // CR Carriage Return
+            return -1;
+        case '$':
+            return COIN;
+        case '!':
+            return UNEVENT;
     }
+    return -2;
 }
 
 map* map_load_from_file(char* filename){
-    int map_width = 0, map_length = 0, width_check = 0, tmp_type;
+    int map_width = 0, map_height = 0, width_check = 0, tmp_type;
 
     int c;
     FILE *file;
@@ -57,11 +55,11 @@ map* map_load_from_file(char* filename){
 
     while ((c = getc(file)) != EOF){
         tmp_type = get_character_type(c);
-        if (!tmp_type){
+        if (tmp_type == -2){
             return NULL;
         }
-        if(tmp_type != 2) {
-            if (!map_length)
+        if(tmp_type != -1) {
+            if (!map_height)
                 width_check = ++map_width;
             else if (map_width + 1 <= width_check)
                 map_width++;
@@ -72,28 +70,33 @@ map* map_load_from_file(char* filename){
             if (map_width != width_check) {
                 return NULL;
             }
-            map_length++;
+            map_height++;
             map_width = 0;
 
         }
 
-        *(read_buffer + currently_used) = c;
-        currently_used++;
+        if (tmp_type >= 0) {
+            *(read_buffer + currently_used) = tmp_type;
+            currently_used++;
+        }
+
         if (currently_used == buffer_size){
-            buffer_size += sizeof(char) * 32;
-            read_buffer= realloc(read_buffer, buffer_size );
+            buffer_size += 32;
+            read_buffer = realloc(read_buffer, buffer_size);
             if (read_buffer == NULL) {
                 return NULL;
             }
         }
+
     }
-    
+
     fclose(file);
 
     if (map_width != width_check && map_width != 0){
+        free(read_buffer);
         return NULL;
     }
-
+    map_width = width_check;
 }
 
 void map_get_nearby_nodes(int x, int y, node *return_nodes){
