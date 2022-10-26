@@ -19,7 +19,6 @@ typedef struct win {
 } win;
 
 void ui_init();
-win *ui_create_win(int h, int w);
 direction ui_get_input();
 
 #endif // !UI_H

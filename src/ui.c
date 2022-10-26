@@ -17,7 +17,7 @@ win *ui_get_term_info() {
 
 void ui_size_error(win *term) {
     char *error = "Screen too small!";
-    mvprintw(term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
+    mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
 }
 
 win *ui_create_win(int h, int w) {
@@ -36,8 +36,8 @@ win *ui_create_win(int h, int w) {
 
         // initialize the WINDOW
         frame->winid = newwin(frame->max_y, frame->max_x, frame->min_y, frame->min_x);
-        refresh();
-        box(frame->winid, 0, 0);
+
+        // refresh();
         wrefresh(frame->winid);
     } else {
         ui_size_error(term);
@@ -45,11 +45,34 @@ win *ui_create_win(int h, int w) {
     return frame;
 }
 
-void ui_init() {
-    ui_create_win(40, 100);
+void ui_stack_win(win *win1, win *win2) {
+    win *term = ui_get_term_info();
+    // mvwin(win1->winid, 1, (term->max_x - win1->max_x) / 2);
+    mvwin(win2->winid, win1->max_y + win1->min_y, (term->max_x - win2->max_x) / 2);
+    wrefresh(win1->winid);
+    wrefresh(win2->winid);
 }
 
-void ui_print_map(win *win, map *map) {
+void ui_print_map() {
+}
+
+void ui_create_menu() {
+}
+
+void ui_print_legend(win *frame) {
+    char *direction = "k: UP j: DOWN h: LEFT l: RIGHT q: QUIT";
+    mvwprintw(frame->winid, frame->center.y, frame->center.x - (strlen(direction) / 2), "%s", direction);
+}
+
+void ui_init() {
+    win *game_win = ui_create_win(20, 60);
+    win *menu_win = ui_create_win(3, 60);
+    ui_stack_win(game_win, menu_win);
+    box(game_win->winid, 0, 0);
+    box(menu_win->winid, 0, 0);
+    ui_print_legend(menu_win);
+    wrefresh(game_win->winid);
+    wrefresh(menu_win->winid);
 }
 
 direction ui_get_input() {
