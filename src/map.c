@@ -18,7 +18,29 @@ node *map_get_node(map* m, int y, int x) {
     return &m->grid[y * m->width + x];
 }
 
+int get_character_type(char c) {
+    switch (c)
+    {
+    case ' ':
+        return 1;
+    case '#':
+        return 1;
+    case 10: //LF Line Feed
+        return 2;
+    case 13: // CR Carriage Return
+        return 2;
+    case '$':
+        return 1;
+    case '!':
+        return 1; 
+    default:
+        return 0;
+    }
+}
+
 map* map_load_from_file(char* filename){
+    int map_width = 0, map_length = 0, width_check = 0, tmp_type;
+
     int c;
     FILE *file;
     file = fopen(filename, "r");
@@ -32,30 +54,46 @@ map* map_load_from_file(char* filename){
     if (read_buffer == NULL){
         return NULL;
     }
-    char* write_head = read_buffer;
-    
 
-    //printf("facendo");
     while ((c = getc(file)) != EOF){
-        //putchar(c);
-        printf("char: %c ==> %d-%d  (%d)\n", c, currently_used ,write_head, buffer_size);
-        *write_head = c;
-        write_head++;
+        tmp_type = get_character_type(c);
+        if (!tmp_type){
+            return NULL;
+        }
+        if(tmp_type != 2) {
+            if (!map_length)
+                width_check = ++map_width;
+            else if (map_width + 1 <= width_check)
+                map_width++;
+            else {
+                return NULL;
+            }
+        } else if (map_width != 0) {
+            if (map_width != width_check) {
+                return NULL;
+            }
+            map_length++;
+            map_width = 0;
+
+        }
+
+        *(read_buffer + currently_used) = c;
         currently_used++;
         if (currently_used == buffer_size){
-            buffer_size += sizeof(char) * 32; //aggiungi altri 32 slot
+            buffer_size += sizeof(char) * 32;
             read_buffer= realloc(read_buffer, buffer_size );
             if (read_buffer == NULL) {
                 return NULL;
             }
         }
     }
-    printf("currently_used: %d, buffer_size: %d", currently_used, buffer_size);
+    
     fclose(file);
-    printf("done");
-    for (int i = 0; i < currently_used; i++){
-        putchar(*(read_buffer + i));
+
+    if (map_width != width_check && map_width != 0){
+        return NULL;
     }
+
 }
 
 void map_get_nearby_nodes(int x, int y, node *return_nodes){

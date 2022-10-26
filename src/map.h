@@ -22,6 +22,7 @@ typedef struct map {
 
 map *map_create(int height, int width);
 node *map_get_node(map* m, int y, int x);
+int get_character_type(char c);
 map* map_load_from_file(char* filename);
 void map_get_nearby_nodes(int x, int y, node *return_nodes);
 void map_set_node_type(node* n, enum nodeType t);
