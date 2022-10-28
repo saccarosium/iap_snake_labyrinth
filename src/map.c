@@ -7,36 +7,40 @@ map *map_create(int height, int width) {
     m->width = width;
     m->grid = xmalloc(sizeof(node) * height * width);
 
-    for(int i = 0; i < height * width; i++) {
+    for (int i = 0; i < height * width; i++) {
         m->grid[i].type = WALL;
     }
 
     return m;
 }
 
-node *map_get_node(map* m, int y, int x) {
+node *map_get_node(map *m, int y, int x) {
     return &m->grid[y * m->width + x];
 }
 
-nodeType get_character_type(char c) {
-    switch (c)
-    {
-        case ' ':
-            return EMPTY;
-        case '#':
-            return WALL;
-        case 10: //LF Line Feed
-        case 13: // CR Carriage Return
-            return -1;
-        case '$':
-            return COIN;
-        case '!':
-            return UNEVENT;
-    }
-    return -2;
+void map_set_node_type(node *n, enum nodeType t) {
+    n->type = t;
 }
 
-map* map_load_from_file(char* filename){
+nodeType get_character_type(char c) {
+    switch (c) {
+    case ' ':
+        return EMPTY;
+    case '#':
+        return WALL;
+    case 10: // LF Line Feed
+    case 13: // CR Carriage Return
+        return -1;
+    case '$':
+        return COIN;
+    case '!':
+        return UNEVENT;
+    default:
+        return -2;
+    }
+}
+
+map *map_load_from_file(char *filename) {
     int map_width = 0, map_height = 0, width_check = 0, tmp_type;
 
     int c;
@@ -48,17 +52,17 @@ map* map_load_from_file(char* filename){
 
     int buffer_size = 32;
     int currently_used = 0;
-    char* read_buffer = malloc(sizeof(char) * buffer_size);
-    if (read_buffer == NULL){
+    char *read_buffer = malloc(sizeof(char) * buffer_size);
+    if (read_buffer == NULL) {
         return NULL;
     }
-
-    while ((c = getc(file)) != EOF){
+    while ((c = getc(file)) != EOF) {
         tmp_type = get_character_type(c);
-        if (tmp_type == -2){
+        if (tmp_type == -2) {
             return NULL;
         }
-        if(tmp_type != -1) {
+
+        if (tmp_type != -1) {
             if (!map_height)
                 width_check = ++map_width;
             else if (map_width + 1 <= width_check)
@@ -72,37 +76,44 @@ map* map_load_from_file(char* filename){
             }
             map_height++;
             map_width = 0;
-
         }
 
         if (tmp_type >= 0) {
-            *(read_buffer + currently_used) = tmp_type;
-            currently_used++;
+            read_buffer[currently_used] = tmp_type;
+            currently_used += sizeof(char);
         }
 
-        if (currently_used == buffer_size){
-            buffer_size += 32;
+        if (currently_used == buffer_size) {
+            buffer_size += sizeof(char) * 32;
             read_buffer = realloc(read_buffer, buffer_size);
             if (read_buffer == NULL) {
                 return NULL;
             }
         }
-
     }
 
     fclose(file);
 
-    if (map_width != width_check && map_width != 0){
+    if (map_width != width_check && map_width != 0) {
         free(read_buffer);
         return NULL;
     }
     map_width = width_check;
+    map_height++;
+
+    map *m = map_create(map_height, width_check);
+
+    for (int i = 0; i < map_height; i++) {
+        for (int j = 0; j < map_width; j++) {
+            tmp_type = read_buffer[i * map_width + j];
+            if (tmp_type < 0) {
+                return NULL;
+            }
+            m->grid[i * map_width + j].type = tmp_type;
+        }
+    }
+    return m;
 }
 
-void map_get_nearby_nodes(int x, int y, node *return_nodes){
-
-}
-
-void map_set_node_type(node* n, enum nodeType t){
-    n->type = t;
+void map_get_nearby_nodes(int x, int y, node *return_nodes) {
 }
