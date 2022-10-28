@@ -19,16 +19,19 @@
       * personaggio
       * colorscheme
 - [x] mappa al centro che si scala in automatico a seconda del terminale (se terminale troppo piccolo stampare errore)
-- [ ] leggenda mutabile dei keybindings
+- [x] leggenda mutabile dei keybindings
 
 # Coso che risolve il labirinto @Paolo_Mozzoni
 
 - [ ] algoritmo che solve con miglior punteggio
 - [ ] algoritmo sempre destra
-- [ ] algoritmo random
+- [ ] algoritmo random @Leonardo_de_zottis
 
-# Q&A
+# Documentazione @Leonardo_de_zottis
 
+- [ ] documentare il codice
+- [ ] relazione scritta sull'esperienza di gruppo
+ 
 - [x] cosa viene compilato per il codice (se po usa make)?
     - si
 - [x] si puo usa altri comandi oltre ad NSWO?
