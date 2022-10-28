@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "path.h"
 
 typedef enum nodeType {
     EMPTY,
@@ -10,13 +11,6 @@ typedef enum nodeType {
     COIN,
     UNEVENT,
 } nodeType;
-
-typedef enum direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-} direction;
 
 typedef struct node {
     enum nodeType type;

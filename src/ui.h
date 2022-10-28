@@ -2,6 +2,7 @@
 #define UI_H
 
 #include "map.h"
+#include "path.h"
 #include <curses.h>
 
 typedef struct center {
