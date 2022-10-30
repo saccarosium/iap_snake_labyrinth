@@ -11,10 +11,10 @@ typedef struct center {
 } center;
 
 typedef struct win {
-    int max_x;
-    int max_y;
-    int min_x;
-    int min_y;
+    int width;
+    int height;
+    int x;
+    int y;
     center center;
     WINDOW *winid;
 } win;
