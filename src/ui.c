@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <ncurses.h>
 #include <string.h>
 #include "../include/ui.h"
@@ -25,7 +26,29 @@ void ui_legend_print(win *frame) {
     mvwprintw(frame->winid, frame->center.y, frame->center.x - (strlen(direction) / 2), "%s", direction);
 }
 
-void ui_map_print() {
+// Print map onto the given window
+void ui_map_print(win *frame) {
+    map *map = map_load_from_file("/Users/sacca/Downloads/prova");
+    for (int i = 0; i <= map->height; i++) {
+        for (int j = 0; j < map->width; j++) {
+            switch (map_get_node(map, i, j)->type) {
+            case EMPTY:
+                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, " ");
+                break;
+            case WALL:
+                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "#");
+                break;
+            case COIN:
+                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "$");
+                break;
+            case UNEVENT:
+                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "!");
+                break;
+            }
+        }
+        wprintw(frame->winid,"\n");
+    }
+    wrefresh(frame->winid);
 }
 
 // Create a window an returns a pointer to it
@@ -56,9 +79,10 @@ void ui_init() {
     win *game_win = ui_win_create(20, 60);
     win *menu_win = ui_win_create(3, 60);
     ui_win_stack(game_win, menu_win);
+    ui_legend_print(menu_win);
+    ui_map_print(game_win);
     box(game_win->winid, 0, 0);
     box(menu_win->winid, 0, 0);
-    ui_legend_print(menu_win);
     wrefresh(game_win->winid);
     wrefresh(menu_win->winid);
 }
