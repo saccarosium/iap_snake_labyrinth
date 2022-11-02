@@ -1,5 +1,5 @@
-#include "path.h"
-#include "alloc.h"
+#include "../include/path.h"
+#include "../include/alloc.h"
 #include <stdlib.h>
 
 path *path_create() {

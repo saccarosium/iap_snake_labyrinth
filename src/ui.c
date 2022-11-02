@@ -1,8 +1,8 @@
 #include <ncurses.h>
 #include <string.h>
-#include "ui.h"
-#include "map.h"
-#include "alloc.h"
+#include "../include/ui.h"
+#include "../include/map.h"
+#include "../include/alloc.h"
 
 // Gets the current terminal info
 win *ui_win_term_info() {

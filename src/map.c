@@ -1,5 +1,5 @@
-#include "map.h"
-#include "alloc.h"
+#include "../include/map.h"
+#include "../include/alloc.h"
 
 map *map_create(int height, int width) {
     map *m = xmalloc(sizeof(map));
