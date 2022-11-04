@@ -16,6 +16,18 @@ win *ui_win_term_info() {
     return term;
 }
 
+void ui_popup_error(int error_code) {
+    win *term = ui_win_term_info();
+    char *error;
+    if (error_code == -7) {
+        error = "Screen too small!";
+        mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
+    } else {
+        mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "Error_code: %d", error_code);
+    }
+    wrefresh(term->winid);
+}
+
 void ui_win_size_error(win *term) {
     char *error = "Screen too small!";
     mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
