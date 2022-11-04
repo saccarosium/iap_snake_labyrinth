@@ -39,28 +39,32 @@ void ui_legend_print(win *frame) {
 }
 
 // Print map onto the given window
-void ui_map_print(win *frame) {
-    map *map = map_load_from_file("/Users/sacca/Downloads/prova");
-    for (int i = 0; i <= map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            switch (map_get_node(map, i, j)->type) {
-            case EMPTY:
-                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, " ");
-                break;
-            case WALL:
-                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "#");
-                break;
-            case COIN:
-                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "$");
-                break;
-            case UNEVENT:
-                mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "!");
-                break;
+void ui_map_print(win *frame, map *map) {
+    int error;
+    if (map->height > frame->height) {
+        ui_popup_error(-7);
+    } else {
+        for (int i = 0; i <= map->height; i++) {
+            for (int j = 0; j < map->width; j++) {
+                switch (map_get_node(map, i, j)->type) {
+                case EMPTY:
+                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, " ");
+                    break;
+                case WALL:
+                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "#");
+                    break;
+                case COIN:
+                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "$");
+                    break;
+                case UNEVENT:
+                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "!");
+                    break;
+                }
             }
+            wprintw(frame->winid, "\n");
         }
-        wprintw(frame->winid,"\n");
+        wrefresh(frame->winid);
     }
-    wrefresh(frame->winid);
 }
 
 // Create a window an returns a pointer to it
@@ -88,15 +92,21 @@ void ui_win_stack(win *win1, win *win2) {
 }
 
 void ui_init() {
-    win *game_win = ui_win_create(20, 60);
-    win *menu_win = ui_win_create(3, 60);
-    ui_win_stack(game_win, menu_win);
-    ui_legend_print(menu_win);
-    ui_map_print(game_win);
-    box(game_win->winid, 0, 0);
-    box(menu_win->winid, 0, 0);
-    wrefresh(game_win->winid);
-    wrefresh(menu_win->winid);
+    int error;
+    map *map = map_load_from_file("assets/maze1.txt", &error);
+    if (map != NULL) {
+        win *game_win = ui_win_create(20, 60);
+        win *menu_win = ui_win_create(3, 60);
+        ui_win_stack(game_win, menu_win);
+        ui_legend_print(menu_win);
+        ui_map_print(game_win, map);
+        box(game_win->winid, 0, 0);
+        box(menu_win->winid, 0, 0);
+        wrefresh(game_win->winid);
+        wrefresh(menu_win->winid);
+    } else {
+        ui_popup_error(error);
+    }
 }
 
 direction ui_input_get() {
