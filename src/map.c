@@ -44,11 +44,11 @@ map *map_load_from_file(char *filename, int *error_code) {
     *error_code = 0;
     int map_width = 0, map_height = 0, width_check = 0, tmp_type, c;
 
-    
+
     char *read_buffer;
     int buffer_size = 32;
     int currently_used = 0;
-    
+
     FILE *file;
     file = fopen(filename, "r");
     if (file == NULL) {
@@ -136,6 +136,8 @@ map *map_load_from_file(char *filename, int *error_code) {
     default:
         break;
     }
+
+    return NULL;
 }
 
 void map_get_nearby_nodes(int x, int y, node *return_nodes) {

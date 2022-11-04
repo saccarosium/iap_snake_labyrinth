@@ -28,7 +28,8 @@ void ui_legend_print(win *frame) {
 
 // Print map onto the given window
 void ui_map_print(win *frame) {
-    map *map = map_load_from_file("/Users/sacca/Downloads/prova");
+    int err = 0;
+    map *map = map_load_from_file("/Users/sacca/Downloads/prova", &err);
     for (int i = 0; i <= map->height; i++) {
         for (int j = 0; j < map->width; j++) {
             switch (map_get_node(map, i, j)->type) {

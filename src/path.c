@@ -1,11 +1,13 @@
 #include "../include/path.h"
 #include "../include/alloc.h"
+#include <stdbool.h>
 #include <stdlib.h>
 
 path *path_create() {
     path *p = xmalloc(sizeof(path));
     p->head = NULL;
     p->tail = NULL;
+    p->curr = NULL;
 
     return p;
 }
@@ -27,6 +29,8 @@ void path_push(path *p, direction dir) {
         p->tail->next = n;
         p->tail = n;
     }
+
+    if(p->curr == NULL) p->curr = n;
 }
 
 direction path_pop_first(path *p) {
@@ -61,4 +65,17 @@ direction path_pop_last(path *p) {
     free(curr);
 
     return dir;
+}
+
+direction path_next(path *p) {
+    if(p->curr == NULL) return NONE;
+    direction dir = p->curr->dir;
+    p->curr = p->curr->next;
+
+    return dir;
+}
+
+bool path_has_ended(path *p) {
+    if(p->curr == NULL) return false;
+    return p->curr->dir == STOP;
 }

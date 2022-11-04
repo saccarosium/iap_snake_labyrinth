@@ -1,7 +1,10 @@
 #ifndef PATH_H
 #define PATH_H
 
+#include <stdbool.h>
+
 typedef enum direction {
+    NONE,
     STOP,
     UP,
     DOWN,
@@ -17,11 +20,14 @@ typedef struct pathNode {
 typedef struct path {
     pathNode *head;
     pathNode *tail;
+    pathNode *curr;
 } path;
 
 path *path_create();
 void path_push(path *p, direction dir);
 direction path_pop_first(path *p);
 direction path_pop_last(path *p);
+direction path_next(path *p);
+bool path_has_ended(path *p);
 
 #endif // !PATH_H
