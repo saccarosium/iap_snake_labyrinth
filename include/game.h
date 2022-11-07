@@ -3,14 +3,10 @@
 
 #include "../include/map.h"
 #include "../include/path.h"
-
-typedef struct player {
-    int x;
-    int y;
-} player;
+#include "../include/utils.h"
 
 typedef struct game {
-    player player;
+    vec2 player;
     int coin;
     map *map;
     path *path;

@@ -3,19 +3,15 @@
 
 #include "map.h"
 #include "path.h"
+#include "utils.h"
 #include <curses.h>
-
-typedef struct center {
-    int x;
-    int y;
-} center;
 
 typedef struct win {
     int width;
     int height;
     int x;
     int y;
-    center center;
+    vec2 center;
     WINDOW *winid;
 } win;
 
