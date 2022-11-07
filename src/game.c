@@ -5,12 +5,14 @@
 game *game_init(char *filename) {
     game *g = xmalloc(sizeof(game));
 
-    int err = 0;
-    g->map = map_load_from_file(filename, &err);
-    if(err != 0) {
+    g->map = map_load_from_file(filename);
+    if(g->map != NULL) {
         free(g);
         return NULL;
     }
+
+    g->player.x = g->map->start.x;
+    g->player.y = g->map->start.y;
 
     g->path = path_create();
     g->coin = 0;
