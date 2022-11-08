@@ -40,7 +40,7 @@ void ui_legend_print(win *frame) {
 
 // Print map onto the given window
 void ui_map_print(win *frame, map *map) {
-    int error;
+    error error;
     if (map->height > frame->height) {
         ui_popup_error(-7);
     } else {
@@ -92,7 +92,9 @@ void ui_win_stack(win *win1, win *win2) {
 }
 
 void ui_init() {
-    mapError error;
+    error error;
+    win *game_win;
+    win *menu_win;
     map *map = map_load_from_file("assets/maze1.txt", &error);
     if (map != NULL) {
         win *game_win = ui_win_create(20, 60);

@@ -1,5 +1,6 @@
 #include "../include/map.h"
 #include "../include/alloc.h"
+#include "../include/utils.h"
 
 map *map_create(int height, int width) {
     map *m = xmalloc(sizeof(map));
@@ -44,7 +45,7 @@ void map_free(map *m) {
     free(m);
 }
 
-map *map_load_from_file(char *filename, mapError* error) {
+map *map_load_from_file(char *filename, error* error) {
     FILE *f = fopen(filename, "r");
     if (f == NULL) return NULL;
 
