@@ -26,9 +26,11 @@ void map_set_node_type(node *n, enum nodeType t) {
 nodeType get_character_type(char c) {
     switch (c) {
     case ' ':
-    case 'o':
-    case '_':
         return EMPTY;
+    case 'o':
+        return USER;
+    case '_':
+        return END;
     case '#':
         return WALL;
     case '$':

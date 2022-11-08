@@ -11,6 +11,8 @@ typedef enum nodeType {
     WALL,
     COIN,
     UNEVENT,
+    USER,
+    END,
 } nodeType;
 
 typedef struct node {
