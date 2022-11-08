@@ -6,6 +6,15 @@
 #include "path.h"
 #include "utils.h"
 
+typedef enum mapError {
+    MAP_OK = 0,
+    FILE_OPEN,
+    MALLOC_FAILED,
+    UNEXPECTED_EOF,
+    WRONG_WIDTH,
+    WRONG_CHARACTER,
+} mapError;
+
 typedef enum nodeType {
     EMPTY,
     WALL,
@@ -28,7 +37,7 @@ typedef struct map {
 map *map_create(int height, int width);
 node *map_get_node(map *m, int y, int x);
 nodeType get_character_type(char c);
-map *map_load_from_file(char *filename);
+map *map_load_from_file(char *filename, mapError *error);
 void map_get_nearby_nodes(int x, int y, node *return_nodes);
 void map_set_node_type(node *n, enum nodeType t);
 

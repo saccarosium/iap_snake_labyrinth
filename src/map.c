@@ -25,6 +25,8 @@ void map_set_node_type(node *n, enum nodeType t) {
 nodeType get_character_type(char c) {
     switch (c) {
     case ' ':
+    case 'o':
+    case '_':
         return EMPTY;
     case '#':
         return WALL;
@@ -33,11 +35,16 @@ nodeType get_character_type(char c) {
     case '!':
         return UNEVENT;
     default:
-        return EMPTY;
+        return -1;
     }
 }
 
-map *map_load_from_file(char *filename) {
+void map_free(map *m) {
+    free(m->grid);
+    free(m);
+}
+
+map *map_load_from_file(char *filename, mapError* error) {
     FILE *f = fopen(filename, "r");
     if (f == NULL) return NULL;
 
@@ -47,7 +54,12 @@ map *map_load_from_file(char *filename) {
 
     while(true) {
         c = getc(f);
-        if(c == EOF) return NULL;
+
+        if(c == EOF) {
+            *error = FILE_OPEN;
+            return NULL;
+        }
+
         if(c == '\r' || c == '\n') break;
         width++;
     }
@@ -56,7 +68,10 @@ map *map_load_from_file(char *filename) {
 
     int size = ftell(f);
     char *buffer = malloc(size);
-    if(buffer == NULL) return NULL;
+    if(buffer == NULL) {
+        *error = MALLOC_FAILED;
+        return NULL;
+    }
 
     fseek(f, 0, SEEK_SET);
 
@@ -65,6 +80,7 @@ map *map_load_from_file(char *filename) {
 
     while((c = getc(f)) != EOF) {
         if(c == EOF) {
+            *error = UNEXPECTED_EOF;
             free(buffer);
             return NULL;
         }
@@ -74,6 +90,7 @@ map *map_load_from_file(char *filename) {
                 height++;
                 width_check = 0;
             } else {
+                *error = WRONG_WIDTH;
                 free(buffer);
                 return NULL;
             }
@@ -84,10 +101,21 @@ map *map_load_from_file(char *filename) {
         }
     }
 
+    fclose(f);
+
     map *m = map_create(height, width);
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            m->grid[i * width + j].type = get_character_type(buffer[i * width + j]);
+            int character = get_character_type(buffer[i * width + j]);
+
+            if(character == -1) {
+                *error = WRONG_CHARACTER;
+                map_free(m);
+                free(buffer);
+                return NULL;
+            }
+
+            m->grid[i * width + j].type = character;
 
             if(buffer[i * width + j] == 'o') {
                 m->start.x = j;
@@ -101,6 +129,8 @@ map *map_load_from_file(char *filename) {
         }
     }
 
+    free(buffer);
+    *error = MAP_OK;
     return m;
 }
 

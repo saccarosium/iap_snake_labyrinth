@@ -92,7 +92,8 @@ void ui_win_stack(win *win1, win *win2) {
 }
 
 void ui_init() {
-    map *map = map_load_from_file("assets/maze1.txt");
+    mapError error;
+    map *map = map_load_from_file("assets/maze1.txt", &error);
     if (map != NULL) {
         win *game_win = ui_win_create(20, 60);
         win *menu_win = ui_win_create(3, 60);
@@ -104,7 +105,7 @@ void ui_init() {
         wrefresh(game_win->winid);
         wrefresh(menu_win->winid);
     } else {
-        ui_popup_error(-1);
+        ui_popup_error(error);
     }
 }
 

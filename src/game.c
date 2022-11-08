@@ -5,8 +5,9 @@
 game *game_init(char *filename) {
     game *g = xmalloc(sizeof(game));
 
-    g->map = map_load_from_file(filename);
-    if(g->map != NULL) {
+    mapError error;
+    g->map = map_load_from_file(filename, &error);
+    if(error != MAP_OK) {
         free(g);
         return NULL;
     }
