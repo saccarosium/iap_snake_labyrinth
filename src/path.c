@@ -34,7 +34,7 @@ void path_push(path *p, direction dir) {
 }
 
 direction path_pop_first(path *p) {
-    if(p->head == NULL) return STOP;
+    if(p->head == NULL) return NONE;
 
     pathNode *n = p->head;
     p->head = n->next;
@@ -46,7 +46,7 @@ direction path_pop_first(path *p) {
 }
 
 direction path_pop_last(path *p) {
-    if(p->head == NULL) return STOP;
+    if(p->head == NULL) return NONE;
 
     pathNode *curr = p->head;
     pathNode *prev = NULL;
@@ -73,9 +73,4 @@ direction path_next(path *p) {
     p->curr = p->curr->next;
 
     return dir;
-}
-
-bool path_has_ended(path *p) {
-    if(p->curr == NULL) return false;
-    return p->curr->dir == STOP;
 }

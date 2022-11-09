@@ -12,6 +12,6 @@ typedef struct game {
     path *path;
 } game;
 
-game *game_init(char *filename);
+game *game_init(char *filename, error *err);
 
 #endif // !GAME_H

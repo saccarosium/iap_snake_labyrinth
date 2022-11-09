@@ -5,7 +5,6 @@
 
 typedef enum direction {
     NONE,
-    STOP,
     UP,
     DOWN,
     LEFT,
@@ -28,6 +27,5 @@ void path_push(path *p, direction dir);
 direction path_pop_first(path *p);
 direction path_pop_last(path *p);
 direction path_next(path *p);
-bool path_has_ended(path *p);
 
 #endif // !PATH_H
