@@ -16,7 +16,7 @@ map *map_create(int height, int width) {
 }
 
 node *map_get_node(map *m, int y, int x) {
-    return &m->grid[y * m->width + x];
+    return &m->grid[x * m->width + y];
 }
 
 void map_set_node_type(node *n, enum nodeType t) {
@@ -47,23 +47,27 @@ void map_free(map *m) {
     free(m);
 }
 
-map *map_load_from_file(char *filename, error* error) {
+map *map_load_from_file(char *filename, error *error) {
     FILE *f = fopen(filename, "r");
-    if (f == NULL) return NULL;
+    if (f == NULL) {
+        *error = FILE_OPEN;
+        return NULL;
+    }
 
     int width = 0;
     int height = 0;
     char c;
 
-    while(true) {
+    while (true) {
         c = getc(f);
 
-        if(c == EOF) {
+        if (c == EOF) {
             *error = FILE_OPEN;
             return NULL;
         }
 
-        if(c == '\r' || c == '\n') break;
+        if (c == '\r' || c == '\n')
+            break;
         width++;
     }
 
@@ -71,7 +75,7 @@ map *map_load_from_file(char *filename, error* error) {
 
     int size = ftell(f);
     char *buffer = malloc(size);
-    if(buffer == NULL) {
+    if (buffer == NULL) {
         *error = MALLOC_FAILED;
         return NULL;
     }
@@ -81,15 +85,15 @@ map *map_load_from_file(char *filename, error* error) {
     int index = 0;
     int width_check = 0;
 
-    while((c = getc(f)) != EOF) {
-        if(c == EOF) {
+    while ((c = getc(f)) != EOF) {
+        if (c == EOF) {
             *error = UNEXPECTED_EOF;
             free(buffer);
             return NULL;
         }
 
-        if(c == '\r' || c == '\n') {
-            if(width_check == width) {
+        if (c == '\r' || c == '\n') {
+            if (width_check == width) {
                 height++;
                 width_check = 0;
             } else {
@@ -107,11 +111,11 @@ map *map_load_from_file(char *filename, error* error) {
     fclose(f);
 
     map *m = map_create(height, width);
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
+    for (size_t i = 0; i < height; i++) {
+        for (size_t j = 0; j < width; j++) {
             int character = get_character_type(buffer[i * width + j]);
 
-            if(character == -1) {
+            if (character == -1) {
                 *error = WRONG_CHARACTER;
                 map_free(m);
                 free(buffer);
@@ -120,12 +124,12 @@ map *map_load_from_file(char *filename, error* error) {
 
             m->grid[i * width + j].type = character;
 
-            if(buffer[i * width + j] == 'o') {
+            if (buffer[i * width + j] == 'o') {
                 m->start.x = j;
                 m->start.y = i;
             }
 
-            if(buffer[i * width + j] == '_') {
+            if (buffer[i * width + j] == '_') {
                 m->end.x = j;
                 m->end.y = i;
             }
@@ -137,5 +141,37 @@ map *map_load_from_file(char *filename, error* error) {
     return m;
 }
 
-void map_get_nearby_nodes(int x, int y, node *return_nodes) {
+node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes) {
+    node **return_nodes = (node **)malloc(sizeof(node *) * 5);
+    node **write_head = return_nodes;
+    *n_nodes = 0;
+
+    if (x - 1 >= 0 && map_get_node(m, y, x - 1)->type != WALL) {
+        *write_head = map_get_node(m, y, x - 1);
+        write_head++;
+        (*n_nodes)++;
+    }
+
+    if (x + 1 < m->height && map_get_node(m, y, x + 1)->type != WALL) {
+        *write_head = map_get_node(m, y, x + 1);
+        write_head++;
+        (*n_nodes)++;
+    }
+
+    if (y - 1 >= 0 && map_get_node(m, y - 1, x)->type != WALL) {
+        *write_head = map_get_node(m, y - 1, x);
+        write_head++;
+        (*n_nodes)++;
+    }
+
+    if (y + 1 < m->width && map_get_node(m, y + 1, x)->type != WALL) {
+        *write_head = map_get_node(m, y + 1, x);
+        write_head++;
+        (*n_nodes)++;
+    }
+    for (int i = 0; i < *n_nodes; i++) {
+        printf("Nodo %d: %d == %d\n", i + 1, (*(*(return_nodes + i))).type,
+               (*(return_nodes + i))->type);
+    }
+    return (node **)realloc(return_nodes, sizeof(node *) * *n_nodes);
 }
