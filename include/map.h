@@ -1,10 +1,10 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "path.h"
 #include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef enum nodeType {
     EMPTY,
@@ -35,5 +35,6 @@ nodeType get_character_type(char c);
 map *map_load_from_file(char *filename, error *error_code);
 node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes);
 void map_set_node_type(node *n, enum nodeType t);
+int *map_get_possible_movements(map *m, int y, int x);
 
 #endif // !MAP_H
