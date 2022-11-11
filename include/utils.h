@@ -7,15 +7,15 @@ typedef struct vec2 {
 } vec2;
 
 typedef enum error {
-    MAP_OK = 0,
-    // UI
-    WINDOW_TOO_SMALL,
     // MAP
+    MAP_OK = 0,
     FILE_OPEN,
     MALLOC_FAILED,
     UNEXPECTED_EOF,
     WRONG_WIDTH,
     WRONG_CHARACTER,
+    // UI
+    WINDOW_TOO_SMALL,
 } error;
 
 #endif // !UTILS_H

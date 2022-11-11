@@ -16,16 +16,35 @@ win *ui_win_term_info() {
     return term;
 }
 
-void ui_popup_error(int error_code) {
-    win *term = ui_win_term_info();
+void ui_popup_error(error error_code) {
     char *error;
-    if (error_code == -7) {
-        error = "Screen too small!";
-        mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
-    } else {
-        mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "Error_code: %d", error_code);
+    switch(error_code) {
+    case FILE_OPEN:
+        error = "Errore in lettura della mappa";
+        break;
+    case MALLOC_FAILED:
+        error = "Mallac failed";
+        break;
+    case UNEXPECTED_EOF:
+        error = "Errore dimensione";
+        break;
+    case WRONG_WIDTH:
+        error = "Errore dimensione";
+        break;
+    case WRONG_CHARACTER:
+        error = "Carrattere non consentito";
+        break;
+    case WINDOW_TOO_SMALL:
+        error = "The Window is too Small";
+        break;
+    default:
+        error = "Errore non riconosciuto";
+        break;
     }
+    win *term = ui_win_term_info();
+    mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
     wrefresh(term->winid);
+    exit(-1);
 }
 
 void ui_win_size_error(win *term) {
