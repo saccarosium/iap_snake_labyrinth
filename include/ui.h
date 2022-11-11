@@ -12,11 +12,11 @@ typedef struct win {
     int x;
     int y;
     vec2 center;
-    WINDOW *winid;
+    WINDOW *id;
 } win;
 
 void ui_init();
-void ui_popup_error(error error_code);
+void ui_popup_error(error error);
 direction ui_get_input();
 
 #endif // !UI_H

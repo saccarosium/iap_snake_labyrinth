@@ -4,85 +4,107 @@
 #include "../include/ui.h"
 #include "../include/map.h"
 #include "../include/alloc.h"
+#include "../include/path.h"
+
+void ui_win_get_center(win *win) {
+    win->center.y = win->height / 2;
+    if (win->height % 2 == 0) {
+        win->center.y -= 1;
+    }
+    win->center.x = win ->width / 2;
+    if (win->width % 2 == 0) {
+        win->center.x -= 1;
+    }
+}
 
 // Gets the current terminal info
 win *ui_win_term_info() {
     win *term = xmalloc(sizeof(win));
     getbegyx(stdscr, term->y, term->x);
     getmaxyx(stdscr, term->height, term->width);
-    term->winid = stdscr;
-    term->center.x = term->width / 2;
-    term->center.y = term->height / 2;
+    term->id = stdscr;
+    ui_win_get_center(term);
     return term;
 }
 
 void ui_popup_error(error error_code) {
-    char *error;
+    char *msg;
     switch(error_code) {
     case FILE_OPEN:
-        error = "Errore in lettura della mappa";
+        msg = "Errore in lettura della mappa";
         break;
     case MALLOC_FAILED:
-        error = "Mallac failed";
+        msg = "Mallac failed";
         break;
     case UNEXPECTED_EOF:
-        error = "Errore dimensione";
+        msg = "Errore dimensione";
         break;
     case WRONG_WIDTH:
-        error = "Errore dimensione";
+        msg = "Errore dimensione";
         break;
     case WRONG_CHARACTER:
-        error = "Carrattere non consentito";
+        msg = "Carrattere non consentito";
         break;
     case WINDOW_TOO_SMALL:
-        error = "The Window is too Small";
+        msg = "The Window is too Small";
         break;
     default:
-        error = "Errore non riconosciuto";
+        msg = "Errore non riconosciuto";
         break;
     }
     win *term = ui_win_term_info();
-    mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
-    wrefresh(term->winid);
+    mvwprintw(term->id, term->center.y, term->center.x - (strlen(msg) / 2), "%s", msg);
+    wrefresh(term->id);
     exit(-1);
 }
 
-void ui_win_size_error(win *term) {
-    char *error = "Screen too small!";
-    mvwprintw(term->winid, term->center.y, term->center.x - (strlen(error) / 2), "%s", error);
-}
-
 void ui_legend_print(win *frame) {
-    char *direction = "k: UP j: DOWN h: LEFT l: RIGHT q: QUIT";
-    mvwprintw(frame->winid, frame->center.y, frame->center.x - (strlen(direction) / 2), "%s", direction);
+    char up, down, left, right;
+    up = 'c';
+    down = 'c';
+    left = 'c';
+    right = 'c';
+    char *direction = "%c: UP %c: DOWN %c: LEFT %c: RIGHT q: QUIT";
+    if (strlen(direction) < frame->width) {
+        mvwprintw(frame->id, frame->center.y, frame->center.x - (30 / 2), "%c: UP %c: DOWN %c: LEFT %c: RIGHT", up, down, left, right);
+    } else {
+        ui_popup_error(WINDOW_TOO_SMALL);
+    }
 }
 
 // Print map onto the given window
 void ui_map_print(win *frame, map *map) {
-    error error;
+    int y = frame->center.y - (map->height / 2);
+    int x = frame->center.x - (map->width / 2);
     if (map->height > frame->height) {
-        ui_popup_error(-7);
-    } else {
         for (int i = 0; i <= map->height; i++) {
             for (int j = 0; j < map->width; j++) {
                 switch (map_get_node(map, i, j)->type) {
                 case EMPTY:
-                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, " ");
+                    mvwprintw(frame->id, y + i, x + j, " ");
                     break;
                 case WALL:
-                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "#");
+                    mvwprintw(frame->id, y + i, x + j, "#");
                     break;
                 case COIN:
-                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "$");
+                    mvwprintw(frame->id, y + i, x + j, "$");
                     break;
                 case UNEVENT:
-                    mvwprintw(frame->winid, frame->center.y - (map->height / 2) + i, frame->center.x - (map->width / 2) + j, "!");
+                    mvwprintw(frame->id, y + i, x + j, "!");
+                    break;
+                case USER:
+                    mvwprintw(frame->id, y + i, x + j, "o");
+                    break;
+                case END:
+                    mvwprintw(frame->id, y + i, x + j, "_");
                     break;
                 }
             }
-            wprintw(frame->winid, "\n");
+            wprintw(frame->id, "\n");
         }
-        wrefresh(frame->winid);
+        wrefresh(frame->id);
+    } else {
+        ui_popup_error(WINDOW_TOO_SMALL);
     }
 }
 
@@ -95,11 +117,12 @@ win *ui_win_create(int h, int w) {
     if (term->height >= frame->height && term->width >= frame->width) {
         frame->y = (term->height - frame->height) / 2;
         frame->x = (term->width - frame->width) / 2;
-        frame->center.y = frame->height / 2;
-        frame->center.x = frame->width / 2;
+        ui_win_get_center(frame);
         // initialize the WINDOW
-        frame->winid = newwin(frame->height, frame->width, frame->y, frame->x);
-        wrefresh(frame->winid);
+        frame->id = newwin(frame->height, frame->width, frame->y, frame->x);
+        wrefresh(frame->id);
+    } else {
+        ui_popup_error(WINDOW_TOO_SMALL);
     }
     return frame;
 }
@@ -107,27 +130,38 @@ win *ui_win_create(int h, int w) {
 // Stack to windows on top of each other
 void ui_win_stack(win *win1, win *win2) {
     win *term = ui_win_term_info();
-    mvwin(win2->winid, win1->height + win1->y, (term->width - win2->width) / 2);
+    mvwin(win2->id, win1->height + win1->y, (term->width - win2->width) / 2);
+}
+
+void ui_menu_print(win *menu, int highlight) {
+    char *choices[] = {"Game", "AI", "Options", "Quit"};
+    int x, y;
+    x = menu->center.x - 3;
+    y = menu->center.y - 2;
+    box(menu->id, 0, 0);
+    for (int i = 0; i < 4; ++i) {
+        if (highlight == i + 1) /* High light the present choice */
+        {
+            wattron(menu->id, A_REVERSE);
+            mvwprintw(menu->id, y, x, "%s", choices[i]);
+            wattroff(menu->id, A_REVERSE);
+        } else
+            mvwprintw(menu->id, y, x, "%s", choices[i]);
+        ++y;
+    }
+    wrefresh(menu->id);
 }
 
 void ui_init() {
-    error error;
-    win *game_win;
-    win *menu_win;
-    map *map = map_load_from_file("assets/maze1.txt", &error);
-    if (map != NULL) {
-        win *game_win = ui_win_create(20, 60);
-        win *menu_win = ui_win_create(3, 60);
-        ui_win_stack(game_win, menu_win);
-        ui_legend_print(menu_win);
-        ui_map_print(game_win, map);
-        box(game_win->winid, 0, 0);
-        box(menu_win->winid, 0, 0);
-        wrefresh(game_win->winid);
-        wrefresh(menu_win->winid);
-    } else {
-        ui_popup_error(error);
-    }
+    initscr();
+    noecho();
+    cbreak();
+    refresh();
+    win *legend = ui_win_create(11, 61);
+    box(legend->id, 0, 0);
+    ui_legend_print(legend);
+    wrefresh(legend->id);
+    getch();
 }
 
 direction ui_get_input() {
