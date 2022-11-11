@@ -111,7 +111,7 @@ void ui_init() {
     }
 }
 
-direction ui_input_get() {
+direction ui_get_input() {
     char ch;
     ch = getchar();
     switch (ch) {

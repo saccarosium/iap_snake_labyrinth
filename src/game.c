@@ -34,16 +34,16 @@ void game_next_move(direction dir, int *x, int *y) {
     case NONE:
         return;
     case UP:
-        y -= 1;
+        *y -= 1;
         return;
     case DOWN:
-        y += 1;
+        *y += 1;
         return;
     case LEFT:
-        x -= 1;
+        *x -= 1;
         return;
     case RIGHT:
-        x += 1;
+        *x += 1;
         return;
     }
 }
@@ -69,7 +69,7 @@ void game_update(game *g, direction dir) {
     game_next_move(dir, &x, &y);
 
     node *next = map_get_node(g->map, x, y);
-    if(next == NULL) return;
+    if(next == NULL || next->type == WALL) return;
 
     g->player.x = x;
     g->player.y = y;
