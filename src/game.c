@@ -19,7 +19,6 @@ game *game_init(char *filename, error *err) {
     g->player.x = g->map->start.x;
     g->player.y = g->map->start.y;
 
-    g->path = path_create();
     g->coin = 0;
 
     return g;

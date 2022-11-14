@@ -27,5 +27,7 @@ void path_push(path *p, direction dir);
 direction path_pop_first(path *p);
 direction path_pop_last(path *p);
 direction path_next(path *p);
+void path_reset(path *p);
+char *path_string(path *p);
 
 #endif // !PATH_H

@@ -74,3 +74,41 @@ direction path_next(path *p) {
 
     return dir;
 }
+
+void path_reset(path *p) {
+    p->curr = p->head;
+}
+
+char path_dir_to_char(direction dir) {
+    switch (dir) {
+
+    case NONE:
+        return ' ';
+    case UP:
+        return 'N';
+    case DOWN:
+        return 'S';
+    case LEFT:
+        return 'W';
+    case RIGHT:
+        return 'E';
+    }
+    return ' ';
+}
+
+char *path_string(path *p) {
+    path_reset(p);
+
+    int length = 0;
+    while(path_next(p)) length += 1;
+
+    path_reset(p);
+    char *string = xmalloc(length + 1);
+
+    for(int i = 0; i < length; i++) {
+        string[i] = path_dir_to_char(path_next(p));
+    }
+    string[length] = '\0';
+
+    return string;
+}
