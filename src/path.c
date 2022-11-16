@@ -12,14 +12,14 @@ path *path_create() {
     return p;
 }
 
-pathNode *node_create(direction dir) {
+pathNode *node_create(action dir) {
     pathNode *n = xmalloc(sizeof(pathNode));
     n->dir = dir;
     n->next = NULL;
     return n;
 }
 
-void path_push(path *p, direction dir) {
+void path_push(path *p, action dir) {
     pathNode *n = node_create(dir);
 
     if(p->tail == NULL) {
@@ -33,19 +33,19 @@ void path_push(path *p, direction dir) {
     if(p->curr == NULL) p->curr = n;
 }
 
-direction path_pop_first(path *p) {
+action path_pop_first(path *p) {
     if(p->head == NULL) return NONE;
 
     pathNode *n = p->head;
     p->head = n->next;
 
-    direction dir = n->dir;
+    action dir = n->dir;
     free(n);
 
     return dir;
 }
 
-direction path_pop_last(path *p) {
+action path_pop_last(path *p) {
     if(p->head == NULL) return NONE;
 
     pathNode *curr = p->head;
@@ -61,15 +61,15 @@ direction path_pop_last(path *p) {
     }
 
 
-    direction dir = curr->dir;
+    action dir = curr->dir;
     free(curr);
 
     return dir;
 }
 
-direction path_next(path *p) {
+action path_next(path *p) {
     if(p->curr == NULL) return NONE;
-    direction dir = p->curr->dir;
+    action dir = p->curr->dir;
     p->curr = p->curr->next;
 
     return dir;
@@ -79,7 +79,7 @@ void path_reset(path *p) {
     p->curr = p->head;
 }
 
-char path_dir_to_char(direction dir) {
+char path_dir_to_char(action dir) {
     switch (dir) {
 
     case NONE:
@@ -92,6 +92,9 @@ char path_dir_to_char(direction dir) {
         return 'W';
     case RIGHT:
         return 'E';
+    case ENTER:
+    case QUIT:
+        break;
     }
     return ' ';
 }
