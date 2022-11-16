@@ -1,6 +1,7 @@
 #include "../include/map.h"
 #include "../include/alloc.h"
 #include "../include/utils.h"
+#include <string.h>
 
 map *map_create(int height, int width) {
     map *m = xmalloc(sizeof(map));
@@ -19,8 +20,10 @@ map *map_create(int height, int width) {
 }
 
 node *map_get_node(map *m, int y, int x) {
-    if(x < 0 || x >= m->width) return NULL;
-    if(y < 0 || y >= m->height) return NULL;
+    if (x < 0 || x >= m->width)
+        return NULL;
+    if (y < 0 || y >= m->height)
+        return NULL;
     return &m->grid[y * m->width + x];
 }
 
@@ -50,6 +53,39 @@ nodeType get_character_type(char c) {
 void map_free(map *m) {
     free(m->grid);
     free(m);
+}
+
+map *load_from_buffer(char *buffer, int height, int width, error *error) {
+    map *m = map_create(height, width);
+    for (size_t i = 0; i < height; i++) {
+        for (size_t j = 0; j < width; j++) {
+            int character = get_character_type(buffer[i * width + j]);
+
+            if (character == -1) {
+                *error = WRONG_CHARACTER;
+                map_free(m);
+                free(buffer);
+                return NULL;
+            }
+
+            m->grid[i * width + j].type = character;
+            m->grid[i * width + j].x = i;
+            m->grid[i * width + j].y = j;
+
+            if (buffer[i * width + j] == 'o') {
+                m->start.x = j;
+                m->start.y = i;
+            } else if (buffer[i * width + j] == '_') {
+                m->end.x = j;
+                m->end.y = i;
+            }
+        }
+        printf("\n");
+    }
+
+    free(buffer);
+    *error = MAP_OK;
+    return m;
 }
 
 map *map_load_from_file(char *filename, error *error) {
@@ -112,40 +148,46 @@ map *map_load_from_file(char *filename, error *error) {
             width_check++;
         }
     }
-
     fclose(f);
 
-    map *m = map_create(height, width);
-    for (size_t i = 0; i < height; i++) {
-        for (size_t j = 0; j < width; j++) {
-            int character = get_character_type(buffer[i * width + j]);
+    return load_from_buffer(buffer, height, width, error);
+}
 
-            if (character == -1) {
-                *error = WRONG_CHARACTER;
-                map_free(m);
-                free(buffer);
-                return NULL;
-            }
+map *map_load_from_stdin(error *error) {
+    int width, height;
 
-            m->grid[i * width + j].type = character;
-            m->grid[i * width + j].x = j;
-            m->grid[i * width + j].y = i;
+    scanf(" %d", &width);
+    scanf(" %d", &height);
 
-            if (buffer[i * width + j] == 'o') {
-                m->start.x = j;
-                m->start.y = i;
-            }
+    if (getchar() != '\n') {
+        *error = UNEXPECTED_NEW_LINE;
+        return NULL;
+    }
 
-            if (buffer[i * width + j] == '_') {
-                m->end.x = j;
-                m->end.y = i;
+    char *buffer = malloc(height * width);
+    if (buffer == NULL) {
+        *error = MALLOC_FAILED;
+        return NULL;
+    }
+    char tmp_char;
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width + 1; j++) {
+            tmp_char = getchar();
+            if (tmp_char == '\n') {
+                if (j == width) {
+                    break;
+                } else {
+                    *error = WRONG_WIDTH;
+                    return NULL;
+                }
+            } else {
+                buffer[i * width + j] = tmp_char;
             }
         }
     }
 
-    free(buffer);
-    *error = MAP_OK;
-    return m;
+    return load_from_buffer(buffer, height, width, error);
 }
 
 node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes) {
@@ -180,8 +222,8 @@ node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes) {
     return (node **)realloc(return_nodes, sizeof(node *) * *n_nodes);
 }
 
-int * map_get_possible_movements(map *m, int y, int x) {
-    int * directions = calloc(4, sizeof(int));
+int *map_get_possible_movements(map *m, int y, int x) {
+    int *directions = calloc(4, sizeof(int));
     if (x - 1 >= 0 && map_get_node(m, y, x - 1)->type != WALL) {
         directions[0] = 1;
     }
@@ -203,4 +245,3 @@ int * map_get_possible_movements(map *m, int y, int x) {
 bool map_compare_node(node *a, node *b) {
     return a->x == b->x && a->y == b->y;
 }
-

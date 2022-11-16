@@ -14,6 +14,7 @@ typedef enum error {
     UNEXPECTED_EOF,
     WRONG_WIDTH,
     WRONG_CHARACTER,
+    UNEXPECTED_NEW_LINE,
     // UI
     WINDOW_TOO_SMALL,
 } error;
