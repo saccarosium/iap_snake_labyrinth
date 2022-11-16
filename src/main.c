@@ -1,35 +1,29 @@
 #include <ncurses.h>
+#include <stdio.h>
+#include "../include/game.h"
+#include "../include/ui.h"
+#include "../include/path.h"
+// #include "../include/astar.h"
 
 int main() {
-    /* Template:
-    ui *u = ui_init();
+    error err = OK;
+    game *g = game_init("assets/maze1.txt", &err);
+    path *p = path_create();
 
-    // ui menu (choose gamemode)
+    // path *p = astar_solve(g->map);
 
-    error *err = OK;
-    game *g = game_init(&err);
-
-    // error loading game
-    if(err != OK) {
-        ui_error(u, err);
-    }
-
-    // game loop
     while(!game_ended(g)) {
-        char keypress = ui_get_input();
-        game_update(g, keypress, &err);
-        // game update puo' ritornare un errore?
-
-        ui_update(g, err);
-        if(err != OK) break;
+        direction dir = path_next(p);
+        if(dir == NONE){
+            // user input
+            dir = ui_get_input();
+            if(dir == -1) continue;
+            path_push(p, dir);
+            path_next(p);
+        }
+        printf("%d\n", dir);
+        game_update(g, dir);
     }
 
-    if(err != OK) {
-        // stuff
-    }
-
-    game_cleanup(g);
-    ui_cleanup(u);
-    */
     return 0;
 }
