@@ -13,16 +13,22 @@ int main() {
     // path *p = astar_solve(g->map);
 
     while(!game_ended(g)) {
-        direction dir = path_next(p);
-        if(dir == NONE){
+        action act = path_next(p);
+        if(act == NONE){
             // user input
-            dir = ui_get_input();
-            if(dir == -1) continue;
-            path_push(p, dir);
-            path_next(p);
+            act = ui_get_input();
+            if(act == -1) continue;
+            if(act == ENTER) {
+                //
+            } else if(act == QUIT) {
+                //
+            } else {
+                path_push(p, act);
+                path_next(p);
+            }
         }
-        printf("%d\n", dir);
-        game_update(g, dir);
+        printf("%d\n", act);
+        game_update(g, act);
     }
 
     return 0;

@@ -17,6 +17,6 @@ typedef struct win {
 
 void ui_init();
 void ui_popup_error(error error);
-direction ui_get_input();
+action ui_get_input();
 
 #endif // !UI_H

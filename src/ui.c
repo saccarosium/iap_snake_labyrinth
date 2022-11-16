@@ -164,7 +164,7 @@ void ui_init() {
     getch();
 }
 
-direction ui_get_input() {
+action ui_get_input() {
     char ch;
     ch = getchar();
     switch (ch) {
@@ -177,7 +177,7 @@ direction ui_get_input() {
     case 'j':
         return DOWN;
     case 'q':
-        break;
+        return QUIT;
     }
-    return -1;
+    return NONE;
 }

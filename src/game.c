@@ -28,9 +28,11 @@ bool game_ended(game *g) {
     return g->player.x == g->map->end.x && g->player.y == g->map->end.y;
 }
 
-void game_next_move(direction dir, int *x, int *y) {
-    switch (dir) {
+void game_next_move(action act, int *y, int *x) {
+    switch (act) {
     case NONE:
+    case ENTER:
+    case QUIT:
         return;
     case UP:
         *y -= 1;
@@ -48,7 +50,7 @@ void game_next_move(direction dir, int *x, int *y) {
 }
 
 void game_update_score(game *g) {
-    node *n = map_get_node(g->map, g->player.x, g->player.y);
+    node *n = map_get_node(g->map, g->player.y, g->player.x);
 
     if(n->type == COIN) {
         g->coin++;
@@ -59,15 +61,15 @@ void game_update_score(game *g) {
     n->type = EMPTY;
 }
 
-void game_update(game *g, direction dir) {
-    if(dir == NONE) return;
+void game_update(game *g, action act) {
+    if(act == NONE || act == ENTER || act == QUIT) return;
 
     int x = g->player.x;
     int y = g->player.y;
 
-    game_next_move(dir, &x, &y);
+    game_next_move(act, &y, &x);
 
-    node *next = map_get_node(g->map, x, y);
+    node *next = map_get_node(g->map, y, x);
     if(next == NULL || next->type == WALL) return;
 
     g->player.x = x;

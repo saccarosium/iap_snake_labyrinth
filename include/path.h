@@ -14,7 +14,7 @@ typedef enum action {
 } action;
 
 typedef struct pathNode {
-    action dir;
+    action act;
     struct pathNode *next;
 } pathNode;
 
@@ -25,7 +25,7 @@ typedef struct path {
 } path;
 
 path *path_create();
-void path_push(path *p, action dir);
+void path_push(path *p, action act);
 action path_pop_first(path *p);
 action path_pop_last(path *p);
 action path_next(path *p);

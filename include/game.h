@@ -12,6 +12,6 @@ typedef struct game {
 
 game *game_init(char *filename, error *err);
 bool game_ended(game *g);
-void game_update(game *g, direction dir);
+void game_update(game *g, action act);
 
 #endif // !GAME_H
