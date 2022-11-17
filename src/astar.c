@@ -3,6 +3,15 @@
 #include "../include/queue.h"
 #include <stdio.h>
 
+action astar_get_action(node *a, node *b) {
+    if(a->x < b->x) return LEFT;
+    if(a->x > b->x) return RIGHT;
+    if(a->y < b->y) return UP;
+    if(a->y > b->y) return DOWN;
+
+    return NONE;
+}
+
 path *astar_solve(map *m) {
     queue *q = queue_create(true);
     queue *closed = queue_create(false);
@@ -20,12 +29,18 @@ path *astar_solve(map *m) {
 
         queue_push(closed, current);
 
-        printf("(%d %d) == (%d %d)\n", current->x, current->y, end->x, end->y);
         if(map_compare_node(current, end)) {
+            printf("HERE\n");
             path *p = path_create();
+
+            node *prev = current;
+            current = current->parent;
 
             while(current) {
                 printf("(%d %d)\n", current->x, current->y);
+                action act = astar_get_action(prev, current);
+                path_push_head(p, act);
+                prev = current;
                 current = current->parent;
             }
 
@@ -40,7 +55,7 @@ path *astar_solve(map *m) {
             printf("neighbor: %d %d\n", neighbor->x, neighbor->y);
             if(neighbors[i]->type == WALL) continue;
 
-            int cost = current->cost + 10;
+            int cost = current->cost + 11 - (current->type == COIN ? 10 : 1);
 
             if(queue_contains(q, neighbor) && cost < neighbor->cost) {
                 printf("removed queue %d %d\n", neighbor->x, neighbor->y);

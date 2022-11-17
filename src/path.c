@@ -33,6 +33,20 @@ void path_push(path *p, action act) {
     if(p->curr == NULL) p->curr = n;
 }
 
+void path_push_head(path *p, action act) {
+    pathNode *n = node_create(act);
+
+    pathNode *pn = p->head;
+    p->head = n;
+    if(p->tail == NULL) {
+        p->tail = n;
+    } else {
+        n->next = pn;
+    }
+
+    p->curr = p->head;
+}
+
 action path_pop_first(path *p) {
     if(p->head == NULL) return NONE;
 

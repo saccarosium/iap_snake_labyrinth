@@ -23,14 +23,17 @@ queueNode *queue_node_create(node *n) {
 }
 
 void queue_insert_before(queue *q, queueNode *base, queueNode *qn) {
-    base->prev = qn;
+    qn->next = base;
+
     if(base->prev == NULL) {
         q->head = qn;
     } else {
         queueNode *temp = base->prev;
         temp->next = qn;
+        qn->prev = temp;
     }
-    qn->next = base;
+
+    base->prev = qn;
 }
 
 bool queue_insert_priority(queue *q, queueNode *qn) {
@@ -96,6 +99,7 @@ bool queue_contains(queue *q, node* n) {
 void queue_remove(queue *q, node *n) {
     for(queueNode *x = q->head; x != NULL; x = x->next) {
         if (map_compare_node(x->node, n)) {
+            q->lenght--;
             if(x->prev != NULL) {
                 x->prev->next = x->next;
             } else {
@@ -112,6 +116,7 @@ void queue_remove(queue *q, node *n) {
 }
 
 void queue_print(queue *q) {
+    printf("==== length: %3d ====\n", q->lenght);
     printf("---- head: %20p ----\n", q->head);
 
     for(queueNode *x = q->head; x != NULL; x = x->next) {

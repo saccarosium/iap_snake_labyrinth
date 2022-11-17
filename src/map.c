@@ -69,8 +69,8 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
             }
 
             m->grid[i * width + j].type = character;
-            m->grid[i * width + j].x = i;
-            m->grid[i * width + j].y = j;
+            m->grid[i * width + j].x = j;
+            m->grid[i * width + j].y = i;
 
             if (buffer[i * width + j] == 'o') {
                 m->start.x = j;
