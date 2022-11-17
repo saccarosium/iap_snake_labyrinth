@@ -7,6 +7,12 @@ typedef struct opt {
     char player[4];
 } opt;
 
-options *options_init();
+typedef struct saved_opt {
+    char *keybings;
+    char *colorscheme;
+    char player;
+} saved_opt;
+
+opt *options_init();
 
 #endif // !OPTIONS_H
