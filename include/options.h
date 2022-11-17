@@ -1,11 +1,11 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-typedef struct options {
+typedef struct opt {
     char keybings[4][4];
     char *colorscheme[3];
     char player[4];
-} options;
+} opt;
 
 options *options_init();
 
