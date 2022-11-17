@@ -1,8 +1,12 @@
+#ifndef OPTIONS_H
+#define OPTIONS_H
+
 typedef struct options {
-    char **keybings;
-    int selected_keybings;
-    char **colorscheme;
-    int selected_coloscheme;
-    char *player;
-    int selected_player;
+    char keybings[4][4];
+    char *colorscheme[3];
+    char player[4];
 } options;
+
+options *options_init();
+
+#endif // !OPTIONS_H
