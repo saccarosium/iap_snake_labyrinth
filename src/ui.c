@@ -5,6 +5,8 @@
 #include "../include/map.h"
 #include "../include/alloc.h"
 #include "../include/path.h"
+#include "../include/options.h"
+#include "../include/game.h"
 
 void ui_win_get_center(win *win) {
     win->center.y = win->height / 2;
@@ -58,15 +60,17 @@ void ui_popup_error(error error_code) {
     exit(-1);
 }
 
-void ui_legend_print(win *frame) {
-    char up, down, left, right;
-    up = 'c';
-    down = 'c';
-    left = 'c';
-    right = 'c';
-    char *direction = "%c: UP %c: DOWN %c: LEFT %c: RIGHT q: QUIT";
-    if (strlen(direction) < frame->width) {
-        mvwprintw(frame->id, frame->center.y, frame->center.x - (30 / 2), "%c: UP %c: DOWN %c: LEFT %c: RIGHT", up, down, left, right);
+void ui_legend_print(win *frame, options *opt) {
+    // char up = 'c';
+    // char down = 'c';
+    // char left = 'c';
+    // char right = 'c';
+    char up = opt->keybings[0][0];
+    char down = opt->keybings[0][1];
+    char left = opt->keybings[0][2];
+    char right = opt->keybings[0][3];
+    if (26 < frame->width) {
+        mvwprintw(frame->id, frame->center.y, frame->center.x - (26 / 2), "%c:UP %c:DOWN %c:LEFT %c:RIGHT", up, down, left, right);
     } else {
         ui_popup_error(WINDOW_TOO_SMALL);
     }
@@ -152,14 +156,14 @@ void ui_menu_print(win *menu, int highlight) {
     wrefresh(menu->id);
 }
 
-void ui_init() {
+void ui_init(game *g, options *opt) {
     initscr();
     noecho();
     cbreak();
     refresh();
     win *legend = ui_win_create(11, 61);
     box(legend->id, 0, 0);
-    ui_legend_print(legend);
+    ui_legend_print(legend, opt);
     wrefresh(legend->id);
     getch();
 }
