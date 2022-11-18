@@ -1,7 +1,7 @@
 #include "../include/options.h"
 
 opt *options_init() {
-    opt opt = {
+    opt options = {
         .keybings = {
             { '*', '*', '*', '*' },
             { 'w', 's', 'a', 'd' },
@@ -17,6 +17,6 @@ opt *options_init() {
             'o', 'O', '*', 'V'
         },
     };
-    opt *handle = &opt;
+    opt *handle = &options;
     return handle;
 }

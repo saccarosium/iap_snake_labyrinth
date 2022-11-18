@@ -93,9 +93,11 @@ void path_reset(path *p) {
     p->curr = p->head;
 }
 
-char path_dir_to_char(action act) {
+char path_action_to_char(action act) {
     switch (act) {
     case NONE:
+    case ENTER:
+    case QUIT:
         return ' ';
     case UP:
         return 'N';
@@ -105,9 +107,6 @@ char path_dir_to_char(action act) {
         return 'W';
     case RIGHT:
         return 'E';
-    case ENTER:
-    case QUIT:
-        break;
     }
     return ' ';
 }
@@ -122,7 +121,7 @@ char *path_string(path *p) {
     char *string = xmalloc(length + 1);
 
     for(int i = 0; i < length; i++) {
-        string[i] = path_dir_to_char(path_next(p));
+        string[i] = path_action_to_char(path_next(p));
     }
     string[length] = '\0';
 

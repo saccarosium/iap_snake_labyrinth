@@ -3,18 +3,14 @@
 #include "../include/utils.h"
 #include <stdlib.h>
 
-game *game_init(char *filename, error *err) {
+game *game_init(map *m, error *err) {
     game *g = malloc(sizeof(game));
     if(g == NULL) {
         *err = MALLOC_FAILED;
         return NULL;
     }
 
-    g->map = map_load_from_file(filename, err);
-    if(*err != MAP_OK) {
-        free(g);
-        return NULL;
-    }
+    g->map = m;
 
     g->player.x = g->map->start.x;
     g->player.y = g->map->start.y;
@@ -62,6 +58,7 @@ void game_update_score(game *g) {
 }
 
 void game_update(game *g, action act) {
+    // return false if move doesn't change state
     if(act == NONE || act == ENTER || act == QUIT) return;
 
     int x = g->player.x;

@@ -12,7 +12,7 @@ typedef struct game {
     saved_opt opt;
 } game;
 
-game *game_init(char *filename, error *err);
+game *game_init(map *m, error *err);
 bool game_ended(game *g);
 void game_update(game *g, action act);
 
