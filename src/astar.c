@@ -23,21 +23,20 @@ path *astar_solve(map *m) {
 
     while(q->lenght > 0) {
         node *current = queue_pop(q);
-        queue_print(q);
+        // queue_print(q);
 
-        printf("current: %d %d\n", current->x, current->y);
+        // printf("current: %d %d\n", current->x, current->y);
 
         queue_push(closed, current);
 
         if(map_compare_node(current, end)) {
-            printf("HERE\n");
             path *p = path_create();
 
             node *prev = current;
             current = current->parent;
 
             while(current) {
-                printf("(%d %d)\n", current->x, current->y);
+                // printf("(%d %d)\n", current->x, current->y);
                 action act = astar_get_action(prev, current);
                 path_push_head(p, act);
                 prev = current;
@@ -49,26 +48,26 @@ path *astar_solve(map *m) {
 
         int nodes = 0;
         node **neighbors = map_get_nearby_nodes(m, current->y, current->x, &nodes);
-        printf("nodes: %d\n", nodes);
+        // printf("nodes: %d\n", nodes);
         for(int i = 0; i < nodes; i++) {
             node *neighbor = neighbors[i];
-            printf("neighbor: %d %d\n", neighbor->x, neighbor->y);
+            // printf("neighbor: %d %d\n", neighbor->x, neighbor->y);
             if(neighbors[i]->type == WALL) continue;
 
             int cost = current->cost + 11 - (current->type == COIN ? 10 : 1);
 
             if(queue_contains(q, neighbor) && cost < neighbor->cost) {
-                printf("removed queue %d %d\n", neighbor->x, neighbor->y);
+                // printf("removed queue %d %d\n", neighbor->x, neighbor->y);
                 queue_remove(q, neighbor);
             }
 
             if(queue_contains(closed, neighbor) && cost < neighbor->cost) {
-                printf("removed closed %d %d\n", neighbor->x, neighbor->y);
+                // printf("removed closed %d %d\n", neighbor->x, neighbor->y);
                 queue_remove(closed, neighbor);
             }
 
             if(!queue_contains(q, neighbor) && !queue_contains(closed, neighbor)) {
-                printf("added queue %d %d\n", neighbor->x, neighbor->y);
+                // printf("added queue %d %d\n", neighbor->x, neighbor->y);
                 neighbor->cost = cost;
                 queue_push(q, neighbor);
                 neighbor->parent = current;
@@ -76,6 +75,5 @@ path *astar_solve(map *m) {
         }
     }
 
-    printf("empty queue\n");
     return NULL;
 }
