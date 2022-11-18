@@ -1,6 +1,6 @@
-#include "../include/map.h"
-#include "../include/alloc.h"
-#include "../include/utils.h"
+#include "./include/map.h"
+#include "./include/alloc.h"
+#include "./include/utils.h"
 #include <string.h>
 
 map *map_create(int height, int width) {
@@ -80,7 +80,7 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
                 m->end.y = i;
             }
         }
-        printf("\n");
+        // printf("\n");
     }
 
     free(buffer);
@@ -174,8 +174,8 @@ map *map_load_from_stdin(error *error) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width + 1; j++) {
             tmp_char = getchar();
-            if (tmp_char == '\n') {
-                if (j == width) {
+            if (j == width) {
+                if (tmp_char == '\n') {
                     break;
                 } else {
                     *error = WRONG_WIDTH;

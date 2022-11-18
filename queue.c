@@ -1,5 +1,5 @@
-#include "../include/queue.h"
-#include "../include/alloc.h"
+#include "./include/queue.h"
+#include "./include/alloc.h"
 #include <stdio.h>
 
 queue *queue_create(bool priority) {
@@ -116,12 +116,12 @@ void queue_remove(queue *q, node *n) {
 }
 
 void queue_print(queue *q) {
-    printf("==== length: %3d ====\n", q->lenght);
-    printf("---- head: %20p ----\n", q->head);
+    // printf("==== length: %3d ====\n", q->lenght);
+    // printf("---- head: %20p ----\n", q->head);
 
     for(queueNode *x = q->head; x != NULL; x = x->next) {
-        printf("%20p <- %20p -> %20p\n", x->prev, x, x->next);
+        // printf("%20p <- %20p -> %20p\n", x->prev, x, x->next);
     }
 
-    printf("---- tail: %20p ----\n", q->tail);
+    // printf("---- tail: %20p ----\n", q->tail);
 }
