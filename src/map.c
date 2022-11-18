@@ -80,7 +80,6 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
                 m->end.y = i;
             }
         }
-        printf("\n");
     }
 
     free(buffer);
