@@ -37,7 +37,7 @@ map *map_create(int height, int width);
 node *map_get_node(map *m, int y, int x);
 nodeType get_character_type(char c);
 map *map_load_from_file(char *filename, error *error_code);
-map * map_load_from_stdin(error *error);
+map *map_load_from_stdin(error *error);
 node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes);
 void map_set_node_type(node *n, enum nodeType t);
 int *map_get_possible_movements(map *m, int y, int x);

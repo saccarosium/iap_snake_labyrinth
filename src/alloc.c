@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 void *checked(void *p) {
-    if(p == NULL) {
+    if (p == NULL) {
         exit(EXIT_FAILURE);
     }
 

@@ -1,48 +1,49 @@
+#include "../include/astar.h"
+#include "../include/game.h"
+#include "../include/path.h"
+#include "../include/ui.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/game.h"
-#include "../include/ui.h"
-#include "../include/path.h"
-#include "../include/astar.h"
 
-int main (int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     error err = OK;
 
     map *m = NULL;
-    if(argc == 2 && strcmp(argv[1], "--challenge") == 0) {
+    if (argc == 2 && strcmp(argv[1], "--challenge") == 0) {
         m = map_load_from_stdin(&err);
     } else {
         m = map_load_from_file("assets/maze1.txt", &err);
     }
 
-    if(m == NULL || err != 0) {
+    if (m == NULL || err != 0) {
         exit(EXIT_FAILURE);
     }
 
     game *g = game_init(m, &err);
-    if(g == NULL || err != 0) {
+    if (g == NULL || err != 0) {
         exit(EXIT_FAILURE);
     }
 
     path *p = NULL;
-    if(argc == 2 && strcmp(argv[1], "--challenge") == 0) {
+    if (argc == 2 && strcmp(argv[1], "--challenge") == 0) {
         p = astar_solve(g->map);
     } else {
         p = path_create();
     }
 
-    while(!game_ended(g)) {
+    while (!game_ended(g)) {
         action act = path_next(p);
 
-        if(act == NONE){
+        if (act == NONE) {
             // user input
             act = ui_get_input();
-            if(act == -1 || act == 0) continue;
-            else if(act == ENTER) {
+            if (act == -1 || act == 0)
+                continue;
+            else if (act == ENTER) {
                 //
-            } else if(act == QUIT) {
+            } else if (act == QUIT) {
                 //
             } else {
                 // do not add to path if game returned false

@@ -1,19 +1,19 @@
-#include <stdio.h>
-#include <ncurses.h>
-#include <string.h>
 #include "../include/ui.h"
-#include "../include/map.h"
 #include "../include/alloc.h"
-#include "../include/path.h"
-#include "../include/options.h"
 #include "../include/game.h"
+#include "../include/map.h"
+#include "../include/options.h"
+#include "../include/path.h"
+#include <ncurses.h>
+#include <stdio.h>
+#include <string.h>
 
 void ui_win_get_center(win *win) {
     win->center.y = win->height / 2;
     if (win->height % 2 == 0) {
         win->center.y -= 1;
     }
-    win->center.x = win ->width / 2;
+    win->center.x = win->width / 2;
     if (win->width % 2 == 0) {
         win->center.x -= 1;
     }
@@ -31,7 +31,7 @@ win *ui_win_term_info() {
 
 void ui_popup_error(error error_code) {
     char *msg;
-    switch(error_code) {
+    switch (error_code) {
     case FILE_OPEN:
         msg = "Errore in lettura della mappa";
         break;
@@ -55,12 +55,13 @@ void ui_popup_error(error error_code) {
         break;
     }
     win *term = ui_win_term_info();
-    mvwprintw(term->id, term->center.y, term->center.x - (strlen(msg) / 2), "%s", msg);
+    mvwprintw(term->id, term->center.y, term->center.x - (strlen(msg) / 2),
+              "%s", msg);
     wrefresh(term->id);
     exit(-1);
 }
 
-void ui_legend_print(win *frame, options *opt) {
+void ui_legend_print(win *frame, opt *opt) {
     // char up = 'c';
     // char down = 'c';
     // char left = 'c';
@@ -70,7 +71,8 @@ void ui_legend_print(win *frame, options *opt) {
     char left = opt->keybings[0][2];
     char right = opt->keybings[0][3];
     if (26 < frame->width) {
-        mvwprintw(frame->id, frame->center.y, frame->center.x - (26 / 2), "%c:UP %c:DOWN %c:LEFT %c:RIGHT", up, down, left, right);
+        mvwprintw(frame->id, frame->center.y, frame->center.x - (26 / 2),
+                  "%c:UP %c:DOWN %c:LEFT %c:RIGHT", up, down, left, right);
     } else {
         ui_popup_error(WINDOW_TOO_SMALL);
     }
@@ -156,7 +158,7 @@ void ui_menu_print(win *menu, int highlight) {
     wrefresh(menu->id);
 }
 
-void ui_init(game *g, options *opt) {
+void ui_init(game *g, opt *opt) {
     initscr();
     noecho();
     cbreak();

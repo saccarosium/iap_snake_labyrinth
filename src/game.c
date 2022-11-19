@@ -5,7 +5,7 @@
 
 game *game_init(map *m, error *err) {
     game *g = malloc(sizeof(game));
-    if(g == NULL) {
+    if (g == NULL) {
         *err = MALLOC_FAILED;
         return NULL;
     }
@@ -48,9 +48,9 @@ void game_next_move(action act, int *y, int *x) {
 void game_update_score(game *g) {
     node *n = map_get_node(g->map, g->player.y, g->player.x);
 
-    if(n->type == COIN) {
+    if (n->type == COIN) {
         g->coin++;
-    } else if(n->type == UNEVENT) {
+    } else if (n->type == UNEVENT) {
         g->coin = g->coin / 2;
     }
 
@@ -59,7 +59,8 @@ void game_update_score(game *g) {
 
 void game_update(game *g, action act) {
     // return false if move doesn't change state
-    if(act == NONE || act == ENTER || act == QUIT) return;
+    if (act == NONE || act == ENTER || act == QUIT)
+        return;
 
     int x = g->player.x;
     int y = g->player.y;
@@ -67,7 +68,8 @@ void game_update(game *g, action act) {
     game_next_move(act, &y, &x);
 
     node *next = map_get_node(g->map, y, x);
-    if(next == NULL || next->type == WALL) return;
+    if (next == NULL || next->type == WALL)
+        return;
 
     g->player.x = x;
     g->player.y = y;
