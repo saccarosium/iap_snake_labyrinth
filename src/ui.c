@@ -115,7 +115,7 @@ void ui_map_print(win *frame, map *map) {
 }
 
 // Create a window an returns a pointer to it
-win *ui_win_create(int h, int w) {
+win *ui_win_create(int h, int w, bool box) {
     win *term = ui_win_term_info();
     win *frame = xmalloc(sizeof(win));
     frame->height = h;
@@ -126,6 +126,9 @@ win *ui_win_create(int h, int w) {
         ui_win_get_center(frame);
         // initialize the WINDOW
         frame->id = newwin(frame->height, frame->width, frame->y, frame->x);
+        if (box) {
+            box(frame->id, 0, 0);
+        }
         wrefresh(frame->id);
     } else {
         ui_popup_error(WINDOW_TOO_SMALL);
