@@ -29,50 +29,49 @@ win *ui_win_term_info() {
     return term;
 }
 
-void ui_popup_error(error error_code) {
-    char *msg;
+void ui_decode_error(error error_code, char **msg) {
     switch (error_code) {
     case FILE_OPEN:
-        msg = "Errore in lettura della mappa";
+        *msg = "Errore in lettura della mappa";
         break;
     case MALLOC_FAILED:
-        msg = "Mallac failed";
+        *msg = "Mallac failed";
         break;
     case UNEXPECTED_EOF:
-        msg = "Errore dimensione";
+        *msg = "Errore dimensione";
         break;
     case WRONG_WIDTH:
-        msg = "Errore dimensione";
+        *msg = "Errore dimensione";
         break;
     case WRONG_CHARACTER:
-        msg = "Carrattere non consentito";
+        *msg = "Carrattere non consentito";
         break;
     case WINDOW_TOO_SMALL:
-        msg = "The Window is too Small";
+        *msg = "The Window is too Small";
         break;
     default:
-        msg = "Errore non riconosciuto";
+        *msg = "Errore non riconosciuto";
         break;
     }
+}
+
+void ui_popup_error(error error_code) {
+    char **msg = NULL;
+    ui_decode_error(error_code, msg);
     win *term = ui_win_term_info();
-    mvwprintw(term->id, term->center.y, term->center.x - (strlen(msg) / 2),
-              "%s", msg);
+    mvwprintw(term->id, term->center.y, term->center.x - (strlen(*msg) / 2), "%s", *msg);
     wrefresh(term->id);
     exit(-1);
 }
 
 void ui_legend_print(win *frame, opt *opt) {
-    // char up = 'c';
-    // char down = 'c';
-    // char left = 'c';
-    // char right = 'c';
-    char up = opt->keybings[0][0];
-    char down = opt->keybings[0][1];
-    char left = opt->keybings[0][2];
-    char right = opt->keybings[0][3];
+    char u = opt->keybings[1][0];
+    char d = opt->keybings[1][1];
+    char l = opt->keybings[1][2];
+    char r = opt->keybings[1][3];
+    char *msg =  "%c:UP %c:DOWN %c:LEFT %c:RIGHT";
     if (26 < frame->width) {
-        mvwprintw(frame->id, frame->center.y, frame->center.x - (26 / 2),
-                  "%c:UP %c:DOWN %c:LEFT %c:RIGHT", up, down, left, right);
+        mvwprintw(frame->id, frame->center.y, frame->center.x - (26 / 2), msg, u, d, l, r);
     } else {
         ui_popup_error(WINDOW_TOO_SMALL);
     }
@@ -161,13 +160,12 @@ void ui_menu_print(win *menu, int highlight) {
     wrefresh(menu->id);
 }
 
-void ui_init(game *g, opt *opt) {
+void ui_init(opt *opt) {
     initscr();
     noecho();
     cbreak();
     refresh();
-    win *legend = ui_win_create(11, 61);
-    box(legend->id, 0, 0);
+    win *legend = ui_win_create(11, 61, TRUE);
     ui_legend_print(legend, opt);
     wrefresh(legend->id);
     getch();
