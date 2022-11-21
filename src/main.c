@@ -33,7 +33,11 @@ int main(int argc, char *argv[]) {
         p = path_create();
     }
 
-    while (!game_ended(g)) {
+    ui_init();
+    action *quit = NULL;
+    ui_startmenu_init(g, quit);
+
+    while (!game_ended(g) && *quit != QUIT) {
         action act = path_next(p);
 
         if (act == NONE) {
@@ -55,7 +59,7 @@ int main(int argc, char *argv[]) {
         printf("%d\n", act);
         game_update(g, act);
         // printf("%d %d\n", g->player.y, g->player.x);
-    }
+   }
 
     // printf("coin: %d\n", g->coin);
     printf("%s\n", path_string(p));

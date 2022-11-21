@@ -4,6 +4,7 @@
 #include "../include/map.h"
 #include "../include/options.h"
 #include "../include/path.h"
+#include "curses.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include <string.h>
@@ -141,23 +142,61 @@ void ui_win_stack(win *win1, win *win2) {
     mvwin(win2->id, win1->height + win1->y, (term->width - win2->width) / 2);
 }
 
-void ui_menu_print(win *menu, int highlight) {
+void ui_startmenu_print(win *menu, int highlight) {
     char *choices[] = {"Game", "AI", "Options", "Quit"};
     int x, y;
     x = menu->center.x - 3;
     y = menu->center.y - 2;
-    box(menu->id, 0, 0);
     for (int i = 0; i < 4; ++i) {
-        if (highlight == i + 1) /* High light the present choice */
-        {
+        if (highlight == i + 1) {
             wattron(menu->id, A_REVERSE);
             mvwprintw(menu->id, y, x, "%s", choices[i]);
             wattroff(menu->id, A_REVERSE);
-        } else
+        } else {
             mvwprintw(menu->id, y, x, "%s", choices[i]);
+        }
         ++y;
     }
     wrefresh(menu->id);
+}
+
+void ui_startmenu_init(game *g, action *quit) {
+    int highlight = 1;
+    int choice = 0;
+    options_init();
+    win *startmenu = ui_win_term_info();
+    ui_startmenu_print(startmenu, highlight);
+    while (1) {
+        action c = ui_get_input();
+        switch (c) {
+        case UP:
+            if (highlight == 1)
+                highlight = 4;
+            else
+                --highlight;
+            break;
+        case DOWN:
+            if (highlight == 4)
+                highlight = 1;
+            else
+                ++highlight;
+            break;
+        case ENTER:
+            choice = highlight;
+            break;
+        case QUIT:
+            *quit = QUIT;
+            break;
+        default:
+            refresh();
+            break;
+        }
+        ui_startmenu_print(startmenu, highlight);
+        if (choice != 0) /* User did a choice come out of the infinite loop */
+            break;
+    }
+    delwin(startmenu->id);
+    refresh();
 }
 
 void ui_init(opt *opt) {
@@ -165,10 +204,6 @@ void ui_init(opt *opt) {
     noecho();
     cbreak();
     refresh();
-    win *legend = ui_win_create(11, 61, TRUE);
-    ui_legend_print(legend, opt);
-    wrefresh(legend->id);
-    getch();
 }
 
 action ui_get_input() {
@@ -185,6 +220,8 @@ action ui_get_input() {
         return DOWN;
     case 'q':
         return QUIT;
+    case 13:
+        return ENTER;
     }
     return NONE;
 }
