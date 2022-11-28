@@ -4,10 +4,9 @@ opt *options_init() {
     opt options = {
         .keybings =
             {
-                {'*', '*', '*', '*'},
                 {'w', 's', 'a', 'd'},
-                {'n', 's', 'w', 'e'},
                 {'k', 'j', 'h', 'l'},
+                {'n', 's', 'w', 'e'},
             },
         .colorscheme =
             {
