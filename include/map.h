@@ -11,6 +11,7 @@ typedef enum nodeType {
     WALL,
     COIN,
     UNEVENT,
+    DRILL,
     USER,
     END,
 } nodeType;

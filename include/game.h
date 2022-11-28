@@ -8,6 +8,7 @@
 typedef struct game {
     vec2 player;
     int coin;
+    int drill;
     map *map;
     saved_opt opt;
 } game;

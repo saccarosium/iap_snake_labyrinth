@@ -11,7 +11,6 @@ map *map_create(int height, int width) {
 
     for (int i = 0; i < height * width; i++) {
         m->grid[i].type = WALL;
-
         m->grid[i].cost = 0;
         m->grid[i].parent = NULL;
     }
@@ -45,6 +44,8 @@ nodeType get_character_type(char c) {
         return COIN;
     case '!':
         return UNEVENT;
+    case 'T':
+        return DRILL;
     default:
         return -1;
     }

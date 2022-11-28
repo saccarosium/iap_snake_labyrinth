@@ -95,6 +95,9 @@ void ui_map_print(win *frame, map *map) {
                 case COIN:
                     mvwprintw(frame->id, y + i, x + j, "$");
                     break;
+                case DRILL:
+                    mvwprintw(frame->id, y + i, x + j, "T");
+                    break;
                 case UNEVENT:
                     mvwprintw(frame->id, y + i, x + j, "!");
                     break;

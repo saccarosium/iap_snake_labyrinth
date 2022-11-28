@@ -16,6 +16,7 @@ game *game_init(map *m, error *err) {
     g->player.y = g->map->start.y;
 
     g->coin = 0;
+    g->drill = 0;
 
     return g;
 }
@@ -52,6 +53,8 @@ void game_update_score(game *g) {
         g->coin++;
     } else if (n->type == UNEVENT) {
         g->coin = g->coin / 2;
+    } else if (n->type == DRILL){
+        g->drill = g->drill + 3;
     }
 
     n->type = EMPTY;
