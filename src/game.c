@@ -19,8 +19,7 @@ game *game_init(map *m, error *err) {
     g->coin = 0;
     g->drill = 0;
 
-    g->opt.keybings = xmalloc(sizeof(char*));
-    g->opt.colorscheme = xmalloc(sizeof(char*));
+    g->opt.keybings = xmalloc(sizeof(char) * 4);
 
     return g;
 }
