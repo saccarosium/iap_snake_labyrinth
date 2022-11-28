@@ -1,6 +1,7 @@
 #include "../include/game.h"
 #include "../include/path.h"
 #include "../include/utils.h"
+#include "../include/alloc.h"
 #include <stdlib.h>
 
 game *game_init(map *m, error *err) {
@@ -17,6 +18,9 @@ game *game_init(map *m, error *err) {
 
     g->coin = 0;
     g->drill = 0;
+
+    g->opt.keybings = xmalloc(sizeof(char*));
+    g->opt.colorscheme = xmalloc(sizeof(char*));
 
     return g;
 }
