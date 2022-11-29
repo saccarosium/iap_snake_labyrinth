@@ -34,10 +34,11 @@ int main(int argc, char *argv[]) {
     }
 
     ui_init();
-    action *quit = NULL;
-    ui_startmenu_init(g, quit);
+    action quit = NONE;
+    ui_startmenu_init(g, &quit);
 
-    while (!game_ended(g) && *quit != QUIT) {
+    while (!game_ended(g) && quit != QUIT) {
+        ui_init_layout(g);
         action act = path_next(p);
 
         if (act == NONE) {
