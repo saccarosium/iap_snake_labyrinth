@@ -1,6 +1,6 @@
-#include "../include/map.h"
-#include "../include/alloc.h"
-#include "../include/utils.h"
+#include "./include/map.h"
+#include "./include/alloc.h"
+#include "./include/utils.h"
 #include <string.h>
 
 map *map_create(int height, int width) {

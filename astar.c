@@ -1,6 +1,6 @@
-#include "../include/map.h"
-#include "../include/path.h"
-#include "../include/queue.h"
+#include "./include/map.h"
+#include "./include/path.h"
+#include "./include/queue.h"
 #include <stdio.h>
 
 action astar_get_action(node *a, node *b) {

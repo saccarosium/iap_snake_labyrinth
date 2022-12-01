@@ -1,5 +1,5 @@
-#include "../include/path.h"
-#include "../include/alloc.h"
+#include "./include/path.h"
+#include "./include/alloc.h"
 #include <stdbool.h>
 #include <stdlib.h>
 

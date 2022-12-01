@@ -1,7 +1,7 @@
-#include "../include/game.h"
-#include "../include/path.h"
-#include "../include/utils.h"
-#include "../include/alloc.h"
+#include "./include/game.h"
+#include "./include/path.h"
+#include "./include/utils.h"
+#include "./include/alloc.h"
 #include <stdlib.h>
 
 game *game_init(map *m, error *err) {
