@@ -60,7 +60,10 @@ path *astar_solve(map *m) {
             if (neighbors[i]->type == WALL)
                 continue;
 
-            int cost = current->cost + 11 - (current->type == COIN ? 10 : 1);
+            int cost = current->cost
+                + 11
+                - (current->type == COIN ? 10 : 1)
+                + (current->type == UNEVENT ? 100 : 0);
 
             if (queue_contains(q, neighbor) && cost < neighbor->cost) {
                 // printf("removed queue %d %d\n", neighbor->x, neighbor->y);
