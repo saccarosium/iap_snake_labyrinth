@@ -88,6 +88,23 @@ node *queue_pop(queue *q) {
     return qn->node;
 }
 
+node *queue_pop_last(queue *q) {
+    if (q->lenght == 0)
+        return NULL;
+
+    q->lenght--;
+    queueNode *qn = q->tail;
+    if (q->lenght == 0) {
+        q->head = NULL;
+        q->tail = NULL;
+    } else {
+        q->tail = q->tail->prev;
+        q->tail->next = NULL;
+    }
+
+    return qn->node;
+}
+
 bool queue_contains(queue *q, node *n) {
     for (queueNode *x = q->head; x != NULL; x = x->next) {
         if (map_compare_node(x->node, n)) {
@@ -122,8 +139,32 @@ void queue_print(queue *q) {
     printf("---- head: %20p ----\n", q->head);
 
     for (queueNode *x = q->head; x != NULL; x = x->next) {
-        printf("%20p <- %20p -> %20p\n", x->prev, x, x->next);
+        printf("%20p <- %20p (%4d %4d) -> %20p\n", x->prev, x, x->node->y, x->node->x, x->next);
     }
 
     printf("---- tail: %20p ----\n", q->tail);
+}
+
+void queue_clear(queue *q) {
+    queueNode *n = q->head;
+    while(true) {
+        if(n == NULL) break;
+        queueNode *next = n->next;
+        free(n);
+        n = next;
+    }
+
+    q->head = NULL;
+    q->tail = NULL;
+    q->lenght = 0;
+}
+
+int queue_size(queue *q) {
+    int size = 0;
+
+    for (queueNode *x = q->head; x != NULL; x = x->next) {
+        size += x->node->cost;
+    }
+
+    return size;
 }

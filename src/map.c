@@ -13,6 +13,8 @@ map *map_create(int height, int width) {
         m->grid[i].type = WALL;
         m->grid[i].cost = 0;
         m->grid[i].parent = NULL;
+        m->grid[i].x = i % width;
+        m->grid[i].y = i / width;
     }
 
     return m;
@@ -70,8 +72,6 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
             }
 
             m->grid[i * width + j].type = character;
-            m->grid[i * width + j].x = j;
-            m->grid[i * width + j].y = i;
 
             if (buffer[i * width + j] == 'o') {
                 m->start.x = j;
