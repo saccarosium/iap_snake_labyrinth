@@ -11,7 +11,7 @@ map *map_create(int height, int width) {
 
     for (int i = 0; i < height * width; i++) {
         m->grid[i].type = WALL;
-        m->grid[i].cost = 0;
+        m->grid[i].cost = 1;
         m->grid[i].parent = NULL;
         m->grid[i].x = i % width;
         m->grid[i].y = i / width;
@@ -72,6 +72,11 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
             }
 
             m->grid[i * width + j].type = character;
+            if(character == COIN) {
+                m->grid[i * width + j].cost = 0;
+            } else if(character == UNEVENT) {
+                m->grid[i * width + j].cost = 100;
+            }
 
             if (buffer[i * width + j] == 'o') {
                 m->start.x = j;

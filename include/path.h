@@ -31,6 +31,7 @@ action path_pop_first(path *p);
 action path_pop_last(path *p);
 action path_next(path *p);
 void path_reset(path *p);
+char path_action_to_char(action act);
 char *path_string(path *p);
 
 #endif // !PATH_H
