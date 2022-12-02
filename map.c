@@ -11,7 +11,7 @@ map *map_create(int height, int width) {
 
     for (int i = 0; i < height * width; i++) {
         m->grid[i].type = WALL;
-        m->grid[i].cost = 1;
+        m->grid[i].cost = 10;
         m->grid[i].parent = NULL;
         m->grid[i].x = i % width;
         m->grid[i].y = i / width;
