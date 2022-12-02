@@ -1,6 +1,6 @@
-#include "../include/map.h"
-#include "../include/path.h"
-#include "../include/queue.h"
+#include "include/map.h"
+#include "include/path.h"
+#include "include/queue.h"
 
 action backtracking_get_action(node *a, node *b) {
     if (a->x > b->x)
@@ -13,55 +13,6 @@ action backtracking_get_action(node *a, node *b) {
         return DOWN;
 
     return NONE;
-}
-
-void print_map_backtracking(map *m, int y, int x) {
-    for(int i = 0; i < m->height; i++) {
-        for(int j = 0; j < m->width; j++) {
-            if(i == y && j == x) {
-                printf("X ");
-            } else {
-                node *n = map_get_node(m, i, j);
-                switch (n->type) {
-                    case EMPTY:
-                        printf("  ");
-                        break;
-                    case WALL:
-                        printf("##");
-                        break;
-                    case COIN:
-                        printf("$ ");
-                        break;
-                    case UNEVENT:
-                        printf("! ");
-                        break;
-                    case DRILL:
-                        printf("T ");
-                        break;
-                    case USER:
-                        printf("o ");
-                        break;
-                    case END:
-                        printf("_ ");
-                        break;
-                        break;
-                }
-            }
-        }
-        printf("\n");
-    }
-}
-
-void print_queue(queue *q) {
-    queueNode *qn = q->head;
-
-    printf("[ %2d ] ", queue_size(q));
-    while(qn) {
-        printf("(%d %d)", qn->node->y, qn->node->x);
-        qn = qn->next;
-        if(qn) printf("->");
-    }
-    printf("\n");
 }
 
 void visited_clear(map *visited) {

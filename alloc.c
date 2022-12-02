@@ -1,4 +1,4 @@
-#include "../include/alloc.h"
+#include "include/alloc.h"
 #include <stdlib.h>
 
 void *checked(void *p) {
