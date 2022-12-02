@@ -3,7 +3,6 @@
 
 #include "../include/map.h"
 #include "../include/utils.h"
-#include "options.h"
 
 typedef enum game_mode {
     INTERACTIVE,
@@ -15,7 +14,6 @@ typedef struct game {
     int coin;
     int drill;
     map *map;
-    saved_opt opt;
     game_mode mode;
 } game;
 
