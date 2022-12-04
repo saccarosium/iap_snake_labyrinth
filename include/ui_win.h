@@ -16,6 +16,12 @@ typedef struct win {
     WINDOW *id;
 } win;
 
+typedef struct layout {
+    win *game;
+    win *legend;
+    win *map;
+} layout;
+
 void ui_win_clear();
 void ui_win_get_center(win *win);
 win *ui_win_term_info();

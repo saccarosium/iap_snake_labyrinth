@@ -25,7 +25,7 @@ void ui_map_print(win *frame, map *map) {
     int y = frame->center.y - (map->height / 2);
     int x = frame->center.x - (map->width / 2);
     if (map->height < frame->height) {
-        for (int i = 0; i <= map->height; i++) {
+        for (int i = 0; i < map->height; i++) {
             for (int j = 0; j < map->width; j++) {
                 switch (map_get_node(map, i, j)->type) {
                 case EMPTY:
@@ -102,7 +102,7 @@ void ui_startmenu_init(game *g, action *quit) {
         case QUIT:
             *quit = QUIT;
             ui_win_clear();
-            break;
+            return;
         default:
             refresh();
             break;
@@ -138,10 +138,10 @@ layout *ui_init_layout(game *g) {
     win *map = ui_win_create(21, 60, false);
     win *legend = ui_win_create(3, 60, false);
     ui_win_stack(map, legend);
+    ui_map_print(map, g->map);
+    ui_legend_print(legend);
     box(map->id, 0, 0);
     box(legend->id, 0, 0);
-    // ui_map_print(map, g->map);
-    ui_legend_print(legend);
     wrefresh(legend->id);
     wrefresh(map->id);
     lay->game = map;
