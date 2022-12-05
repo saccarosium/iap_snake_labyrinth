@@ -2,6 +2,7 @@
 #include "../include/game.h"
 #include "../include/path.h"
 #include "../include/ui.h"
+#include "../include/backtracking.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,17 +29,22 @@ int main(int argc, char *argv[]) {
 
     path *p = NULL;
     if (argc == 2 && strcmp(argv[1], "--challenge") == 0) {
-        p = astar_solve(g->map);
+        p = backtracking_solve(g->map);
     } else {
         p = path_create();
     }
 
-    ui_init();
     action quit = NONE;
-    ui_startmenu_init(g, &quit);
+
+    if (argc == 2 && strcmp(argv[1], "--challenge") != 0) {
+        ui_init();
+        ui_startmenu_init(g, &quit);
+    }
 
     while (!game_ended(g) && quit != QUIT) {
-        ui_init_layout(g);
+        if (argc == 2 && strcmp(argv[1], "--challenge") != 0) {
+            ui_init_layout(g);
+        }
         action act = path_next(p);
 
         if (act == NONE) {
@@ -57,9 +63,7 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        printf("%d\n", act);
         game_update(g, act);
-        // printf("%d %d\n", g->player.y, g->player.x);
    }
 
     // printf("coin: %d\n", g->coin);

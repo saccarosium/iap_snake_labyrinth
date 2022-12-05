@@ -72,11 +72,13 @@ void game_update(game *g, action act) {
     game_next_move(act, &y, &x);
 
     node *next = map_get_node(g->map, y, x);
-    if (next == NULL || next->type == WALL && g->drill < 1)
+    if (next == NULL) {
         return;
-    else
+    }
+    if (next->type == WALL && g->drill > 0) {
         g->drill--;
-        
+    }
+
     g->player.x = x;
     g->player.y = y;
 
