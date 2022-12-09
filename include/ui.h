@@ -9,7 +9,7 @@
 
 void ui_init();
 void ui_startmenu_init(game *g, action *quit);
-layout *ui_init_layout(game *g);
+layout_t *ui_init_layout(game *g);
 action ui_get_input();
 
 #endif // !UI_H

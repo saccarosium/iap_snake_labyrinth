@@ -34,7 +34,7 @@ char* ui_decode_error(error error_code) {
 
 void ui_popup_error(error error_code) {
     char *msg = ui_decode_error(error_code);
-    win *term = ui_win_term_info();
+    win_t *term = ui_win_term_info();
     mvwprintw(term->id, term->center.y, term->center.x - (strlen(msg) / 2), "%s", msg);
     wrefresh(term->id);
     exit(-1);

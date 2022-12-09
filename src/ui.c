@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void ui_legend_print(win *frame) {
+void ui_legend_print(win_t *frame) {
     char *msg =  "w:UP s:DOWN a:LEFT d:RIGHT";
     if (26 < frame->width) {
         mvwprintw(frame->id, frame->center.y, frame->center.x - strlen(msg), "%s", msg);
@@ -21,7 +21,7 @@ void ui_legend_print(win *frame) {
 void ui_map_refresh() {}
 
 // Print map onto the given window
-void ui_map_print(win *frame, map *map) {
+void ui_map_print(win_t *frame, map *map) {
     int y = frame->center.y - (map->height / 2);
     int x = frame->center.x - (map->width / 2);
     if (map->height < frame->height) {
@@ -58,7 +58,7 @@ void ui_map_print(win *frame, map *map) {
     }
 }
 
-void ui_startmenu_print(win *menu, int highlight) {
+void ui_startmenu_print(win_t *menu, int highlight) {
     char choices[3][15] = { "INTERACTIVE", "AI", "QUIT" };
     int x, y;
     x = menu->center.x - 3;
@@ -79,7 +79,7 @@ void ui_startmenu_print(win *menu, int highlight) {
 void ui_startmenu_init(game *g, action *quit) {
     int highlight = 1;
     int choice = 0;
-    win *startmenu = ui_win_term_info();
+    win_t *startmenu = ui_win_term_info();
     ui_startmenu_print(startmenu, highlight);
     while (1) {
         action c = ui_get_input();
@@ -133,10 +133,10 @@ void ui_init() {
     refresh();
 }
 
-layout *ui_init_layout(game *g) {
-    layout *lay = xmalloc(sizeof(layout));
-    win *map = ui_win_create(21, 60, false);
-    win *legend = ui_win_create(3, 60, false);
+layout_t *ui_init_layout(game *g) {
+    layout_t *lay = xmalloc(sizeof(layout_t));
+    win_t *map = ui_win_create(21, 60, false);
+    win_t *legend = ui_win_create(3, 60, false);
     ui_win_stack(map, legend);
     ui_map_print(map, g->map);
     ui_legend_print(legend);

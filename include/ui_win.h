@@ -7,25 +7,25 @@
 #include "game.h"
 #include <ncurses.h>
 
-typedef struct win {
+typedef struct win_t {
     int width;
     int height;
     int x;
     int y;
     vec2 center;
     WINDOW *id;
-} win;
+} win_t;
 
-typedef struct layout {
-    win *game;
-    win *legend;
-    win *map;
-} layout;
+typedef struct layout_t {
+    win_t *game;
+    win_t *legend;
+    win_t *map;
+} layout_t;
 
 void ui_win_clear();
-void ui_win_get_center(win *win);
-win *ui_win_term_info();
-win *ui_win_create(int h, int w, bool box);
-void ui_win_stack(win *win1, win *win2);
+void ui_win_get_center(win_t *win_t);
+win_t *ui_win_term_info();
+win_t *ui_win_create(int h, int w, bool box);
+void ui_win_stack(win_t *win1, win_t *win2);
 
 #endif // !UI_WIN_H

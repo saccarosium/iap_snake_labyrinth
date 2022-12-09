@@ -8,20 +8,20 @@ void ui_win_clear() {
     refresh();
 }
 
-void ui_win_get_center(win *win) {
-    win->center.y = win->height / 2;
-    if (win->height % 2 == 0) {
-        win->center.y -= 1;
+void ui_win_get_center(win_t *win_t) {
+    win_t->center.y = win_t->height / 2;
+    if (win_t->height % 2 == 0) {
+        win_t->center.y -= 1;
     }
-    win->center.x = win->width / 2;
-    if (win->width % 2 == 0) {
-        win->center.x -= 1;
+    win_t->center.x = win_t->width / 2;
+    if (win_t->width % 2 == 0) {
+        win_t->center.x -= 1;
     }
 }
 
 // Gets the current terminal info
-win *ui_win_term_info() {
-    win *term = xmalloc(sizeof(win));
+win_t *ui_win_term_info() {
+    win_t *term = xmalloc(sizeof(win_t));
     getbegyx(stdscr, term->y, term->x);
     getmaxyx(stdscr, term->height, term->width);
     term->id = stdscr;
@@ -30,9 +30,9 @@ win *ui_win_term_info() {
 }
 
 // Create a window an returns a pointer to it
-win *ui_win_create(int h, int w, bool box) {
-    win *term = ui_win_term_info();
-    win *frame = xmalloc(sizeof(win));
+win_t *ui_win_create(int h, int w, bool box) {
+    win_t *term = ui_win_term_info();
+    win_t *frame = xmalloc(sizeof(win_t));
     frame->height = h;
     frame->width = w;
     if (term->height >= frame->height && term->width >= frame->width) {
@@ -52,8 +52,8 @@ win *ui_win_create(int h, int w, bool box) {
 }
 
 // Stack to windows on top of each other
-void ui_win_stack(win *win1, win *win2) {
-    win *term = ui_win_term_info();
+void ui_win_stack(win_t *win1, win_t *win2) {
+    win_t *term = ui_win_term_info();
     mvwin(win2->id, win1->height + win1->y, (term->width - win2->width) / 2);
     wrefresh(win1->id);
     wrefresh(win2->id);
