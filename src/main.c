@@ -1,8 +1,8 @@
 #include "../include/astar.h"
+#include "../include/backtracking.h"
 #include "../include/game.h"
 #include "../include/path.h"
 #include "../include/ui.h"
-#include "../include/backtracking.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
 
     path *p = NULL;
     if (argc == 2 && strcmp(argv[1], "--challenge") == 0) {
+        g->mode = CHALLENGE;
         p = backtracking_solve(g->map);
     } else {
         p = path_create();
@@ -36,38 +37,35 @@ int main(int argc, char *argv[]) {
 
     action quit = NONE;
 
-    if (argc == 2 && strcmp(argv[1], "--challenge") != 0) {
+    if (g->mode != CHALLENGE) {
+
         ui_init();
         ui_startmenu_init(g, &quit);
-    }
 
-    while (!game_ended(g) && quit != QUIT) {
-        if (argc == 2 && strcmp(argv[1], "--challenge") != 0) {
+        while (!game_ended(g) && quit != QUIT) {
             ui_init_layout(g);
-        }
-        action act = path_next(p);
 
-        if (act == NONE) {
-            // user input
-            act = ui_get_input();
-            if (act == -1 || act == 0)
-                continue;
-            else if (act == ENTER) {
-                //
-            } else if (act == QUIT) {
-                //
-            } else {
-                // do not add to path if game returned false
-                path_push(p, act);
-                path_next(p);
+            action act = path_next(p);
+
+            if (act == NONE) {
+                // user input
+                act = ui_get_input();
+                if (act == -1 || act == 0)
+                    continue;
+                else if (act == ENTER) {
+                } else if (act == QUIT) {
+                    exit(1);
+                } else {
+                    // do not add to path if game returned false
+                    path_push(p, act);
+                    path_next(p);
+                }
             }
+            game_update(g, act);
         }
-
-        game_update(g, act);
-   }
-
-    // printf("coin: %d\n", g->coin);
-    printf("%s\n", path_string(p));
+    } else if (g->mode == CHALLENGE) {
+        printf("%s\n", path_string(p));
+    }
 
     return 0;
 }

@@ -7,6 +7,7 @@
 typedef enum game_mode {
     INTERACTIVE,
     AI,
+    CHALLENGE,
 } game_mode;
 
 typedef struct game {
