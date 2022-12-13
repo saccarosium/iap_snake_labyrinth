@@ -2,8 +2,14 @@ CC = gcc
 CFLAGS = --std=c99 -Wall -g
 CINCLUDE = -lncurses
 OUTNAME = build/maze
+SH = /usr/bin/env sh
 
-all: mkout
+all: compile
+
+challenge: compile
+	$(SH) $(PWD)/scripts/challenge.sh
+
+compile: mkout
 	$(CC) $(CFLAGS) $(CINCLUDE) -o $(OUTNAME) src/*.c
 
 mkout:
