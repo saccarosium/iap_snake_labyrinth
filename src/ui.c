@@ -155,11 +155,19 @@ action ui_get_input() {
     switch (ch) {
     case 'a':
         return LEFT;
+    case 'h':
+        return LEFT;
     case 'd':
+        return RIGHT;
+    case 'l':
         return RIGHT;
     case 'w':
         return UP;
+    case 'k':
+        return UP;
     case 's':
+        return DOWN;
+    case 'j':
         return DOWN;
     case 'q':
         return QUIT;
