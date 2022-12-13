@@ -18,8 +18,6 @@ void ui_legend_print(win_t *frame) {
     }
 }
 
-void ui_map_refresh() {}
-
 // Print map onto the given window
 void ui_map_print(win_t *frame, map *map) {
     int y = frame->center.y - (map->height / 2);
@@ -41,7 +39,7 @@ void ui_map_print(win_t *frame, map *map) {
                     mvwprintw(frame->id, y + i, x + j, "!");
                     break;
                 case USER:
-                    mvwprintw(frame->id, y + i, x + j, "o");
+                    mvwprintw(frame->id, y + i, x + j, " ");
                     break;
                 case END:
                     mvwprintw(frame->id, y + i, x + j, "_");
@@ -135,17 +133,20 @@ void ui_init() {
 
 layout_t *ui_init_layout(game *g) {
     layout_t *lay = xmalloc(sizeof(layout_t));
-    win_t *map = ui_win_create(21, 60, false);
+    win_t *game = ui_win_create(21, 60, false);
     win_t *legend = ui_win_create(3, 60, false);
-    ui_win_stack(map, legend);
+    win_t *map = ui_win_create(g->map->height + 1, g->map->width + 1, false);
+    ui_win_stack(game, legend);
     ui_map_print(map, g->map);
     ui_legend_print(legend);
-    box(map->id, 0, 0);
+    box(game->id, 0, 0);
     box(legend->id, 0, 0);
     wrefresh(legend->id);
+    wrefresh(game->id);
     wrefresh(map->id);
-    lay->game = map;
+    lay->game = game;
     lay->legend = legend;
+    lay->map = map;
 
     return lay;
 }

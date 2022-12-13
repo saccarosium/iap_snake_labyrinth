@@ -42,21 +42,38 @@ int main(int argc, char *argv[]) {
         ui_init();
         ui_startmenu_init(g, &quit);
 
+        layout_t *lay;
+        if (quit != QUIT)
+            lay = ui_init_layout(g);
+
         while (!game_ended(g) && quit != QUIT) {
-            ui_init_layout(g);
+            ui_map_print(lay->map, g->map);
+            mvwaddch(lay->map->id, g->player.y, g->player.x, 'o');
+            wrefresh(lay->map->id);
+            int *a = map_get_possible_movements(g->map, g->player.y, g->player.x);
+
+            // print array of possible movements
+            // for (int i = 0; i < 4; i++) {
+            //     wprintw(stdscr, "%d", a[i]);
+            //     refresh();
+            // }
+            // wprintw(stdscr, "\n");
 
             action act = path_next(p);
 
             if (act == NONE) {
-                // user input
                 act = ui_get_input();
-                if (act == -1 || act == 0)
-                    continue;
-                else if (act == ENTER) {
-                } else if (act == QUIT) {
+                if (!a[0] && act == LEFT)
+                    act = NONE;
+                if (!a[1] && act == RIGHT)
+                    act = NONE;
+                if (!a[2] && act == UP)
+                    act = NONE;
+                if (!a[3] && act == DOWN)
+                    act = NONE;
+                if (act == QUIT) {
                     exit(1);
                 } else {
-                    // do not add to path if game returned false
                     path_push(p, act);
                     path_next(p);
                 }
