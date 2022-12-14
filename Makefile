@@ -7,7 +7,7 @@ SH = /usr/bin/env sh
 all: compile
 
 challenge: compile
-	$(SH) $(PWD)/scripts/challenge.sh
+	$(SH) ./scripts/challenge.sh
 
 compile: mkout
 	$(CC) $(CFLAGS) $(CINCLUDE) -o $(OUTNAME) src/*.c
