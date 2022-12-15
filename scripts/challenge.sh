@@ -10,6 +10,7 @@ EOF
 
 if [ -n "$1" ]; then
     file="./assets/maze$1.txt"
+    [ -f "$file" ] || exit 1
     maze="$(cat "$file")"
     rows="$(echo "$maze" | wc -l)"
     collumns="$(tail -1 "$file" | wc -m)"
@@ -22,6 +23,7 @@ else
     mazes="$(find . ./assets/*.txt | wc -l)"
     for i in $(seq 1 "$mazes"); do
         file="./assets/maze$i.txt"
+        [ -f "$file" ] || exit 1
         maze="$(cat "$file")"
         rows="$(echo "$maze" | wc -l)"
         collumns="$(tail -1 "$file" | wc -m)"
