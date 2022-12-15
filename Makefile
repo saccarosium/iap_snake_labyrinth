@@ -7,7 +7,10 @@ SH = /usr/bin/env sh
 all: compile
 
 challenge: compile
-	$(SH) ./scripts/challenge.sh
+	$(SH) ./scripts/challenge.sh $(word 2, $(MAKECMDGOALS) )
+
+%: 
+	echo "...done..."
 
 compile: mkout
 	$(CC) $(CFLAGS) $(CINCLUDE) -o $(OUTNAME) src/*.c
@@ -17,3 +20,4 @@ mkout:
 
 format:
 	clang-format -i ./src/*.c ./include/*.h
+
