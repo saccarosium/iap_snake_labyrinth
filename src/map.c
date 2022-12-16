@@ -227,26 +227,6 @@ node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes) {
     return (node **)realloc(return_nodes, sizeof(node *) * *n_nodes);
 }
 
-int *map_get_possible_movements(map *m, int y, int x) {
-    int *directions = calloc(4, sizeof(int));
-    if (x - 1 >= 0 && map_get_node(m, y, x - 1)->type != WALL) {
-        directions[0] = 1;
-    }
-
-    if (x + 1 < m->width && map_get_node(m, y, x + 1)->type != WALL) {
-        directions[1] = 1;
-    }
-
-    if (y - 1 >= 0 && map_get_node(m, y - 1, x)->type != WALL) {
-        directions[2] = 1;
-    }
-
-    if (y + 1 < m->height && map_get_node(m, y + 1, x)->type != WALL) {
-        directions[3] = 1;
-    }
-    return directions;
-}
-
 bool map_compare_node(node *a, node *b) {
     return a->x == b->x && a->y == b->y;
 }

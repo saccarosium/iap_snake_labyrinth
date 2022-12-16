@@ -53,14 +53,6 @@ int main(int argc, char *argv[]) {
     while (!game_ended(g) && quit != QUIT) {
         ui_map_print(lay->map, g->map, g->player);
 
-        // int *a = map_get_possible_movements(g->map, g->player.y,
-        // g->player.x); print array of possible movements for (int i = 0; i <
-        // 4; i++) {
-        //     wprintw(stdscr, "%d", a[i]);
-        //     refresh();
-        // }
-        // wprintw(stdscr, "\n");
-
         action act = path_next(p);
 
         if (act == NONE) {

@@ -42,7 +42,6 @@ map *map_load_from_file(char *filename, error *error_code);
 map *map_load_from_stdin(error *error);
 node **map_get_nearby_nodes(map *m, int y, int x, int *n_nodes);
 void map_set_node_type(node *n, enum nodeType t);
-int *map_get_possible_movements(map *m, int y, int x);
 bool map_compare_node(node *a, node *b);
 
 #endif // !MAP_H
