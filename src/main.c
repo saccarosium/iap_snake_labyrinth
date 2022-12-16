@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
 
         if (act == NONE) {
             act = ui_get_input();
+            act = ui_check_wall(act, g);
             if (act == QUIT) {
                 quit = QUIT;
             }
