@@ -139,6 +139,7 @@ void ui_init() {
 }
 
 void ui_end() {
+    curs_set(1);
     endwin();
 }
 
