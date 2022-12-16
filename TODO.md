@@ -12,9 +12,9 @@
 
 # Coso che gestisce UI @Luca_Saccarola
 
-- [ ] implementare un menu iniziale
-    - [ ] modalita di gioco (interattiva e AI)
-    - [ ] opzioni custom
+- [x] implementare un menu iniziale
+    - [x] modalita di gioco (interattiva e AI)
+    - [-] opzioni custom
       * navigazione (HJKL, WASD, ARROWS)
       * personaggio
       * colorscheme
