@@ -72,9 +72,9 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
             }
 
             m->grid[i * width + j].type = character;
-            if(character == COIN) {
+            if (character == COIN) {
                 m->grid[i * width + j].cost = 0;
-            } else if(character == UNEVENT) {
+            } else if (character == UNEVENT) {
                 m->grid[i * width + j].cost = 100;
             }
 
@@ -233,7 +233,7 @@ int *map_get_possible_movements(map *m, int y, int x) {
         directions[0] = 1;
     }
 
-    if (x + 1 < m->height && map_get_node(m, y, x + 1)->type != WALL) {
+    if (x + 1 < m->width && map_get_node(m, y, x + 1)->type != WALL) {
         directions[1] = 1;
     }
 
@@ -241,7 +241,7 @@ int *map_get_possible_movements(map *m, int y, int x) {
         directions[2] = 1;
     }
 
-    if (y + 1 < m->width && map_get_node(m, y + 1, x)->type != WALL) {
+    if (y + 1 < m->height && map_get_node(m, y + 1, x)->type != WALL) {
         directions[3] = 1;
     }
     return directions;
