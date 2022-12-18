@@ -1,5 +1,5 @@
 #include "../include/ui_win.h"
-#include "../include/ui_error.h"
+#include "../include/ui_utils.h"
 #include "../include/alloc.h"
 #include <ncurses.h>
 

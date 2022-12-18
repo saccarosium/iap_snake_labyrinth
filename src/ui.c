@@ -3,12 +3,25 @@
 #include "../include/game.h"
 #include "../include/map.h"
 #include "../include/path.h"
-#include "../include/ui_error.h"
+#include "../include/ui_utils.h"
 #include "../include/ui_win.h"
 #include <curses.h>
 #include <ncurses.h>
 #include <stdio.h>
 #include <string.h>
+
+void ui_init() {
+    initscr();
+    curs_set(0);
+    noecho();
+    cbreak();
+    refresh();
+}
+
+void ui_end() {
+    curs_set(1);
+    endwin();
+}
 
 void ui_legend_print(win_t *frame) {
     char *msg = "w:UP s:DOWN a:LEFT d:RIGHT";
@@ -128,19 +141,6 @@ void ui_startmenu_init(game *g, action *quit) {
             return;
         }
     }
-}
-
-void ui_init() {
-    initscr();
-    curs_set(0);
-    noecho();
-    cbreak();
-    refresh();
-}
-
-void ui_end() {
-    curs_set(1);
-    endwin();
 }
 
 layout_t *ui_init_layout(game *g) {
