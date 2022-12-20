@@ -10,12 +10,25 @@
 #include <stdio.h>
 #include <string.h>
 
+void ui_init_pallete() {
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(3, COLOR_GREEN, COLOR_BLACK);
+}
+
 void ui_init() {
     initscr();
     curs_set(0);
     noecho();
     cbreak();
+    if (!has_colors()) {
+        printw("Terminal doesn't support colors");
+        getch();
+        exit(-1);
+    }
+    start_color();
     refresh();
+    ui_init_pallete();
 }
 
 void ui_end() {
@@ -53,16 +66,22 @@ void ui_map_print(win_t *frame, map *map, vec2 player) {
                 mvwprintw(frame->id, y + i, x + j, "#");
                 break;
             case COIN:
+                wattron(frame->id, COLOR_PAIR(2));
                 mvwprintw(frame->id, y + i, x + j, "$");
+                wattroff(frame->id, COLOR_PAIR(2));
                 break;
             case UNEVENT:
+                wattron(frame->id, COLOR_PAIR(1));
                 mvwprintw(frame->id, y + i, x + j, "!");
+                wattroff(frame->id, COLOR_PAIR(1));
                 break;
             case USER:
                 mvwprintw(frame->id, y + i, x + j, " ");
                 break;
             case END:
+                wattron(frame->id, COLOR_PAIR(3));
                 mvwprintw(frame->id, y + i, x + j, "_");
+                wattroff(frame->id, COLOR_PAIR(3));
                 break;
             case DRILL:
                 mvwprintw(frame->id, y + i, x + j, "T");
