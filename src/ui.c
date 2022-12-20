@@ -23,6 +23,11 @@ void ui_end() {
     endwin();
 }
 
+void ui_stats_print(win_t *frame, game *g) {
+    mvwprintw(frame->id, 1, 1, "SCORE:%d", g->coin);
+    wrefresh(frame->id);
+}
+
 void ui_legend_print(win_t *frame) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
     mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
@@ -145,19 +150,20 @@ layout_t *ui_init_layout(game *g) {
     win_t *legend = ui_win_create(3, 60, false);
     win_t *stats = ui_win_create(3, 60, false);
     win_t *map = ui_win_create(g->map->height + 1, g->map->width + 1, false);
-    ui_win_stack(game, legend);
 
     ui_win_stack(game, legend, 0, true, false);
     ui_win_stack(game, stats, 1, false, true);
 
     ui_map_print(map, g->map, g->player);
     ui_legend_print(legend);
+    ui_stats_print(stats, g);
 
     ui_win_border(game->id);
     ui_win_border(legend->id);
     lay->game = game;
     lay->legend = legend;
     lay->map = map;
+    lay->stats = stats;
 
     return lay;
 }

@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
 
     while (!game_ended(g) && quit != QUIT) {
         ui_map_print(lay->map, g->map, g->player);
+        ui_stats_print(lay->stats, g);
 
         action act = path_next(p);
 
