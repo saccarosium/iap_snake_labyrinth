@@ -19,13 +19,15 @@ typedef struct win_t {
 typedef struct layout_t {
     win_t *game;
     win_t *legend;
+    win_t *stats;
     win_t *map;
 } layout_t;
 
 void ui_win_clear();
 void ui_win_get_center(win_t *win_t);
+void ui_win_border(WINDOW *frame);
 win_t *ui_win_term_info();
 win_t *ui_win_create(int h, int w, bool box);
-void ui_win_stack(win_t *win1, win_t *win2);
+void ui_win_stack(win_t *win1, win_t *win2, int offset, bool up, bool down);
 
 #endif // !UI_WIN_H

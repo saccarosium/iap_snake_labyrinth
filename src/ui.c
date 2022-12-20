@@ -24,13 +24,9 @@ void ui_end() {
 }
 
 void ui_legend_print(win_t *frame) {
-    char *msg = "w:UP s:DOWN a:LEFT d:RIGHT";
-    if (26 < frame->width) {
-        mvwprintw(frame->id, frame->center.y, frame->center.x - strlen(msg),
-                  "%s", msg);
-    } else {
-        ui_popup_error(WINDOW_TOO_SMALL);
-    }
+    char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
+    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+    wrefresh(frame->id);
 }
 
 // Print map onto the given window
@@ -147,15 +143,18 @@ layout_t *ui_init_layout(game *g) {
     layout_t *lay = xmalloc(sizeof(layout_t));
     win_t *game = ui_win_create(21, 60, false);
     win_t *legend = ui_win_create(3, 60, false);
+    win_t *stats = ui_win_create(3, 60, false);
     win_t *map = ui_win_create(g->map->height + 1, g->map->width + 1, false);
     ui_win_stack(game, legend);
+
+    ui_win_stack(game, legend, 0, true, false);
+    ui_win_stack(game, stats, 1, false, true);
+
     ui_map_print(map, g->map, g->player);
     ui_legend_print(legend);
-    box(game->id, 0, 0);
-    box(legend->id, 0, 0);
-    wrefresh(legend->id);
-    wrefresh(game->id);
-    wrefresh(map->id);
+
+    ui_win_border(game->id);
+    ui_win_border(legend->id);
     lay->game = game;
     lay->legend = legend;
     lay->map = map;

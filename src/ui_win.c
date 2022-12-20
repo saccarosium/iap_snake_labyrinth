@@ -8,6 +8,12 @@ void ui_win_clear() {
     refresh();
 }
 
+void ui_win_update_pos(win_t *frame) {
+    win_t *term = ui_win_term_info();
+    frame->y = (term->height - frame->height) / 2;
+    frame->x = (term->width - frame->width) / 2;
+}
+
 void ui_win_get_center(win_t *win_t) {
     win_t->center.y = win_t->height / 2;
     if (win_t->height % 2 == 0) {
@@ -52,9 +58,19 @@ win_t *ui_win_create(int h, int w, bool box) {
 }
 
 // Stack to windows on top of each other
-void ui_win_stack(win_t *win1, win_t *win2) {
+void ui_win_stack(win_t *win1, win_t *win2, int offset, bool up, bool down) {
     win_t *term = ui_win_term_info();
-    mvwin(win2->id, win1->height + win1->y, (term->width - win2->width) / 2);
+    if (up)
+        mvwin(win2->id, win1->y + win1->height - offset, (term->width - win2->width) / 2);
+    else if (down)
+        mvwin(win2->id, win1->y - win2->height + offset, (term->width - win2->width) / 2);
+
+    ui_win_update_pos(win2);
     wrefresh(win1->id);
     wrefresh(win2->id);
+}
+
+void ui_win_border(WINDOW *frame) {
+    box(frame, 0, 0);
+    wrefresh(frame);
 }

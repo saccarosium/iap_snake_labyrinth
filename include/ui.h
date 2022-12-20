@@ -13,6 +13,7 @@ void ui_startmenu_init(game *g, action *quit);
 layout_t *ui_init_layout(game *g);
 action ui_get_input();
 void ui_map_print(win_t *frame, map *map, vec2 player);
+void ui_legend_print(win_t *frame);
 action ui_check_wall(action act, game *g);
 
 #endif // !UI_H
