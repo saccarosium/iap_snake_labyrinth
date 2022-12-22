@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
     path *p = path_create();
 
     ui_init();
+    ui_splash_init();
     ui_startmenu_init(g, &quit);
 
     if (quit == QUIT) {

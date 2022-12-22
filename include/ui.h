@@ -16,5 +16,6 @@ action ui_get_input();
 void ui_map_print(win_t *frame, map *map, queue *player);
 void ui_legend_print(win_t *frame);
 void ui_stats_print(win_t *frame, game *g);
+void ui_splash_init();
 
 #endif // !UI_H

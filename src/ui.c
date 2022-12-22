@@ -47,6 +47,31 @@ void ui_legend_print(win_t *frame) {
     wrefresh(frame->id);
 }
 
+void ui_splash_print(win_t *frame, FILE *f) {
+    char c;
+    while ((c = getc(f)) != EOF)
+        waddch(frame->id, c);
+    // The function uses microseconds
+    usleep(70 * 1000);
+    wrefresh(frame->id);
+    wclear(frame->id);
+}
+
+void ui_splash_init() {
+    FILE *f;
+    char filename[20];
+    win_t *wow = ui_win_create(11, 71, false);
+    for (int i = 1; i <= 66; i++) {
+        char c = getch();
+        if (c == 'q') break;
+        sprintf(filename, "assets/frames/%d", i);
+        f = fopen(filename, "r");
+        ui_splash_print(wow, f);
+        fclose(f);
+    }
+    ui_win_clear();
+}
+
 // Print map onto the given window
 void ui_map_print(win_t *frame, map *map, queue *player) {
     int y = frame->center.y - (map->height / 2);
