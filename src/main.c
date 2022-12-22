@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    layout_t *lay = ui_init_layout(g);
+    layout_t *lay = ui_layout_init(g);
 
     while (!game_ended(g) && quit != QUIT) {
         ui_map_print(lay->map, g->map, g->player);

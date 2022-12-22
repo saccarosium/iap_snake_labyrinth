@@ -11,7 +11,7 @@
 void ui_init();
 void ui_end();
 void ui_startmenu_init(game *g, action *quit);
-layout_t *ui_init_layout(game *g);
+layout_t *ui_layout_init(game *g);
 action ui_get_input();
 void ui_map_print(win_t *frame, map *map, queue *player);
 void ui_legend_print(win_t *frame);
