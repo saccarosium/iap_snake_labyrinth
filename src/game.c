@@ -4,6 +4,18 @@
 #include "../include/alloc.h"
 #include <stdlib.h>
 
+node *game_node_create(int y, int x) {
+    node *n = malloc(sizeof(node));
+    n->x = x;
+    n->y = y;
+
+    n->cost = 0;
+    n->parent = 0;
+    n->type = 0;
+
+    return n;
+}
+
 game *game_init(map *m, error *err) {
     game *g = malloc(sizeof(game));
     if (g == NULL) {
@@ -13,8 +25,10 @@ game *game_init(map *m, error *err) {
 
     g->map = m;
 
-    g->player.x = g->map->start.x;
-    g->player.y = g->map->start.y;
+    g->player = queue_create(false);
+    node *start = game_node_create(g->map->start.y, g->map->start.x);
+
+    queue_push(g->player, start);
 
     g->coin = 0;
     g->drill = 0;
@@ -22,8 +36,13 @@ game *game_init(map *m, error *err) {
     return g;
 }
 
+node *game_get_player(game *g) {
+    return g->player->head->node;
+}
+
 bool game_ended(game *g) {
-    return g->player.x == g->map->end.x && g->player.y == g->map->end.y;
+    node *player = game_get_player(g);
+    return player->x == g->map->end.x && player->y == g->map->end.y;
 }
 
 void game_next_move(action act, int *y, int *x) {
@@ -48,7 +67,8 @@ void game_next_move(action act, int *y, int *x) {
 }
 
 void game_update_score(game *g) {
-    node *n = map_get_node(g->map, g->player.y, g->player.x);
+    node *player = game_get_player(g);
+    node *n = map_get_node(g->map, player->y, player->x);
 
     if (n->type == COIN) {
         g->coin++;
@@ -66,8 +86,9 @@ void game_update(game *g, action act) {
     if (act == NONE || act == ENTER || act == QUIT)
         return;
 
-    int x = g->player.x;
-    int y = g->player.y;
+    node *player = game_get_player(g);
+    int x = player->x;
+    int y = player->y;
 
     game_next_move(act, &y, &x);
 
@@ -83,8 +104,11 @@ void game_update(game *g, action act) {
         }
     }
 
-    g->player.x = x;
-    g->player.y = y;
+    queue_push_head(g->player, game_node_create(y, x));
+    if (next->type == COIN) {
+        queue_push(g->player, game_node_create(player->y, player->x));
+    }
+    queue_pop_last(g->player);
 
     game_update_score(g);
 }

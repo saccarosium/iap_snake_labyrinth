@@ -48,13 +48,15 @@ void ui_legend_print(win_t *frame) {
 }
 
 // Print map onto the given window
-void ui_map_print(win_t *frame, map *map, vec2 player) {
+void ui_map_print(win_t *frame, map *map, queue *player) {
     int y = frame->center.y - (map->height / 2);
     int x = frame->center.x - (map->width / 2);
     if (map->height >= frame->height) {
         ui_popup_error(WINDOW_TOO_SMALL);
         return;
     }
+
+    node *p = player->head->node;
 
     for (int i = 0; i < map->height; i++) {
         for (int j = 0; j < map->width; j++) {
@@ -87,11 +89,13 @@ void ui_map_print(win_t *frame, map *map, vec2 player) {
                 mvwprintw(frame->id, y + i, x + j, "T");
                 break;
             }
-            if (i == player.y && j == player.x) {
-                mvwaddch(frame->id, player.y, player.x, 'o');
-            }
         }
         wprintw(frame->id, "\n");
+    }
+
+    mvwaddch(frame->id, p->y + y, p->x + x, 'o');
+    for(queueNode *qn = player->head->next; qn != NULL; qn = qn->next) {
+        mvwaddch(frame->id, qn->node->y + y, qn->node->x + x, '.');
     }
     wrefresh(frame->id);
 }

@@ -3,6 +3,7 @@
 
 #include "../include/map.h"
 #include "../include/utils.h"
+#include "../include/queue.h"
 
 typedef enum game_mode {
     INTERACTIVE,
@@ -11,7 +12,7 @@ typedef enum game_mode {
 } game_mode;
 
 typedef struct game {
-    vec2 player;
+    queue *player;
     int coin;
     int drill;
     map *map;
@@ -21,5 +22,6 @@ typedef struct game {
 game *game_init(map *m, error *err);
 bool game_ended(game *g);
 void game_update(game *g, action act);
+node *game_get_player(game *g);
 
 #endif // !GAME_H

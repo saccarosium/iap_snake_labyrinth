@@ -17,8 +17,10 @@ typedef struct queue {
 
 queue *queue_create(bool priority);
 void queue_push(queue *q, node *n);
+void queue_push_head(queue *q, node *n);
 node *queue_pop(queue *q);
 node *queue_pop_last(queue *q);
+bool queue_contains_yx(queue *q, int y, int x);
 bool queue_contains(queue *q, node *n);
 void queue_remove(queue *q, node *n);
 void queue_clear(queue *q);

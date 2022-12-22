@@ -71,6 +71,15 @@ void queue_push(queue *q, node *n) {
     queue_insert_last(q, qn);
 }
 
+void queue_push_head(queue *q, node *n) {
+    q->lenght++;
+    queueNode *qn = queue_node_create(n);
+
+    qn->next = q->head;
+    q->head->prev = qn;
+    q->head = qn;
+}
+
 node *queue_pop(queue *q) {
     if (q->lenght == 0)
         return NULL;
@@ -105,14 +114,17 @@ node *queue_pop_last(queue *q) {
     return qn->node;
 }
 
-bool queue_contains(queue *q, node *n) {
-    for (queueNode *x = q->head; x != NULL; x = x->next) {
-        if (map_compare_node(x->node, n)) {
+bool queue_contains_yx(queue *q, int y, int x) {
+    for (queueNode *qn = q->head; qn != NULL; qn = qn->next) {
+        if (qn->node->x == x && qn->node->y == y) {
             return true;
         }
     }
-
     return false;
+}
+
+bool queue_contains(queue *q, node *n) {
+    return queue_contains_yx(q, n->y, n->x);
 }
 
 void queue_remove(queue *q, node *n) {
