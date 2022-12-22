@@ -121,10 +121,13 @@ void ui_map_print(win_t *frame, map *map, queue *player) {
         wprintw(frame->id, "\n");
     }
 
-    mvwaddch(frame->id, p->y + y, p->x + x, 'o');
-    for(queueNode *qn = player->head->next; qn != NULL; qn = qn->next) {
-        mvwaddch(frame->id, qn->node->y + y, qn->node->x + x, '.');
+    wattron(frame->id, A_BOLD);
+    for (queueNode *qn = player->head->next; qn != NULL; qn = qn->next) {
+        mvwaddch(frame->id, qn->node->y + y, qn->node->x + x, 'o');
     }
+    mvwaddch(frame->id, p->y + y, p->x + x, 'O');
+    wattroff(frame->id, A_BOLD);
+
     wrefresh(frame->id);
 }
 
