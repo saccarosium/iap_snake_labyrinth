@@ -213,23 +213,3 @@ action ui_get_input() {
     }
     return NONE;
 }
-
-action ui_check_wall(action act, game *g) {
-    if (act == UP) {
-        if (map_get_node(g->map, g->player.y - 1, g->player.x)->type == WALL)
-            act = NONE;
-    }
-    if (act ==  DOWN) {
-        if (map_get_node(g->map, g->player.y + 1, g->player.x)->type == WALL)
-            act = NONE;
-    }
-    if (act == LEFT) {
-        if (map_get_node(g->map, g->player.y, g->player.x - 1)->type == WALL)
-            act = NONE;
-    }
-    if (act == RIGHT) {
-        if (map_get_node(g->map, g->player.y, g->player.x + 1)->type == WALL)
-            act = NONE;
-    }
-    return act;
-}

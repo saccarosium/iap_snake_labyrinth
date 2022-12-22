@@ -75,8 +75,12 @@ void game_update(game *g, action act) {
     if (next == NULL) {
         return;
     }
-    if (next->type == WALL && g->drill > 0) {
-        g->drill--;
+    if (next->type == WALL) {
+        if (g->drill > 0) {
+            g->drill--;
+        } else {
+            return;
+        }
     }
 
     g->player.x = x;
