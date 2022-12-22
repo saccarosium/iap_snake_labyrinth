@@ -9,11 +9,19 @@
 #include <ncurses.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
-void ui_init_pallete() {
+void ui_init_colors() {
+    // If terminal doesn't support colors quit
+    if (!has_colors()) {
+        printw("Terminal doesn't support colors");
+        getch();
+        exit(-1);
+    }
+    start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
-    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(3, COLOR_GREEN, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_YELLOW, COLOR_BLACK);
 }
 
 void ui_init() {
@@ -21,14 +29,9 @@ void ui_init() {
     curs_set(0);
     noecho();
     cbreak();
-    if (!has_colors()) {
-        printw("Terminal doesn't support colors");
-        getch();
-        exit(-1);
-    }
-    start_color();
+    nodelay(stdscr, TRUE);
     refresh();
-    ui_init_pallete();
+    ui_init_colors();
 }
 
 void ui_end() {
@@ -37,7 +40,9 @@ void ui_end() {
 }
 
 void ui_stats_print(win_t *frame, game *g) {
-    mvwprintw(frame->id, 1, 1, "SCORE:%d", g->coin);
+    wattron(frame->id, A_REVERSE);
+    mvwprintw(frame->id, 1, 1, " SCORE:%d ", g->coin);
+    wattroff(frame->id, A_REVERSE);
     wrefresh(frame->id);
 }
 
@@ -93,9 +98,9 @@ void ui_map_print(win_t *frame, map *map, queue *player) {
                 mvwprintw(frame->id, y + i, x + j, "#");
                 break;
             case COIN:
-                wattron(frame->id, COLOR_PAIR(2));
+                wattron(frame->id, COLOR_PAIR(3));
                 mvwprintw(frame->id, y + i, x + j, "$");
-                wattroff(frame->id, COLOR_PAIR(2));
+                wattroff(frame->id, COLOR_PAIR(3));
                 break;
             case UNEVENT:
                 wattron(frame->id, COLOR_PAIR(1));
@@ -106,9 +111,7 @@ void ui_map_print(win_t *frame, map *map, queue *player) {
                 mvwprintw(frame->id, y + i, x + j, " ");
                 break;
             case END:
-                wattron(frame->id, COLOR_PAIR(3));
                 mvwprintw(frame->id, y + i, x + j, "_");
-                wattroff(frame->id, COLOR_PAIR(3));
                 break;
             case DRILL:
                 mvwprintw(frame->id, y + i, x + j, "T");
@@ -192,7 +195,7 @@ void ui_startmenu_init(game *g, action *quit) {
     }
 }
 
-layout_t *ui_init_layout(game *g) {
+layout_t *ui_layout_init(game *g) {
     layout_t *lay = xmalloc(sizeof(layout_t));
     win_t *game = ui_win_create(21, 60, false);
     win_t *legend = ui_win_create(3, 60, false);
