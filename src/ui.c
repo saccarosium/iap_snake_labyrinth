@@ -29,7 +29,6 @@ void ui_init() {
     curs_set(0);
     noecho();
     cbreak();
-    nodelay(stdscr, TRUE);
     refresh();
     ui_init_colors();
 }
@@ -57,24 +56,26 @@ void ui_splash_print(win_t *frame, FILE *f) {
     while ((c = getc(f)) != EOF)
         waddch(frame->id, c);
     // The function uses microseconds
-    usleep(70 * 1000);
+    usleep(100 * 1000);
     wrefresh(frame->id);
     wclear(frame->id);
 }
 
 void ui_splash_init() {
+    nodelay(stdscr, TRUE);
     FILE *f;
     char filename[20];
     win_t *wow = ui_win_create(11, 71, false);
     for (int i = 1; i <= 66; i++) {
         char c = getch();
-        if (c == 'q') break;
+        if (c == 'q' || c == 32 || c == 'c') break;
         sprintf(filename, "assets/frames/%d", i);
         f = fopen(filename, "r");
         ui_splash_print(wow, f);
         fclose(f);
     }
     ui_win_clear();
+    nodelay(stdscr, FALSE);
 }
 
 // Print map onto the given window
