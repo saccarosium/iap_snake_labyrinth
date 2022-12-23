@@ -162,6 +162,7 @@ void queue_clear(queue *q) {
     while(true) {
         if(n == NULL) break;
         queueNode *next = n->next;
+        free(n->node);
         free(n);
         n = next;
     }
@@ -179,4 +180,25 @@ int queue_size(queue *q) {
     }
 
     return size;
+}
+
+queueNode *queue_overlap(queue *q) {
+    for(queueNode *qn = q->head->next; qn != NULL; qn = qn->next) {
+        if (map_compare_node(q->head->node, qn->node)) {
+            return qn;
+        }
+    }
+    return NULL;
+}
+
+void queue_remove_from(queue *q, queueNode *qn) {
+    qn->prev->next = NULL;
+    q->tail = qn->prev;
+
+    while(qn != NULL) {
+        queueNode *next = qn->next;
+        free(qn->node);
+        free(qn);
+        qn = next;
+    }
 }
