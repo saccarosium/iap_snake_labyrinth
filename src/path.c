@@ -131,3 +131,14 @@ char *path_string(path *p) {
 
     return string;
 }
+
+void path_free(path *p) {
+    pathNode *n = p->head;
+    while (n != NULL) {
+        pathNode *next = n->next;
+        free(n);
+        n = next;
+    }
+
+    free(p);
+}

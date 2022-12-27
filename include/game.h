@@ -23,5 +23,6 @@ game *game_init(map *m, error *err);
 bool game_ended(game *g);
 void game_update(game *g, action act);
 node *game_get_player(game *g);
+void game_free(game *g);
 
 #endif // !GAME_H

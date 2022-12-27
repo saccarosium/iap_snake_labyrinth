@@ -159,5 +159,9 @@ path *backtracking_solve(map *m) {
         curr = curr->next;
     }
 
+    queue_free(path);
+    queue_free(shortest);
+    map_free(visited);
+
     return p;
 }

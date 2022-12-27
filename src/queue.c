@@ -94,7 +94,9 @@ node *queue_pop(queue *q) {
         q->head->prev = NULL;
     }
 
-    return qn->node;
+    node *n = qn->node;
+    free(qn);
+    return n;
 }
 
 node *queue_pop_last(queue *q) {
@@ -111,7 +113,9 @@ node *queue_pop_last(queue *q) {
         q->tail->next = NULL;
     }
 
-    return qn->node;
+    node *n = qn->node;
+    free(qn);
+    return n;
 }
 
 bool queue_contains_yx(queue *q, int y, int x) {
@@ -162,7 +166,6 @@ void queue_clear(queue *q) {
     while(true) {
         if(n == NULL) break;
         queueNode *next = n->next;
-        free(n->node);
         free(n);
         n = next;
     }
@@ -170,6 +173,11 @@ void queue_clear(queue *q) {
     q->head = NULL;
     q->tail = NULL;
     q->lenght = 0;
+}
+
+void queue_free(queue *q) {
+    queue_clear(q);
+    free(q);
 }
 
 int queue_size(queue *q) {

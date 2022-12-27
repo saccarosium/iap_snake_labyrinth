@@ -24,6 +24,7 @@ bool queue_contains_yx(queue *q, int y, int x);
 bool queue_contains(queue *q, node *n);
 void queue_remove(queue *q, node *n);
 void queue_clear(queue *q);
+void queue_free(queue *q);
 int queue_size(queue *q);
 queueNode *queue_overlap(queue *q);
 void queue_remove_from(queue *q, queueNode *qn);

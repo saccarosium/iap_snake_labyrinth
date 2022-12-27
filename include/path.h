@@ -33,5 +33,6 @@ action path_next(path *p);
 void path_reset(path *p);
 char path_action_to_char(action act);
 char *path_string(path *p);
+void path_free(path *p);
 
 #endif // !PATH_H

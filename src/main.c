@@ -33,7 +33,13 @@ int main(int argc, char *argv[]) {
 
     if (g->mode == CHALLENGE) {
         path *p = backtracking_solve(g->map);
-        printf("%s\n", path_string(p));
+        char *string = path_string(p);
+        printf("%s\n", string);
+
+        free(string);
+        path_free(p);
+        game_free(g);
+
         return 0;
     }
 
@@ -68,6 +74,8 @@ int main(int argc, char *argv[]) {
         game_update(g, act);
     }
     ui_end();
+
+    game_free(g);
 
     return 0;
 }

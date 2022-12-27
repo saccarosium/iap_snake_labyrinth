@@ -117,3 +117,9 @@ void game_update(game *g, action act) {
 
     game_update_score(g);
 }
+
+void game_free(game *g) {
+    map_free(g->map);
+    queue_free(g->player);
+    free(g);
+}
