@@ -17,6 +17,7 @@ typedef enum error {
     UNEXPECTED_NEW_LINE,
     // UI
     WINDOW_TOO_SMALL,
+    NO_COLORS
 } error;
 
 #endif // !UTILS_H

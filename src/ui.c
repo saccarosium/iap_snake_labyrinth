@@ -13,11 +13,8 @@
 
 void ui_init_colors() {
     // If terminal doesn't support colors quit
-    if (!has_colors()) {
-        printw("Terminal doesn't support colors");
-        getch();
-        exit(-1);
-    }
+    if (!has_colors())
+        ui_popup_error(NO_COLORS);
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
