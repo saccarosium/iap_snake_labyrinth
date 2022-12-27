@@ -30,7 +30,7 @@ game *game_init(map *m, error *err) {
 
     queue_push(g->player, start);
 
-    g->coin = 0;
+    g->score = 1000;
     g->drill = 0;
 
     return g;
@@ -71,11 +71,14 @@ void game_update_score(game *g) {
     node *n = map_get_node(g->map, player->y, player->x);
 
     if (n->type == COIN) {
-        g->coin++;
+        g->score++;
     } else if (n->type == UNEVENT) {
-        g->coin = g->coin / 2;
+        g->score = g->score / 2;
     } else if (n->type == DRILL){
         g->drill = g->drill + 3;
+        g->score--;
+    } else {
+        g->score--;
     }
 
     n->type = EMPTY;

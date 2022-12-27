@@ -40,14 +40,15 @@ void ui_end() {
 
 void ui_stats_print(win_t *frame, game *g) {
     wattron(frame->id, A_REVERSE);
-    mvwprintw(frame->id, 1, 1, " SCORE:%d ", g->coin);
+    mvwprintw(frame->id, 1, 1, " SCORE:%d ", g->score);
     wattroff(frame->id, A_REVERSE);
     wrefresh(frame->id);
 }
 
 void ui_legend_print(win_t *frame) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
-    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2),
+              "%s", msg);
     wrefresh(frame->id);
 }
 
@@ -68,7 +69,8 @@ void ui_splash_init() {
     win_t *wow = ui_win_create(11, 71, false);
     for (int i = 1; i <= 66; i++) {
         char c = getch();
-        if (c == 'q' || c == 32 || c == 'c') break;
+        if (c == 'q' || c == 32 || c == 'c')
+            break;
         sprintf(filename, "assets/frames/%d", i);
         f = fopen(filename, "r");
         ui_splash_print(wow, f);

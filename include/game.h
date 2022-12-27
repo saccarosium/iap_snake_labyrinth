@@ -13,7 +13,7 @@ typedef enum game_mode {
 
 typedef struct game {
     queue *player;
-    int coin;
+    int score;
     int drill;
     map *map;
     game_mode mode;
