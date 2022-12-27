@@ -37,15 +37,14 @@ void ui_end() {
 
 void ui_stats_print(win_t *frame, game *g) {
     wattron(frame->id, A_REVERSE);
-    mvwprintw(frame->id, 1, 1, " SCORE:%d ", g->score);
+    mvwprintw(frame->id, 1, 1, " SCORE:%d | DRILL:%d ", g->score, g->drill);
     wattroff(frame->id, A_REVERSE);
     wrefresh(frame->id);
 }
 
 void ui_legend_print(win_t *frame) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
-    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2),
-              "%s", msg);
+    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
     wrefresh(frame->id);
 }
 

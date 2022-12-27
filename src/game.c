@@ -75,7 +75,7 @@ void game_update_score(game *g) {
     } else if (n->type == UNEVENT) {
         g->score = g->score / 2;
     } else if (n->type == DRILL){
-        g->drill = g->drill + 3;
+        g->drill += 3;
         g->score--;
     } else {
         g->score--;
