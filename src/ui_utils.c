@@ -41,6 +41,7 @@ void ui_popup_error(error error_code) {
     win_t *term = ui_win_term_info();
     mvwprintw(term->id, term->center.y, term->center.x - (strlen(msg) / 2), "%s", msg);
     wrefresh(term->id);
+    free(term);
     getch();
     exit(-1);
 }

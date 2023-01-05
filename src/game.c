@@ -111,7 +111,8 @@ void game_update(game *g, action act) {
     if (next->type == COIN) {
         queue_push(g->player, game_node_create(player->y, player->x));
     }
-    queue_pop_last(g->player);
+    node *n = queue_pop_last(g->player);
+    free(n);
 
     queueNode *qn = queue_overlap(g->player);
     if (qn != NULL) {

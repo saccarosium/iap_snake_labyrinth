@@ -54,6 +54,7 @@ win_t *ui_win_create(int h, int w, bool box) {
     } else {
         ui_popup_error(WINDOW_TOO_SMALL);
     }
+    free(term);
     return frame;
 }
 

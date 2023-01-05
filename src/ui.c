@@ -5,7 +5,6 @@
 #include "../include/path.h"
 #include "../include/ui_utils.h"
 #include "../include/ui_win.h"
-#include <curses.h>
 #include <ncurses.h>
 #include <stdio.h>
 #include <string.h>
@@ -74,6 +73,7 @@ void ui_splash_init() {
     }
     ui_win_clear();
     nodelay(stdscr, FALSE);
+    free(wow);
 }
 
 // Print map onto the given window
@@ -246,4 +246,12 @@ action ui_get_input() {
         return ENTER;
     }
     return NONE;
+}
+
+void ui_layout_free(layout_t *l) {
+    free(l->game);
+    free(l->legend);
+    free(l->map);
+    free(l->stats);
+    free(l);
 }

@@ -75,7 +75,9 @@ int main(int argc, char *argv[]) {
     }
     ui_end();
 
+    path_free(p);
     game_free(g);
+    ui_layout_free(lay);
 
     return 0;
 }
