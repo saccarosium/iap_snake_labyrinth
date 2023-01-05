@@ -43,7 +43,8 @@ void ui_stats_print(win_t *frame, game *g) {
 
 void ui_legend_print(win_t *frame) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
-    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2),
+              "%s", msg);
     wrefresh(frame->id);
 }
 
@@ -122,9 +123,9 @@ void ui_map_print(win_t *frame, map *map, queue *player) {
 
     wattron(frame->id, A_BOLD);
     for (queueNode *qn = player->head->next; qn != NULL; qn = qn->next) {
-        mvwaddch(frame->id, qn->node->y + y, qn->node->x + x, 'o');
+        mvwaddch(frame->id, qn->node->y + y, qn->node->x + x, '.');
     }
-    mvwaddch(frame->id, p->y + y, p->x + x, 'O');
+    mvwaddch(frame->id, p->y + y, p->x + x, 'o');
     wattroff(frame->id, A_BOLD);
 
     wrefresh(frame->id);
