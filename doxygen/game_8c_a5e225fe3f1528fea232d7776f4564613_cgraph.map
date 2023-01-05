@@ -1,0 +1,12 @@
+<map id="game_init" name="game_init">
+<area shape="rect" id="node1" title=" " alt="" coords="5,55,84,80"/>
+<area shape="rect" id="node2" href="$game_8c.html#ab8e0e8c8666b602eac4e29bf7abec0f6" title=" " alt="" coords="132,5,264,31"/>
+<area shape="rect" id="node3" href="$queue_8c.html#afc68b8459b49d8d31661a1d22a943e3b" title=" " alt="" coords="148,55,248,80"/>
+<area shape="rect" id="node6" href="$queue_8c.html#a5ac2b2c1a4bf61db818176014d545d2c" title=" " alt="" coords="152,117,244,143"/>
+<area shape="rect" id="node4" href="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title=" " alt="" coords="539,92,605,117"/>
+<area shape="rect" id="node5" href="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title=" " alt="" coords="689,92,760,117"/>
+<area shape="rect" id="node7" href="$queue_8c.html#a7f7d8c2df0a3e13a9f2ed633dd02353b" title=" " alt="" coords="321,92,445,117"/>
+<area shape="rect" id="node8" href="$queue_8c.html#ad7d7df4086740519a5ebd0490ac0005d" title=" " alt="" coords="312,191,455,216"/>
+<area shape="rect" id="node10" href="$queue_8c.html#a3dc1445d48a39aa8d58d9399556f15ed" title=" " alt="" coords="316,141,451,167"/>
+<area shape="rect" id="node9" href="$queue_8c.html#ae2d9fdfc4ae6b427df58a480244e4ae3" title=" " alt="" coords="503,191,641,216"/>
+</map>

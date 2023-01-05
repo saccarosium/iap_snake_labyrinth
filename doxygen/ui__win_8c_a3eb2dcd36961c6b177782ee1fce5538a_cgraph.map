@@ -1,0 +1,10 @@
+<map id="ui_win_create" name="ui_win_create">
+<area shape="rect" id="node1" title=" " alt="" coords="5,131,107,156"/>
+<area shape="rect" id="node2" href="$ui__utils_8c.html#a4b76ccc1ba4270b28d9ae2543011e596" title=" " alt="" coords="155,55,261,80"/>
+<area shape="rect" id="node5" href="$ui__win_8c.html#ac710b0db33790eea643bd88ce4ef349d" title=" " alt="" coords="309,156,428,181"/>
+<area shape="rect" id="node6" href="$ui__win_8c.html#afc3e02a92429b8404d41f565a8231d46" title=" " alt="" coords="476,132,603,157"/>
+<area shape="rect" id="node7" href="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title=" " alt="" coords="506,181,573,207"/>
+<area shape="rect" id="node3" href="$ui__utils_8c.html#afbc9bfcb3efe29844303dd133c1d9bd3" title=" " alt="" coords="311,55,426,80"/>
+<area shape="rect" id="node4" href="$ui__win_8c.html#a7a7aecebadebf3f3f117656f6d56f56d" title=" " alt="" coords="322,5,415,31"/>
+<area shape="rect" id="node8" href="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title=" " alt="" coords="651,181,721,207"/>
+</map>
