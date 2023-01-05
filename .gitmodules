@@ -1,0 +1,3 @@
+[submodule "ncurses"]
+	path = ncurses
+	url = https://github.com/gittup/ncurses
