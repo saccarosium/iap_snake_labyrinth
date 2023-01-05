@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = --std=c99 -Wall -g
-CINCLUDE = -L$(PWD)/ncurses/include -lncurses
+CINCLUDE = -lncurses
 OUTNAME = build/maze
 SH = /usr/bin/env sh
 
