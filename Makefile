@@ -21,3 +21,5 @@ mkout:
 format:
 	clang-format -i ./src/*.c ./include/*.h
 
+ncurses:
+	$(SH) ./scripts/install.sh
