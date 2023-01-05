@@ -17,8 +17,8 @@ action astar_get_action(node *a, node *b) {
 }
 
 path *astar_solve(map *m) {
-    queue *q = queue_create(true);
-    queue *closed = queue_create(false);
+    queue *q = queue_create();
+    queue *closed = queue_create();
 
     node *start = map_get_node(m, m->start.y, m->start.x);
     node *end = map_get_node(m, m->end.y, m->end.x);

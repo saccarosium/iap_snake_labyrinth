@@ -2,13 +2,12 @@
 #include "../include/alloc.h"
 #include <stdio.h>
 
-queue *queue_create(bool priority) {
+queue *queue_create() {
     queue *q = xmalloc(sizeof(queue));
 
     q->head = NULL;
     q->tail = NULL;
     q->lenght = 0;
-    q->priority = priority;
 
     return q;
 }
@@ -22,36 +21,6 @@ queueNode *queue_node_create(node *n) {
     return qn;
 }
 
-void queue_insert_before(queue *q, queueNode *base, queueNode *qn) {
-    qn->next = base;
-
-    if (base->prev == NULL) {
-        q->head = qn;
-    } else {
-        queueNode *temp = base->prev;
-        temp->next = qn;
-        qn->prev = temp;
-    }
-
-    base->prev = qn;
-}
-
-bool queue_insert_priority(queue *q, queueNode *qn) {
-    for (queueNode *x = q->head; x != NULL; x = x->next) {
-        if (x->node->cost > qn->node->cost) {
-            queue_insert_before(q, x, qn);
-            return true;
-        }
-    }
-    return false;
-}
-
-void queue_insert_last(queue *q, queueNode *qn) {
-    q->tail->next = qn;
-    qn->prev = q->tail;
-    q->tail = qn;
-}
-
 void queue_push(queue *q, node *n) {
     q->lenght++;
 
@@ -62,13 +31,9 @@ void queue_push(queue *q, node *n) {
         return;
     }
 
-    if (q->priority == true) {
-        bool inserted = queue_insert_priority(q, qn);
-        if (inserted)
-            return;
-    }
-
-    queue_insert_last(q, qn);
+    q->tail->next = qn;
+    qn->prev = q->tail;
+    q->tail = qn;
 }
 
 void queue_push_head(queue *q, node *n) {

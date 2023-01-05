@@ -15,7 +15,7 @@ typedef struct queue {
     bool priority;
 } queue;
 
-queue *queue_create(bool priority);
+queue *queue_create();
 void queue_push(queue *q, node *n);
 void queue_push_head(queue *q, node *n);
 node *queue_pop(queue *q);
