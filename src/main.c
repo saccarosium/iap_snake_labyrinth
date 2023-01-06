@@ -4,6 +4,7 @@
 #include "../include/path.h"
 #include "../include/ui.h"
 #include "../include/ui_win.h"
+#include "../include/ui_utils.h"
 #include "../include/right.h"
 #include "../include/random.h"
 #include <stdio.h>
@@ -22,7 +23,7 @@ int main(int argc, char *argv[]) {
     if (mode == CHALLENGE) {
         m = map_load_from_stdin(&err);
     } else {
-        m = map_load_from_file("assets/maze3.txt", &err);
+        m = map_load_from_file(DEFAULT_MAP, &err);
     }
 
     if (m == NULL || err != 0) {
@@ -60,7 +61,7 @@ int main(int argc, char *argv[]) {
 
     if (g->mode == INTERACTIVE) {
         free(g->map);
-        char map_file[20];
+        char map_file[23];
         sprintf(map_file, "assets/maze%d.txt", g->level);
         g->map = map_load_from_file(map_file, &err);
     }
@@ -93,7 +94,7 @@ int main(int argc, char *argv[]) {
         }
         game_update(g, act);
         if (g->mode != INTERACTIVE) {
-            usleep(200 * 1000);
+            usleep(TIMEOUT);
         }
     }
 

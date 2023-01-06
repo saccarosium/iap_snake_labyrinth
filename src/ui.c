@@ -10,8 +10,14 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MENU_ITEMS 11
-#define SPLASH_FRAMES 66
+const int STRING_LENGHT = 23;
+const int MENU_ITEMS = 15;
+const int SPLASH_FRAMES = 66;
+const int LAYOUT_WIDTH = 60;
+
+/**********
+ * INIT UI
+***********/
 
 void ui_init_colors() {
     // If terminal doesn't support colors quit
@@ -37,46 +43,36 @@ void ui_end() {
     endwin();
 }
 
-void ui_stats_print(win_t *frame, game *g) {
-    wattron(frame->id, A_REVERSE);
-    mvwprintw(frame->id, 1, 1, " LEVEL:%d | SCORE:%d | DRILL:%d ", g->level, g->score, g->drill);
-    wattroff(frame->id, A_REVERSE);
-    wrefresh(frame->id);
-}
-
-void ui_legend_print(win_t *frame) {
-    char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
-    ui_win_print_centered(frame, msg);
-    wrefresh(frame->id);
-}
+/**************
+ * STARTSCREEN
+***************/
 
 void ui_splash_print(win_t *frame, FILE *f) {
     char c;
     while ((c = getc(f)) != EOF)
         waddch(frame->id, c);
     // The function uses microseconds
-    usleep(100 * 1000);
     wrefresh(frame->id);
-    wclear(frame->id);
 }
 
 void ui_splash_init() {
     nodelay(stdscr, TRUE);
-    FILE *f;
-    char filename[20];
-    win_t *splash = ui_win_create(11, 71, false);
-    win_t *label = ui_win_create(5, 71, false);
+    char filename[STRING_LENGHT];
+    win_t *splash = ui_win_create(11, 71, true);
+    win_t *label = ui_win_create(5, 71, true);
     char *msg = "<Press 'q' or 'c'>";
     ui_win_print_centered(label, msg);
-    ui_win_stack(splash, label, 0, true, false);
+    ui_win_stack(splash, label, 0, 0, false, true);
     wclear(label->id);
     for (int i = 1; i <= SPLASH_FRAMES; i++) {
         char c = getch();
         if (c == 'q' || c == 32 || c == 'c')
             break;
         sprintf(filename, "assets/frames/%d", i);
-        f = fopen(filename, "r");
+        FILE *f = fopen(filename, "r");
         ui_splash_print(splash, f);
+        usleep(TIMEOUT);
+        wclear(splash->id);
         fclose(f);
     }
     ui_screen_clear();
@@ -85,83 +81,29 @@ void ui_splash_init() {
     free(label);
 }
 
-void ui_end_screen_init(win_t *frame) {
-    char c;
-    FILE *f = fopen("assets/end_screen.txt", "r");
-    while ((c = getc(f)) != EOF)
-        waddch(frame->id, c);
-    wrefresh(frame->id);
-}
-
-// Print map onto the given window
-void ui_map_print(win_t *frame, map *map, queue *player) {
-    int y = frame->center.y - (map->height / 2);
-    int x = frame->center.x - (map->width / 2);
-    if (map->height >= frame->height) {
-        ui_popup_error(WINDOW_TOO_SMALL);
-        return;
-    }
-
-    node *p = player->head->node;
-
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            switch (map_get_node(map, i, j)->type) {
-            case EMPTY:
-                mvwprintw(frame->id, y + i, x + j, " ");
-                break;
-            case WALL:
-                mvwprintw(frame->id, y + i, x + j, "#");
-                break;
-            case COIN:
-                wattron(frame->id, COLOR_PAIR(3));
-                mvwprintw(frame->id, y + i, x + j, "$");
-                wattroff(frame->id, COLOR_PAIR(3));
-                break;
-            case UNEVENT:
-                wattron(frame->id, COLOR_PAIR(1));
-                mvwprintw(frame->id, y + i, x + j, "!");
-                wattroff(frame->id, COLOR_PAIR(1));
-                break;
-            case USER:
-                mvwprintw(frame->id, y + i, x + j, " ");
-                break;
-            case END:
-                mvwprintw(frame->id, y + i, x + j, "_");
-                break;
-            case DRILL:
-                mvwprintw(frame->id, y + i, x + j, "T");
-                break;
-            }
-        }
-        wprintw(frame->id, "\n");
-    }
-
-    wattron(frame->id, A_BOLD);
-    for (queueNode *qn = player->head->next; qn != NULL; qn = qn->next) {
-        mvwaddch(frame->id, qn->node->y + y, qn->node->x + x, '.');
-    }
-    mvwaddch(frame->id, p->y + y, p->x + x, 'o');
-    wattroff(frame->id, A_BOLD);
-
-    wrefresh(frame->id);
-}
+/************
+ * STARTMENU
+*************/
 
 void ui_startmenu_print(win_t *menu, int highlight) {
-    char choices[MENU_ITEMS][20] = {
-        "=== INTERACTIVE ===",
-        "LEVEL 1",
-        "LEVEL 2",
-        "LEVEL 3",
-        "LEVEL 4",
-        "LEVEL 5",
-        "======= A_I =======",
-        "RECURSIVE",
-        "ALWAYS RIGHT",
-        "RANDOM",
-        "QUIT"
+    char choices[MENU_ITEMS][STRING_LENGHT] = {
+        "     INTERACTIVE     ",
+        "=====================",
+        "       LEVEL 1       ",
+        "       LEVEL 2       ",
+        "       LEVEL 3       ",
+        "       LEVEL 4       ",
+        "       LEVEL 5       ",
+        "=====================",
+        "         A_I         ",
+        "=====================",
+        "     BACKTRACKING    ",
+        "     ALWAYS RIGHT    ",
+        "       RANDOM        ",
+        "=====================",
+        "        QUIT         ",
     };
-    int y = menu->center.y - (MENU_ITEMS / 2);
+    int y = 1;
     for (int i = 0; i < MENU_ITEMS; ++i) {
         if (highlight == i + 1) {
             wattron(menu->id, A_REVERSE);
@@ -169,7 +111,6 @@ void ui_startmenu_print(win_t *menu, int highlight) {
             wattroff(menu->id, A_REVERSE);
         } else {
             ui_win_print_centered_x(menu, y, choices[i]);
-            // mvwprintw(menu->id, y, x - (strlen(choices[i]) / 2), "%s", choices[i]);
         }
         ++y;
     }
@@ -177,25 +118,34 @@ void ui_startmenu_print(win_t *menu, int highlight) {
 }
 
 void ui_startmenu_init(game *g, action *quit) {
-    int highlight = 2;
+    int highlight = 3;
     int choice = 0;
-    win_t *startmenu = ui_win_term_info();
+    win_t *startmenu = ui_win_create(MENU_ITEMS + 2, 23, true);
     ui_startmenu_print(startmenu, highlight);
+    win_t *legend = ui_win_create(3, 23, true);
+    ui_win_stack(startmenu, legend, 0, 0, false, true);
+    ui_win_print_centered(legend, "w/k:UP s/j:DOWN");
+    ui_win_border(startmenu->id);
+    ui_win_border(legend->id);
     while (1) {
         action c = ui_get_input();
         switch (c) {
         case UP:
-            if (highlight == 2)
-                highlight = 11;
-            else if (highlight == 8)
+            if (highlight == 3)
+                highlight = MENU_ITEMS;
+            else if (highlight == 11)
+                highlight -= 4;
+            else if (highlight == MENU_ITEMS)
                 highlight -= 2;
             else
                 --highlight;
             break;
         case DOWN:
-            if (highlight == 11)
-                highlight = 2;
-            else if (highlight == 6)
+            if (highlight == MENU_ITEMS)
+                highlight = 3;
+            else if (highlight == 7)
+                highlight += 4;
+            else if (highlight == 13)
                 highlight += 2;
             else
                 ++highlight;
@@ -212,43 +162,103 @@ void ui_startmenu_init(game *g, action *quit) {
             break;
         }
         ui_startmenu_print(startmenu, highlight);
-        if (choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6) {
+        if (choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7) {
             g->mode = INTERACTIVE;
-            g->level = choice - 1;
-            ui_screen_clear();
-            return;
-        } else if (choice == 8) {
+            g->level = choice - 2;
+        } else if (choice == 11) {
             g->mode = AI;
-            g->level = 5;
-            ui_screen_clear();
-            return;
-        } else if (choice == 9) {
+        } else if (choice == 12) {
             g->mode = AI_RIGHT;
-            g->level = 5;
-            ui_screen_clear();
-            return;
-        } else if (choice == 10) {
+        } else if (choice == 13) {
             g->mode = AI_RANDOM;
-            g->level = 5;
-            ui_screen_clear();
-            return;
         } else if (choice == MENU_ITEMS) {
             *quit = QUIT;
+        }
+        if (choice) {
             ui_screen_clear();
             return;
         }
     }
 }
 
+/**************
+ * MAIN LAYOUT
+***************/
+
+// Print map onto the given window
+void ui_map_print(win_t *win, map *map, queue *player) {
+    int y = win->center.y - (map->height / 2);
+    int x = win->center.x - (map->width / 2);
+    if (map->height >= win->height) {
+        ui_popup_error(WINDOW_TOO_SMALL);
+        return;
+    }
+    node *p = player->head->node;
+    for (int i = 0; i < map->height; i++) {
+        for (int j = 0; j < map->width; j++) {
+            switch (map_get_node(map, i, j)->type) {
+            case EMPTY:
+                mvwprintw(win->id, y + i, x + j, " ");
+                break;
+            case WALL:
+                mvwprintw(win->id, y + i, x + j, "#");
+                break;
+            case COIN:
+                wattron(win->id, COLOR_PAIR(3));
+                mvwprintw(win->id, y + i, x + j, "$");
+                wattroff(win->id, COLOR_PAIR(3));
+                break;
+            case UNEVENT:
+                wattron(win->id, COLOR_PAIR(1));
+                mvwprintw(win->id, y + i, x + j, "!");
+                wattroff(win->id, COLOR_PAIR(1));
+                break;
+            case USER:
+                mvwprintw(win->id, y + i, x + j, " ");
+                break;
+            case END:
+                mvwprintw(win->id, y + i, x + j, "_");
+                break;
+            case DRILL:
+                mvwprintw(win->id, y + i, x + j, "T");
+                break;
+            }
+        }
+        wprintw(win->id, "\n");
+    }
+
+    // Print player with tail
+    wattron(win->id, A_BOLD);
+    for (queueNode *qn = player->head->next; qn != NULL; qn = qn->next) {
+        mvwaddch(win->id, qn->node->y + y, qn->node->x + x, '.');
+    }
+    mvwaddch(win->id, p->y + y, p->x + x, 'o');
+    wattroff(win->id, A_BOLD);
+
+    wrefresh(win->id);
+}
+
+void ui_legend_print(win_t *win) {
+    char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
+    ui_win_print_centered(win, msg);
+    wrefresh(win->id);
+}
+void ui_stats_print(win_t *frame, game *g) {
+    wattron(frame->id, A_REVERSE);
+    mvwprintw(frame->id, 1, 1, " LEVEL:%d | SCORE:%d | DRILL:%d ", g->level, g->score, g->drill);
+    wattroff(frame->id, A_REVERSE);
+    wrefresh(frame->id);
+}
+
 layout_t *ui_layout_init(game *g) {
     layout_t *lay = xmalloc(sizeof(layout_t));
-    win_t *game = ui_win_create(21, 60, false);
-    win_t *legend = ui_win_create(3, 60, false);
-    win_t *stats = ui_win_create(3, 60, false);
-    win_t *map = ui_win_create(g->map->height + 1, g->map->width + 1, false);
+    win_t *game = ui_win_create(21, LAYOUT_WIDTH, true);
+    win_t *legend = ui_win_create(3, LAYOUT_WIDTH, true);
+    win_t *stats = ui_win_create(3, LAYOUT_WIDTH, true);
+    win_t *map = ui_win_create(g->map->height + 1, g->map->width + 1, true);
 
-    ui_win_stack(game, legend, 0, true, false);
-    ui_win_stack(game, stats, 1, false, true);
+    ui_win_stack(game, legend, 0, 0, false, true);
+    ui_win_stack(game, stats, 1, 0, true, false);
 
     ui_map_print(map, g->map, g->player);
     ui_legend_print(legend);
@@ -262,33 +272,6 @@ layout_t *ui_layout_init(game *g) {
     lay->stats = stats;
 
     return lay;
-}
-
-action ui_get_input() {
-    char ch = getchar();
-    switch (ch) {
-    case 'a':
-        return LEFT;
-    case 'h':
-        return LEFT;
-    case 'd':
-        return RIGHT;
-    case 'l':
-        return RIGHT;
-    case 'w':
-        return UP;
-    case 'k':
-        return UP;
-    case 's':
-        return DOWN;
-    case 'j':
-        return DOWN;
-    case 'q':
-        return QUIT;
-    case 13:
-        return ENTER;
-    }
-    return NONE;
 }
 
 void ui_layout_free(layout_t *l) {

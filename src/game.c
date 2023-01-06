@@ -31,6 +31,7 @@ game *game_init(map *m, error *err) {
     queue_push(g->player, start);
 
     g->score = 1000;
+    g->level = DEFAULT_LEVEL;
     g->drill = 0;
 
     return g;

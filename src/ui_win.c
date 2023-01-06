@@ -4,30 +4,34 @@
 #include <string.h>
 #include <ncurses.h>
 
+// Clear the screen
 void ui_screen_clear() {
     clear();
     refresh();
 }
 
-void ui_win_clear(WINDOW *frame, bool border) {
-    wclear(frame);
-    if (border) ui_win_border(frame);
+// Clear the contents of a specific window
+void ui_win_clear(WINDOW *win, bool border) {
+    wclear(win);
+    if (border) ui_win_border(win);
 }
 
-void ui_win_update_pos(win_t *frame) {
+// Updates position a window
+void ui_win_update_pos(win_t *win) {
     win_t *term = ui_win_term_info();
-    frame->y = (term->height - frame->height) / 2;
-    frame->x = (term->width - frame->width) / 2;
+    win->y = (term->height - win->height) / 2;
+    win->x = (term->width - win->width) / 2;
 }
 
-void ui_win_get_center(win_t *win_t) {
-    win_t->center.y = win_t->height / 2;
-    if (win_t->height % 2 == 0) {
-        win_t->center.y -= 1;
+// Calculate the center of a spcific window
+void ui_win_get_center(win_t *win) {
+    win->center.y = win->height / 2;
+    if (win->height % 2 == 0) {
+        win->center.y -= 1;
     }
-    win_t->center.x = win_t->width / 2;
-    if (win_t->width % 2 == 0) {
-        win_t->center.x -= 1;
+    win->center.x = win->width / 2;
+    if (win->width % 2 == 0) {
+        win->center.x -= 1;
     }
 }
 
@@ -42,50 +46,52 @@ win_t *ui_win_term_info() {
 }
 
 // Create a window an returns a pointer to it
-win_t *ui_win_create(int h, int w, bool box) {
+win_t *ui_win_create(int h, int w, bool centered) {
     win_t *term = ui_win_term_info();
-    win_t *frame = xmalloc(sizeof(win_t));
-    frame->height = h;
-    frame->width = w;
-    if (term->height >= frame->height && term->width >= frame->width) {
-        frame->y = (term->height - frame->height) / 2;
-        frame->x = (term->width - frame->width) / 2;
-        ui_win_get_center(frame);
-        // initialize the WINDOW
-        frame->id = newwin(frame->height, frame->width, frame->y, frame->x);
-        if (box) {
-            box(frame->id, 0, 0);
+    win_t *win = xmalloc(sizeof(win_t));
+    win->height = h;
+    win->width = w;
+    if (term->height >= win->height && term->width >= win->width) {
+        if (centered) {
+            win->y = (term->height - win->height) / 2;
+            win->x = (term->width - win->width) / 2;
+        } else {
+            win->y = 0;
+            win->x = 0;
         }
-        wrefresh(frame->id);
+        ui_win_get_center(win);
+        // initialize the WINDOW
+        win->id = newwin(win->height, win->width, win->y, win->x);
+        wrefresh(win->id);
     } else {
         ui_popup_error(WINDOW_TOO_SMALL);
     }
     free(term);
-    return frame;
+    return win;
 }
 
 // Stack to windows on top of each other
-void ui_win_stack(win_t *win1, win_t *win2, int offset, bool up, bool down) {
-    win_t *term = ui_win_term_info();
+void ui_win_stack(win_t *main, win_t *moving, int y_offset, int x_offset, bool up, bool down) {
     if (up)
-        mvwin(win2->id, win1->y + win1->height - offset, (term->width - win2->width) / 2);
+        mvwin(moving->id, main->y - moving->height + y_offset, moving->x);
     else if (down)
-        mvwin(win2->id, win1->y - win2->height + offset, (term->width - win2->width) / 2);
-
-    ui_win_update_pos(win2);
-    wrefresh(win1->id);
-    wrefresh(win2->id);
+        mvwin(moving->id, main->y + main->height - y_offset, moving->x);
+    ui_win_update_pos(moving);
+    wrefresh(main->id);
+    wrefresh(moving->id);
 }
 
-void ui_win_border(WINDOW *frame) {
-    box(frame, 0, 0);
-    wrefresh(frame);
+void ui_win_border(WINDOW *win) {
+    box(win, 0, 0);
+    wrefresh(win);
 }
 
-void ui_win_print_centered(win_t *frame, char *msg) {
-    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+// Print a string at the center of the screen both in the x and y axes
+void ui_win_print_centered(win_t *win, char *msg) {
+    mvwprintw(win->id, win->center.y, win->center.x - (strlen(msg) / 2), "%s", msg);
 }
 
-void ui_win_print_centered_x(win_t *frame, int y, char *msg) {
-    mvwprintw(frame->id, y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+// Print a string at the center of the screen only in the x axe
+void ui_win_print_centered_x(win_t *win, int y, char *msg) {
+    mvwprintw(win->id, y, win->center.x - (strlen(msg) / 2), "%s", msg);
 }

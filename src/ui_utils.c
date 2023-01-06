@@ -1,6 +1,6 @@
 #include "../include/ui.h"
-#include "../include/ui_utils.h"
 #include "../include/ui_win.h"
+#include "../include/ui_utils.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,4 +45,31 @@ void ui_popup_error(error error_code) {
     free(term);
     getch();
     exit(EXIT_FAILURE);
+}
+
+action ui_get_input() {
+    char ch = getchar();
+    switch (ch) {
+    case 'a':
+        return LEFT;
+    case 'h':
+        return LEFT;
+    case 'd':
+        return RIGHT;
+    case 'l':
+        return RIGHT;
+    case 'w':
+        return UP;
+    case 'k':
+        return UP;
+    case 's':
+        return DOWN;
+    case 'j':
+        return DOWN;
+    case 'q':
+        return QUIT;
+    case 13:
+        return ENTER;
+    }
+    return NONE;
 }

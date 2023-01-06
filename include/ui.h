@@ -8,15 +8,16 @@
 #include "utils.h"
 #include "queue.h"
 
+#define TIMEOUT 120 * 1000
+
 void ui_init();
 void ui_end();
 void ui_startmenu_init(game *g, action *quit);
 void ui_layout_free(layout_t *l);
 layout_t *ui_layout_init(game *g);
-action ui_get_input();
-void ui_map_print(win_t *frame, map *map, queue *player);
-void ui_legend_print(win_t *frame);
-void ui_stats_print(win_t *frame, game *g);
+void ui_map_print(win_t *win, map *map, queue *player);
+void ui_legend_print(win_t *win);
+void ui_stats_print(win_t *win, game *g);
 void ui_splash_init();
 
 #endif // !UI_H
