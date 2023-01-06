@@ -15,6 +15,7 @@ typedef struct game {
     queue *player;
     int score;
     int drill;
+    int level;
     map *map;
     game_mode mode;
 } game;

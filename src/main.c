@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     if (mode == CHALLENGE) {
         m = map_load_from_stdin(&err);
     } else {
-        m = map_load_from_file("assets/maze2.txt", &err);
+        m = map_load_from_file("assets/maze4.txt", &err);
     }
 
     if (m == NULL || err != 0) {
@@ -56,7 +56,12 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    layout_t *lay = ui_layout_init(g);
+    if (g->mode == INTERACTIVE) {
+        free(g->map);
+        char map_file[20];
+        sprintf(map_file, "assets/maze%d.txt", g->level);
+        g->map = map_load_from_file(map_file, &err);
+    }
 
     path *p;
     if (g->mode == AI) {
