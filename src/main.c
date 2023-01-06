@@ -96,6 +96,16 @@ int main(int argc, char *argv[]) {
             usleep(200 * 1000);
         }
     }
+
+    if (game_ended(g) && quit != QUIT) {
+        ui_map_print(lay->map, g->map, g->player);
+        ui_win_clear(lay->legend->id, true);
+        ui_win_print_centered_x(lay->legend, 0, " MOVES ");
+        ui_win_print_centered(lay->legend, path_string(p));
+        wrefresh(lay->legend->id);
+        getch();
+    }
+
     ui_end();
 
     path_free(p);
