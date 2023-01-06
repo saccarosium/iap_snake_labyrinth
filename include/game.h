@@ -5,9 +5,6 @@
 #include "../include/utils.h"
 #include "../include/queue.h"
 
-#define DEFAULT_MAP "assets/maze3.txt"
-#define DEFAULT_LEVEL 3
-
 typedef enum game_mode {
     INTERACTIVE,
     AI,
