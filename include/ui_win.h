@@ -23,11 +23,14 @@ typedef struct layout_t {
     win_t *map;
 } layout_t;
 
-void ui_win_clear();
+void ui_screen_clear();
+void ui_win_clear(WINDOW *frame, bool border);
 void ui_win_get_center(win_t *win_t);
 void ui_win_border(WINDOW *frame);
 win_t *ui_win_term_info();
 win_t *ui_win_create(int h, int w, bool box);
 void ui_win_stack(win_t *win1, win_t *win2, int offset, bool up, bool down);
+void ui_win_print_centered(win_t *frame, char *msg);
+void ui_win_print_centered_x(win_t *frame, int y, char *msg);
 
 #endif // !UI_WIN_H

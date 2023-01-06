@@ -11,6 +11,7 @@
 #include <unistd.h>
 
 #define MENU_ITEMS 11
+#define SPLASH_FRAMES 66
 
 void ui_init_colors() {
     // If terminal doesn't support colors quit
@@ -45,7 +46,7 @@ void ui_stats_print(win_t *frame, game *g) {
 
 void ui_legend_print(win_t *frame) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
-    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+    ui_win_print_centered(frame, msg);
     wrefresh(frame->id);
 }
 
@@ -66,10 +67,10 @@ void ui_splash_init() {
     win_t *splash = ui_win_create(11, 71, false);
     win_t *label = ui_win_create(5, 71, false);
     char *msg = "<Press 'q' or 'c'>";
-    mvwprintw(label->id, label->center.y, label->center.x - (strlen(msg) / 2), "%s", msg);
+    ui_win_print_centered(label, msg);
     ui_win_stack(splash, label, 0, true, false);
     wclear(label->id);
-    for (int i = 1; i <= 66; i++) {
+    for (int i = 1; i <= SPLASH_FRAMES; i++) {
         char c = getch();
         if (c == 'q' || c == 32 || c == 'c')
             break;
@@ -78,10 +79,18 @@ void ui_splash_init() {
         ui_splash_print(splash, f);
         fclose(f);
     }
-    ui_win_clear();
+    ui_screen_clear();
     nodelay(stdscr, FALSE);
     free(splash);
     free(label);
+}
+
+void ui_end_screen_init(win_t *frame) {
+    char c;
+    FILE *f = fopen("assets/end_screen.txt", "r");
+    while ((c = getc(f)) != EOF)
+        waddch(frame->id, c);
+    wrefresh(frame->id);
 }
 
 // Print map onto the given window
@@ -152,16 +161,15 @@ void ui_startmenu_print(win_t *menu, int highlight) {
         "RANDOM",
         "QUIT"
     };
-    int x, y;
-    x = menu->center.x;
-    y = menu->center.y - (MENU_ITEMS / 2);
+    int y = menu->center.y - (MENU_ITEMS / 2);
     for (int i = 0; i < MENU_ITEMS; ++i) {
         if (highlight == i + 1) {
             wattron(menu->id, A_REVERSE);
-            mvwprintw(menu->id, y, x - (strlen(choices[i]) / 2), "%s", choices[i]);
+            ui_win_print_centered_x(menu, y, choices[i]);
             wattroff(menu->id, A_REVERSE);
         } else {
-            mvwprintw(menu->id, y, x - (strlen(choices[i]) / 2), "%s", choices[i]);
+            ui_win_print_centered_x(menu, y, choices[i]);
+            // mvwprintw(menu->id, y, x - (strlen(choices[i]) / 2), "%s", choices[i]);
         }
         ++y;
     }
@@ -197,7 +205,7 @@ void ui_startmenu_init(game *g, action *quit) {
             break;
         case QUIT:
             *quit = QUIT;
-            ui_win_clear();
+            ui_screen_clear();
             return;
         default:
             refresh();
@@ -207,16 +215,16 @@ void ui_startmenu_init(game *g, action *quit) {
         if (choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6) {
             g->mode = INTERACTIVE;
             g->level = choice - 1;
-            ui_win_clear();
+            ui_screen_clear();
             return;
         } else if (choice == 8 || choice == 9 || choice == 10) {
             g->mode = AI;
             g->level = 5;
-            ui_win_clear();
+            ui_screen_clear();
             return;
         } else if (choice == MENU_ITEMS) {
             *quit = QUIT;
-            ui_win_clear();
+            ui_screen_clear();
             return;
         }
     }

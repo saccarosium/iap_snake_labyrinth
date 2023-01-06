@@ -1,11 +1,17 @@
 #include "../include/ui_win.h"
 #include "../include/ui_utils.h"
 #include "../include/alloc.h"
+#include <string.h>
 #include <ncurses.h>
 
-void ui_win_clear() {
+void ui_screen_clear() {
     clear();
     refresh();
+}
+
+void ui_win_clear(WINDOW *frame, bool border) {
+    wclear(frame);
+    if (border) ui_win_border(frame);
 }
 
 void ui_win_update_pos(win_t *frame) {
@@ -74,4 +80,12 @@ void ui_win_stack(win_t *win1, win_t *win2, int offset, bool up, bool down) {
 void ui_win_border(WINDOW *frame) {
     box(frame, 0, 0);
     wrefresh(frame);
+}
+
+void ui_win_print_centered(win_t *frame, char *msg) {
+    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
+}
+
+void ui_win_print_centered_x(win_t *frame, int y, char *msg) {
+    mvwprintw(frame->id, y, frame->center.x - (strlen(msg) / 2), "%s", msg);
 }
