@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 
     if (g->mode == INTERACTIVE) {
         free(g->map);
-        char map_file[23];
+        char map_file[STRING_LENGHT];
         sprintf(map_file, "assets/maze%d.txt", g->level);
         g->map = map_load_from_file(map_file, &err);
     }

@@ -10,7 +10,6 @@
 #include <string.h>
 #include <unistd.h>
 
-const int STRING_LENGHT = 23;
 const int MENU_ITEMS = 15;
 const int SPLASH_FRAMES = 66;
 const int LAYOUT_WIDTH = 60;
@@ -86,7 +85,7 @@ void ui_splash_init() {
 *************/
 
 void ui_startmenu_print(win_t *menu, int highlight) {
-    char choices[MENU_ITEMS][STRING_LENGHT] = {
+    char choices[15][25] = {
         "     INTERACTIVE     ",
         "=====================",
         "       LEVEL 1       ",

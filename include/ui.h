@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "queue.h"
 
+#define STRING_LENGHT 23
 #define TIMEOUT 120 * 1000
 
 void ui_init();
