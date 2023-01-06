@@ -217,8 +217,18 @@ void ui_startmenu_init(game *g, action *quit) {
             g->level = choice - 1;
             ui_screen_clear();
             return;
-        } else if (choice == 8 || choice == 9 || choice == 10) {
+        } else if (choice == 8) {
             g->mode = AI;
+            g->level = 5;
+            ui_screen_clear();
+            return;
+        } else if (choice == 9) {
+            g->mode = AI_RIGHT;
+            g->level = 5;
+            ui_screen_clear();
+            return;
+        } else if (choice == 10) {
+            g->mode = AI_RANDOM;
             g->level = 5;
             ui_screen_clear();
             return;

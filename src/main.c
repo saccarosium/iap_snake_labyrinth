@@ -3,7 +3,9 @@
 #include "../include/game.h"
 #include "../include/path.h"
 #include "../include/ui.h"
+#include "../include/ui_win.h"
 #include "../include/right.h"
+#include "../include/random.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -65,11 +67,16 @@ int main(int argc, char *argv[]) {
 
     path *p;
     if (g->mode == AI) {
+        p = backtracking_solve(g->map);
+    } else if (g->mode == AI_RIGHT) {
         p = right_solve(g->map);
+    } else if (g->mode == AI_RANDOM) {
+        p = random_solve(g->map);
     } else {
         p = path_create();
     }
 
+    layout_t *lay = ui_layout_init(g);
     while (!game_ended(g) && quit != QUIT) {
         ui_map_print(lay->map, g->map, g->player);
         ui_stats_print(lay->stats, g);

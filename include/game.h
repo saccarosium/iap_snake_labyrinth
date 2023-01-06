@@ -8,6 +8,8 @@
 typedef enum game_mode {
     INTERACTIVE,
     AI,
+    AI_RIGHT,
+    AI_RANDOM,
     CHALLENGE,
 } game_mode;
 
