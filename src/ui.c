@@ -62,19 +62,25 @@ void ui_splash_init() {
     nodelay(stdscr, TRUE);
     FILE *f;
     char filename[20];
-    win_t *wow = ui_win_create(11, 71, false);
+    win_t *splash = ui_win_create(11, 71, false);
+    win_t *label = ui_win_create(5, 71, false);
+    char *msg = "<Press 'q' or 'c'>";
+    mvwprintw(label->id, label->center.y, label->center.x - (strlen(msg) / 2), "%s", msg);
+    ui_win_stack(splash, label, 0, true, false);
+    wclear(label->id);
     for (int i = 1; i <= 66; i++) {
         char c = getch();
         if (c == 'q' || c == 32 || c == 'c')
             break;
         sprintf(filename, "assets/frames/%d", i);
         f = fopen(filename, "r");
-        ui_splash_print(wow, f);
+        ui_splash_print(splash, f);
         fclose(f);
     }
     ui_win_clear();
     nodelay(stdscr, FALSE);
-    free(wow);
+    free(splash);
+    free(label);
 }
 
 // Print map onto the given window
