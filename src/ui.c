@@ -175,6 +175,8 @@ void ui_startmenu_init(action *quit, game_mode *mode, int *level) {
         }
         if (choice) {
             ui_screen_clear();
+            free(startmenu);
+            free(legend);
             return;
         }
     }
