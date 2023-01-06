@@ -10,6 +10,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#define MENU_ITEMS 11
+
 void ui_init_colors() {
     // If terminal doesn't support colors quit
     if (!has_colors())
@@ -36,15 +38,14 @@ void ui_end() {
 
 void ui_stats_print(win_t *frame, game *g) {
     wattron(frame->id, A_REVERSE);
-    mvwprintw(frame->id, 1, 1, " SCORE:%d | DRILL:%d ", g->score, g->drill);
+    mvwprintw(frame->id, 1, 1, " LEVEL:%d | SCORE:%d | DRILL:%d ", g->level, g->score, g->drill);
     wattroff(frame->id, A_REVERSE);
     wrefresh(frame->id);
 }
 
 void ui_legend_print(win_t *frame) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
-    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2),
-              "%s", msg);
+    mvwprintw(frame->id, frame->center.y, frame->center.x - (strlen(msg) / 2), "%s", msg);
     wrefresh(frame->id);
 }
 
@@ -138,17 +139,29 @@ void ui_map_print(win_t *frame, map *map, queue *player) {
 }
 
 void ui_startmenu_print(win_t *menu, int highlight) {
-    char choices[3][15] = {"INTERACTIVE", "AI", "QUIT"};
+    char choices[MENU_ITEMS][20] = {
+        "=== INTERACTIVE ===",
+        "LEVEL 1",
+        "LEVEL 2",
+        "LEVEL 3",
+        "LEVEL 4",
+        "LEVEL 5",
+        "======= A_I =======",
+        "RECURSIVE",
+        "ALWAYS RIGHT",
+        "RANDOM",
+        "QUIT"
+    };
     int x, y;
-    x = menu->center.x - 3;
-    y = menu->center.y - 2;
-    for (int i = 0; i < 3; ++i) {
+    x = menu->center.x;
+    y = menu->center.y - (MENU_ITEMS / 2);
+    for (int i = 0; i < MENU_ITEMS; ++i) {
         if (highlight == i + 1) {
             wattron(menu->id, A_REVERSE);
-            mvwprintw(menu->id, y, x, "%s", choices[i]);
+            mvwprintw(menu->id, y, x - (strlen(choices[i]) / 2), "%s", choices[i]);
             wattroff(menu->id, A_REVERSE);
         } else {
-            mvwprintw(menu->id, y, x, "%s", choices[i]);
+            mvwprintw(menu->id, y, x - (strlen(choices[i]) / 2), "%s", choices[i]);
         }
         ++y;
     }
@@ -156,7 +169,7 @@ void ui_startmenu_print(win_t *menu, int highlight) {
 }
 
 void ui_startmenu_init(game *g, action *quit) {
-    int highlight = 1;
+    int highlight = 2;
     int choice = 0;
     win_t *startmenu = ui_win_term_info();
     ui_startmenu_print(startmenu, highlight);
@@ -164,14 +177,18 @@ void ui_startmenu_init(game *g, action *quit) {
         action c = ui_get_input();
         switch (c) {
         case UP:
-            if (highlight == 1)
-                highlight = 3;
+            if (highlight == 2)
+                highlight = 11;
+            else if (highlight == 8)
+                highlight -= 2;
             else
                 --highlight;
             break;
         case DOWN:
-            if (highlight == 3)
-                highlight = 1;
+            if (highlight == 11)
+                highlight = 2;
+            else if (highlight == 6)
+                highlight += 2;
             else
                 ++highlight;
             break;
@@ -187,16 +204,17 @@ void ui_startmenu_init(game *g, action *quit) {
             break;
         }
         ui_startmenu_print(startmenu, highlight);
-        switch (choice) {
-        case 1:
+        if (choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6) {
             g->mode = INTERACTIVE;
+            g->level = choice - 1;
             ui_win_clear();
             return;
-        case 2:
+        } else if (choice == 8 || choice == 9 || choice == 10) {
             g->mode = AI;
+            g->level = 5;
             ui_win_clear();
             return;
-        case 3:
+        } else if (choice == MENU_ITEMS) {
             *quit = QUIT;
             ui_win_clear();
             return;
