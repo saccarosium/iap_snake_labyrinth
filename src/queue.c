@@ -164,14 +164,19 @@ queueNode *queue_overlap(queue *q) {
     return NULL;
 }
 
-void queue_remove_from(queue *q, queueNode *qn) {
+int queue_remove_from(queue *q, queueNode *qn) {
     qn->prev->next = NULL;
     q->tail = qn->prev;
+
+    int removed = 0;
 
     while(qn != NULL) {
         queueNode *next = qn->next;
         free(qn->node);
         free(qn);
         qn = next;
+        removed++;
     }
+
+    return removed;
 }

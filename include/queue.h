@@ -27,7 +27,7 @@ void queue_clear(queue *q);
 void queue_free(queue *q);
 int queue_size(queue *q);
 queueNode *queue_overlap(queue *q);
-void queue_remove_from(queue *q, queueNode *qn);
+int queue_remove_from(queue *q, queueNode *qn);
 
 void queue_print(queue *q);
 #endif // !QUEUE_H

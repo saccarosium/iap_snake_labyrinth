@@ -117,7 +117,8 @@ void game_update(game *g, action act) {
 
     queueNode *qn = queue_overlap(g->player);
     if (qn != NULL) {
-        queue_remove_from(g->player, qn);
+        int removed = queue_remove_from(g->player, qn);
+        g->score -= 10 * removed;
     }
 
     game_update_score(g);
