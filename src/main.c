@@ -3,6 +3,7 @@
 #include "../include/game.h"
 #include "../include/path.h"
 #include "../include/ui.h"
+#include "../include/right.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,7 +46,6 @@ int main(int argc, char *argv[]) {
     }
 
     action quit = NONE;
-    path *p = path_create();
 
     ui_init();
     ui_splash_init();
@@ -57,6 +57,13 @@ int main(int argc, char *argv[]) {
     }
 
     layout_t *lay = ui_layout_init(g);
+
+    path *p;
+    if (g->mode == AI) {
+        p = right_solve(g->map);
+    } else {
+        p = path_create();
+    }
 
     while (!game_ended(g) && quit != QUIT) {
         ui_map_print(lay->map, g->map, g->player);
@@ -73,6 +80,9 @@ int main(int argc, char *argv[]) {
             path_next(p);
         }
         game_update(g, act);
+        if (g->mode != INTERACTIVE) {
+            usleep(200 * 1000);
+        }
     }
     ui_end();
 
