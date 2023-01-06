@@ -116,7 +116,7 @@ void ui_startmenu_print(win_t *menu, int highlight) {
     wrefresh(menu->id);
 }
 
-void ui_startmenu_init(game *g, action *quit) {
+void ui_startmenu_init(action *quit, game_mode *mode, int *level) {
     int highlight = 3;
     int choice = 0;
     win_t *startmenu = ui_win_create(MENU_ITEMS + 2, 23, true);
@@ -162,14 +162,14 @@ void ui_startmenu_init(game *g, action *quit) {
         }
         ui_startmenu_print(startmenu, highlight);
         if (choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7) {
-            g->mode = INTERACTIVE;
-            g->level = choice - 2;
+            *mode = INTERACTIVE;
+            *level = choice - 2;
         } else if (choice == 11) {
-            g->mode = AI;
+            *mode = AI;
         } else if (choice == 12) {
-            g->mode = AI_RIGHT;
+            *mode = AI_RIGHT;
         } else if (choice == 13) {
-            g->mode = AI_RANDOM;
+            *mode = AI_RANDOM;
         } else if (choice == MENU_ITEMS) {
             *quit = QUIT;
         }

@@ -25,7 +25,7 @@ game *game_init(map *m, error *err) {
 
     g->map = m;
 
-    g->player = queue_create(false);
+    g->player = queue_create();
     node *start = game_node_create(g->map->start.y, g->map->start.x);
 
     queue_push(g->player, start);

@@ -19,12 +19,37 @@ int main(int argc, char *argv[]) {
     if (argc == 2 && strcmp(argv[1], "--challenge") == 0)
         mode = CHALLENGE;
 
-    map *m = NULL;
     if (mode == CHALLENGE) {
-        m = map_load_from_stdin(&err);
-    } else {
-        m = map_load_from_file(DEFAULT_MAP, &err);
+        map *m = map_load_from_stdin(&err);
+        if (m == NULL || err != 0) {
+            exit(EXIT_FAILURE);
+        }
+
+        path *p = backtracking_solve(m);
+        char *string = path_string(p);
+        printf("%s\n", string);
+
+        free(string);
+        path_free(p);
+
+        return 0;
     }
+
+    action quit = NONE;
+    int level = 0;
+
+    ui_init();
+    ui_splash_init();
+    ui_startmenu_init(&quit, &mode, &level);
+
+    if (quit == QUIT) {
+        ui_end();
+        return 0;
+    }
+
+    char map_file[STRING_LENGHT];
+    sprintf(map_file, "assets/maze%d.txt", level);
+    map *m = map_load_from_file(map_file, &err);
 
     if (m == NULL || err != 0) {
         exit(EXIT_FAILURE);
@@ -33,37 +58,6 @@ int main(int argc, char *argv[]) {
     game *g = game_init(m, &err);
     if (g == NULL || err != 0) {
         exit(EXIT_FAILURE);
-    }
-    g->mode = mode;
-
-    if (g->mode == CHALLENGE) {
-        path *p = backtracking_solve(g->map);
-        char *string = path_string(p);
-        printf("%s\n", string);
-
-        free(string);
-        path_free(p);
-        game_free(g);
-
-        return 0;
-    }
-
-    action quit = NONE;
-
-    ui_init();
-    ui_splash_init();
-    ui_startmenu_init(g, &quit);
-
-    if (quit == QUIT) {
-        ui_end();
-        return 0;
-    }
-
-    if (g->mode == INTERACTIVE) {
-        free(g->map);
-        char map_file[STRING_LENGHT];
-        sprintf(map_file, "assets/maze%d.txt", g->level);
-        g->map = map_load_from_file(map_file, &err);
     }
 
     path *p;

@@ -13,7 +13,7 @@
 
 void ui_init();
 void ui_end();
-void ui_startmenu_init(game *g, action *quit);
+void ui_startmenu_init(action *quit, game_mode *mode, int *level);
 void ui_layout_free(layout_t *l);
 layout_t *ui_layout_init(game *g);
 void ui_map_print(win_t *win, map *map, queue *player);
