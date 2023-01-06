@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     if (mode == CHALLENGE) {
         m = map_load_from_stdin(&err);
     } else {
-        m = map_load_from_file("assets/maze4.txt", &err);
+        m = map_load_from_file("assets/maze3.txt", &err);
     }
 
     if (m == NULL || err != 0) {

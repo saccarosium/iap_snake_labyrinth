@@ -71,7 +71,7 @@ void game_update_score(game *g) {
     node *n = map_get_node(g->map, player->y, player->x);
 
     if (n->type == COIN) {
-        g->score++;
+        g->score += 10;
     } else if (n->type == UNEVENT) {
         g->score = g->score / 2;
     } else if (n->type == DRILL){
