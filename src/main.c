@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     }
 
     action quit = NONE;
-    int level = 0;
+    int level = 3;
 
     ui_init();
     ui_splash_init();
@@ -59,6 +59,9 @@ int main(int argc, char *argv[]) {
     if (g == NULL || err != 0) {
         exit(EXIT_FAILURE);
     }
+
+    g->mode = mode;
+    g->level = level;
 
     path *p;
     if (g->mode == AI) {
