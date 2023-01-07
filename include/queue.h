@@ -2,17 +2,36 @@
 #define QUEUE_H
 
 #include "map.h"
+
+/**
+ * @file
+ * @brief contain functions that control the queue
+ */
+
+/**
+ * @brief the linked list node representing map node
+ *
+ * @param node the map node
+ * @param next the next link of the list
+ * @param prev the previous link of the list
+ */
 typedef struct queueNode {
     node *node;
     struct queueNode *next;
     struct queueNode *prev;
 } queueNode;
 
+/**
+ * @brief a linked list for storing a series of nodes
+ *
+ * @param head the start of the list
+ * @param tail the end of the list
+ * @param length the size of the list
+ */
 typedef struct queue {
     queueNode *head;
     queueNode *tail;
     int lenght;
-    bool priority;
 } queue;
 
 queue *queue_create();

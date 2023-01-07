@@ -7,6 +7,16 @@
 #include "game.h"
 #include <ncurses.h>
 
+/**
+ * @brief struct defining the position and size of a window
+ *
+ * @params width width of the window
+ * @params height height of the window
+ * @params x offset from the left of the screen
+ * @params y offset from the top of the screen
+ * @params center position of the center
+ * @params id window id from curses
+*/
 typedef struct win_t {
     int width;
     int height;
@@ -16,6 +26,17 @@ typedef struct win_t {
     WINDOW *id;
 } win_t;
 
+
+/**
+ * @brief struct containing what should be printed
+ *
+ * @params game pointer to game window
+ * @params legend pointer to legend window
+ * @params stats pointe to statistics window
+ * @params map pointer to map window
+ *
+ * @see win_t
+*/
 typedef struct layout_t {
     win_t *game;
     win_t *legend;

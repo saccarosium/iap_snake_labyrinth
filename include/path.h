@@ -3,6 +3,9 @@
 
 #include <stdbool.h>
 
+/**
+ * enum specifying every possible type of action
+ */
 typedef enum action {
     NONE,
     UP,
@@ -13,11 +16,24 @@ typedef enum action {
     QUIT,
 } action;
 
+/**
+ * @brief the linked list node representing an action
+ *
+ * @param act an action
+ * @params next a pointer to the next node of the list
+*/
 typedef struct pathNode {
     action act;
     struct pathNode *next;
 } pathNode;
 
+/**
+ * @brief a linked list for storing a series of actions
+ *
+ * @param head the first element of the list
+ * @param tail the last element of the list
+ * @param curr the current element of the list
+*/
 typedef struct path {
     pathNode *head;
     pathNode *tail;

@@ -3,6 +3,17 @@
 #include "../include/path.h"
 #include <stdio.h>
 
+/**
+ * @file
+ * @brief contains function to generate a moveset with the wall always on the right.
+*/
+
+/**
+ * @brief the function that calculate the next move based on an action
+ * @param pos the current position.
+ * @param act the action to do.
+ * @return next position values.
+*/
 vec2 next_move(vec2 pos, action act) {
     int x = pos.x;
     int y = pos.y;
@@ -28,6 +39,11 @@ vec2 next_move(vec2 pos, action act) {
     return nextpos;
 }
 
+/**
+ * @brief the function that calculate the path while keeping a wall on the right
+ * @param m pointer of the map.
+ * @return the path for always have a wall on the right.
+*/
 path *right_solve(map *m) {
     path *p = path_create();
     action next_inside[] = {

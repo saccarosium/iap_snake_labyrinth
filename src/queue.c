@@ -2,6 +2,15 @@
 #include "../include/alloc.h"
 #include <stdio.h>
 
+/**
+ * @file
+ * @brief contain function that control the tail.
+*/
+
+/**
+ * @brief alloc the memory for the tail.
+ * @return the pointer with the queue data.
+*/
 queue *queue_create() {
     queue *q = xmalloc(sizeof(queue));
 
@@ -12,6 +21,11 @@ queue *queue_create() {
     return q;
 }
 
+/**
+ * @brief allocate the memory for the position of the queue.
+ * @param n pointer with the current node.
+ * @return a pointer which contains the node of the queue.
+*/
 queueNode *queue_node_create(node *n) {
     queueNode *qn = xmalloc(sizeof(queueNode));
     qn->node = n;
@@ -21,6 +35,11 @@ queueNode *queue_node_create(node *n) {
     return qn;
 }
 
+/**
+ * @brief append a node to the end of the queue.
+ * @param q pointer with queue information.
+ * @param n pointer with the current node.
+*/
 void queue_push(queue *q, node *n) {
     q->lenght++;
 
@@ -36,6 +55,11 @@ void queue_push(queue *q, node *n) {
     q->tail = qn;
 }
 
+/**
+ * @brief add a node to the start of the queue.
+ * @param q pointer with queue information.
+ * @param n pointer with the current node.
+*/
 void queue_push_head(queue *q, node *n) {
     q->lenght++;
     queueNode *qn = queue_node_create(n);
@@ -45,6 +69,11 @@ void queue_push_head(queue *q, node *n) {
     q->head = qn;
 }
 
+/**
+ * @brief remove a node from the start of the queue
+ * @param q pointer with queue data.
+ * @return the node n.
+*/
 node *queue_pop(queue *q) {
     if (q->lenght == 0)
         return NULL;
@@ -64,6 +93,11 @@ node *queue_pop(queue *q) {
     return n;
 }
 
+/**
+ * @brief remove a node from the end of the queue
+ * @param q pointer with queue data.
+ * @return the node n.
+*/
 node *queue_pop_last(queue *q) {
     if (q->lenght == 0)
         return NULL;
@@ -83,6 +117,13 @@ node *queue_pop_last(queue *q) {
     return n;
 }
 
+/**
+ * @brief check if a node is in the queue.
+ * @param q pointer with the queue information.
+ * @param y y coordinates.
+ * @param x x coordinates.
+ * @return true if the coordinates of the node is  in the queue
+*/
 bool queue_contains_yx(queue *q, int y, int x) {
     for (queueNode *qn = q->head; qn != NULL; qn = qn->next) {
         if (qn->node->x == x && qn->node->y == y) {
@@ -92,10 +133,21 @@ bool queue_contains_yx(queue *q, int y, int x) {
     return false;
 }
 
+/**
+ * @brief check if a node is in the queue.
+ * @param q pointer with the queue information.
+ * @param n pointer to the node.
+ * @return true if the coordinates of the node is  in the queue
+*/
 bool queue_contains(queue *q, node *n) {
     return queue_contains_yx(q, n->y, n->x);
 }
 
+/**
+ * @brief remove a node from the queue.
+ * @param q pointer to queue data.
+ * @param n pointer to a node.
+*/
 void queue_remove(queue *q, node *n) {
     for (queueNode *x = q->head; x != NULL; x = x->next) {
         if (map_compare_node(x->node, n)) {
@@ -115,6 +167,11 @@ void queue_remove(queue *q, node *n) {
     }
 }
 
+/**
+ * @brief debug print the queue
+ *
+ * @param q pointer with queue data
+ */
 void queue_print(queue *q) {
     printf("==== length: %3d ====\n", q->lenght);
     printf("---- head: %20p ----\n", q->head);
@@ -126,6 +183,10 @@ void queue_print(queue *q) {
     printf("---- tail: %20p ----\n", q->tail);
 }
 
+/**
+ * @brief remove all the nodes from a queue
+ * @param q pointer with queue data.
+*/
 void queue_clear(queue *q) {
     queueNode *n = q->head;
     while(true) {
@@ -140,11 +201,20 @@ void queue_clear(queue *q) {
     q->lenght = 0;
 }
 
+/**
+ * @brief dealloc the memory of the queue pointer.
+ * @param q pointer with the queue data.
+*/
 void queue_free(queue *q) {
     queue_clear(q);
     free(q);
 }
 
+/**
+ * @brief calculate the cost of the queue.
+ * @param q pointer with the queue data.
+ * @return the cost of the queue.
+*/
 int queue_size(queue *q) {
     int size = 0;
 
@@ -155,6 +225,11 @@ int queue_size(queue *q) {
     return size;
 }
 
+/**
+ * @brief check if the head overlap a node.
+ * @param q pointer with the queue data.
+ * @return the queue node that overlap
+*/
 queueNode *queue_overlap(queue *q) {
     for(queueNode *qn = q->head->next; qn != NULL; qn = qn->next) {
         if (map_compare_node(q->head->node, qn->node)) {
@@ -164,6 +239,11 @@ queueNode *queue_overlap(queue *q) {
     return NULL;
 }
 
+/**
+ * @brief deallocate all the nodes after one
+ * @param q pointer with the queue data.
+ * @param qn pointer node to be removed from
+*/
 int queue_remove_from(queue *q, queueNode *qn) {
     qn->prev->next = NULL;
     q->tail = qn->prev;

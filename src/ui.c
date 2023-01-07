@@ -10,6 +10,10 @@
 #include <string.h>
 #include <unistd.h>
 
+/**
+ * @file
+ * @brief this file contains the function for the menù.
+ */
 const int MENU_ITEMS = 15;
 const int SPLASH_FRAMES = 66;
 const int LAYOUT_WIDTH = 60;
@@ -18,6 +22,9 @@ const int LAYOUT_WIDTH = 60;
  * INIT UI
 ***********/
 
+/**
+ * @brief function set the menù colour
+ */
 void ui_init_colors() {
     // If terminal doesn't support colors quit
     if (!has_colors())
@@ -28,6 +35,9 @@ void ui_init_colors() {
     init_pair(3, COLOR_YELLOW, COLOR_BLACK);
 }
 
+/**
+ * @brief function set the menù colour
+ */
 void ui_init() {
     initscr();
     curs_set(0);
@@ -37,6 +47,9 @@ void ui_init() {
     ui_init_colors();
 }
 
+/**
+ * @brief the function for closing the curses window
+ */
 void ui_end() {
     curs_set(1);
     endwin();
@@ -46,6 +59,12 @@ void ui_end() {
  * STARTSCREEN
 ***************/
 
+/**
+ * @brief print the menu and wait for user input
+ * @param action early exit option
+ * @param mode chosen gamemode
+ * @param level chosen level
+ */
 void ui_splash_print(win_t *frame, FILE *f) {
     char c;
     while ((c = getc(f)) != EOF)
@@ -54,6 +73,9 @@ void ui_splash_print(win_t *frame, FILE *f) {
     wrefresh(frame->id);
 }
 
+/**
+ * @brief function to show the initial animation
+ */
 void ui_splash_init() {
     nodelay(stdscr, TRUE);
     char filename[STRING_LENGHT];
@@ -84,6 +106,11 @@ void ui_splash_init() {
  * STARTMENU
 *************/
 
+/**
+ * @brief rappresent the menù.
+ * @param menu pointer of the menù
+ * @param highlight value currently selected
+ */
 void ui_startmenu_print(win_t *menu, int highlight) {
     char choices[15][25] = {
         "     INTERACTIVE     ",
@@ -116,6 +143,12 @@ void ui_startmenu_print(win_t *menu, int highlight) {
     wrefresh(menu->id);
 }
 
+/**
+ * @brief print the menu and wait for user input
+ * @param action early exit option
+ * @param mode chosen gamemode
+ * @param level chosen level
+*/
 void ui_startmenu_init(action *quit, game_mode *mode, int *level) {
     int highlight = 3;
     int choice = 0;
@@ -186,7 +219,12 @@ void ui_startmenu_init(action *quit, game_mode *mode, int *level) {
  * MAIN LAYOUT
 ***************/
 
-// Print map onto the given window
+/**
+ * @brief Print map onto the given window
+ * @param win pointer of the windows
+ * @param map pointer of the map
+ * @param player pointer of the player
+*/
 void ui_map_print(win_t *win, map *map, queue *player) {
     int y = win->center.y - (map->height / 2);
     int x = win->center.x - (map->width / 2);
@@ -239,11 +277,22 @@ void ui_map_print(win_t *win, map *map, queue *player) {
     wrefresh(win->id);
 }
 
+
+/**
+ * @brief print legend of the game moveset
+ * @param win pointer of the window
+*/
 void ui_legend_print(win_t *win) {
     char *msg = "w/k:UP s/j:DOWN a/h:LEFT d/l:RIGHT";
     ui_win_print_centered(win, msg);
     wrefresh(win->id);
 }
+
+/**
+ * @brief print the statistics of the game
+ * @param frame pointer where to show the statistics
+ * @param g pointer of the game.
+*/
 void ui_stats_print(win_t *frame, game *g) {
     wattron(frame->id, A_REVERSE);
     mvwprintw(frame->id, 1, 1, " LEVEL:%d | SCORE:%d | DRILL:%d ", g->level, g->score, g->drill);
@@ -251,6 +300,11 @@ void ui_stats_print(win_t *frame, game *g) {
     wrefresh(frame->id);
 }
 
+/**
+ * @brief initialize game screen. Create layout for game, legend, map and statistics
+ * @param g game pointer
+ * @return a pointer with the information that should be printed
+*/
 layout_t *ui_layout_init(game *g) {
     layout_t *lay = xmalloc(sizeof(layout_t));
     win_t *game = ui_win_create(21, LAYOUT_WIDTH, true);
@@ -275,6 +329,10 @@ layout_t *ui_layout_init(game *g) {
     return lay;
 }
 
+/**
+ * @brief l dealloc memory for the menù
+ * @param pointer of the layout
+*/
 void ui_layout_free(layout_t *l) {
     free(l->game);
     free(l->legend);

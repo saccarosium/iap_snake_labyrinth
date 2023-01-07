@@ -3,7 +3,17 @@
 #include "../include/utils.h"
 #include "../include/alloc.h"
 #include <stdlib.h>
+/**
+ * @file
+ * @brief File that countains the function relating to the player information.
+*/
 
+/**
+ * @brief storing the coordinate of a node
+ * @param x x coordiantes.
+ * @param y y coordinates.
+ * @return the pointer of the node.
+*/
 node *game_node_create(int y, int x) {
     node *n = malloc(sizeof(node));
     n->x = x;
@@ -16,6 +26,12 @@ node *game_node_create(int y, int x) {
     return n;
 }
 
+/**
+ * @brief function that initialize the game, loads the map and create the player
+ * @param m pointer to the map.
+ * @param err pointer to the exit status of the function (error type defined by the enum error)
+ * @return pointer g, pointer with game information.
+*/
 game *game_init(map *m, error *err) {
     game *g = malloc(sizeof(game));
     if (g == NULL) {
@@ -37,15 +53,31 @@ game *game_init(map *m, error *err) {
     return g;
 }
 
+/**
+ * @brief function that get the position of the player
+ * @param g pointer with game information.
+ * @return the player position.
+*/
 node *game_get_player(game *g) {
     return g->player->head->node;
 }
 
+/**
+ * @brief function that check if the player has reached the end
+ * @param g pointer with game information.
+ * @return true if the player is at the end of the map.
+*/
 bool game_ended(game *g) {
     node *player = game_get_player(g);
     return player->x == g->map->end.x && player->y == g->map->end.y;
 }
 
+/**
+ * @brief function that convert an action to a movement
+ * @param act the action the player did.
+ * @param y y node coordiantes.
+ * @param x x node coordinates.
+ */
 void game_next_move(action act, int *y, int *x) {
     switch (act) {
     case NONE:
@@ -67,6 +99,10 @@ void game_next_move(action act, int *y, int *x) {
     }
 }
 
+/**
+ * @brief function that  update the score of the game.
+ * @param g pointer with game information.
+*/
 void game_update_score(game *g) {
     node *player = game_get_player(g);
     node *n = map_get_node(g->map, player->y, player->x);
@@ -85,6 +121,12 @@ void game_update_score(game *g) {
     n->type = EMPTY;
 }
 
+/**
+ * @brief function that execute an iteration of the game
+ *
+ * @param g pointer with game information
+ * @param act action that the player did
+*/
 void game_update(game *g, action act) {
     // return false if move doesn't change state
     if (act == NONE || act == ENTER || act == QUIT)
@@ -124,6 +166,10 @@ void game_update(game *g, action act) {
     game_update_score(g);
 }
 
+/**
+ * @brief dealloc memory used by the game.
+ * @param g pointer with game information.
+*/
 void game_free(game *g) {
     map_free(g->map);
     queue_free(g->player);

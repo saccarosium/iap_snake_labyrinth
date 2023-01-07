@@ -5,6 +5,9 @@
 #include "../include/utils.h"
 #include "../include/queue.h"
 
+/**
+ * enum specifying every possible game mode
+*/
 typedef enum game_mode {
     INTERACTIVE,
     AI,
@@ -13,6 +16,16 @@ typedef enum game_mode {
     CHALLENGE,
 } game_mode;
 
+/**
+ * @brief struct defining the necessary informations for the game
+ *
+ * @param player player positions from head to end
+ * @param score current score of the game
+ * @param drill drill count that can be used
+ * @param level current level
+ * @param map pointer to the map informations
+ * @param mode current mode of the game
+*/
 typedef struct game {
     queue *player;
     int score;

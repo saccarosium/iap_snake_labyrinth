@@ -2,6 +2,16 @@
 #include "../include/path.h"
 #include "../include/queue.h"
 
+/**
+ * @file
+ * @brief this file contains functions to generate optimized moves
+*/
+
+/**
+ * @brief generate an action from two nodes
+ * @param a start node
+ * @param a end node
+ */
 action backtracking_get_action(node *a, node *b) {
     if (a->x > b->x)
         return LEFT;
@@ -14,6 +24,11 @@ action backtracking_get_action(node *a, node *b) {
 
     return NONE;
 }
+
+/**
+ * @brief clear the visited coordinates
+ * @param map visited pointer
+ */
 void visited_clear(map *visited) {
     for(int i = 0; i < visited->height; i++) {
         for(int j = 0; j < visited->width; j++) {
@@ -22,6 +37,16 @@ void visited_clear(map *visited) {
     }
 }
 
+/**
+ * @brief function that calculate a single step recursively
+ * @param m pointer to the map.
+ * @param y y coordinates node
+ * @param x x coordinates node.
+ * @param t number of drill.
+ * @param visited pointer of visited coordinates.
+ * @param path pointer of the current path
+ * @param shortest pointer of the shortest way.
+*/
 void walk(map *m, int y, int x, int t, map *visited, queue *path, queue *shortest) {
     node *vis = map_get_node(visited, y, x);
     if(vis == NULL || vis->type != 0) {
@@ -71,6 +96,11 @@ void walk(map *m, int y, int x, int t, map *visited, queue *path, queue *shortes
     map_set_node_type(vis, 0);
 }
 
+/**
+ * @brief function that calculate the shortest way.
+ * @param m pointer of the map.
+ * @return return the pointer of the shortest path
+*/
 path *backtracking_solve(map *m) {
     path *p = path_create();
 

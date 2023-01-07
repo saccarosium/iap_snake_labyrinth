@@ -3,6 +3,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+/**
+ * @file
+ * @brief contain the function to control the path.
+*/
+/**
+ * @brief alloc the path pointer.
+ * @return return the pointer
+*/
 path *path_create() {
     path *p = xmalloc(sizeof(path));
     p->head = NULL;
@@ -12,6 +20,11 @@ path *path_create() {
     return p;
 }
 
+/**
+ * @brief alloc the node pointer
+ * @param act action that the player did.
+ * @return the pointer of new the node.
+*/
 pathNode *node_create(action act) {
     pathNode *n = xmalloc(sizeof(pathNode));
     n->act = act;
@@ -19,6 +32,11 @@ pathNode *node_create(action act) {
     return n;
 }
 
+/**
+ * @brief append an action to the end of the path
+ * @param p the path pointer
+ * @param act action done by the player.
+*/
 void path_push(path *p, action act) {
     pathNode *n = node_create(act);
 
@@ -34,6 +52,11 @@ void path_push(path *p, action act) {
         p->curr = n;
 }
 
+/**
+ * @brief append an action to the start of the path
+ * @param p the path pointer
+ * @param act action done by the player.
+*/
 void path_push_head(path *p, action act) {
     pathNode *n = node_create(act);
 
@@ -48,6 +71,11 @@ void path_push_head(path *p, action act) {
     p->curr = p->head;
 }
 
+/**
+ * @brief remove an action from the start of the path
+ * @param p the path pointer
+ * @return the action to do
+*/
 action path_pop_first(path *p) {
     if (p->head == NULL)
         return NONE;
@@ -61,6 +89,11 @@ action path_pop_first(path *p) {
     return act;
 }
 
+/**
+ * @brief append an action from the end of the path
+ * @param p the path pointer
+ * @return the action to do
+*/
 action path_pop_last(path *p) {
     if (p->head == NULL)
         return NONE;
@@ -83,6 +116,11 @@ action path_pop_last(path *p) {
     return act;
 }
 
+/**
+ * @brief get the next action in the path
+ * @param p the path pointer
+ * @return the action to do
+*/
 action path_next(path *p) {
     if (p->curr == NULL)
         return NONE;
@@ -92,10 +130,19 @@ action path_next(path *p) {
     return act;
 }
 
+/**
+ * @brief reset the path.
+ * @param p pointer of the path.
+*/
 void path_reset(path *p) {
     p->curr = p->head;
 }
 
+/**
+ * @brief convert the action to a string rapresentation
+ * @param act the action that the player do.
+ * @return the corresponding string rapresentation
+*/
 char path_action_to_char(action act) {
     switch (act) {
     case NONE:
@@ -114,6 +161,12 @@ char path_action_to_char(action act) {
     return ' ';
 }
 
+
+/**
+ * @brief generate an array for the path moves.
+ * @param p pointer of the path.
+ * @return the array of the moves of the path
+*/
 char *path_string(path *p) {
     path_reset(p);
 
@@ -132,6 +185,10 @@ char *path_string(path *p) {
     return string;
 }
 
+/**
+ * @brief dealloc memory of the path.
+ * @param p pointer of thee path.
+*/
 void path_free(path *p) {
     pathNode *n = p->head;
     while (n != NULL) {

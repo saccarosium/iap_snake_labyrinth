@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     }
 
     action quit = NONE;
-    int level = 3;
+    int level = 4;
 
     ui_init();
     ui_splash_init();

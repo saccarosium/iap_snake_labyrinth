@@ -6,6 +6,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @file
+ * @brief contains the function for manage the error.
+*/
+/**
+ * @brief function that control if the player do something wrong or the map have some error
+ * @param error_code type of the error
+ * @return the string rapresentation of the error
+*/
 char* ui_decode_error(error error_code) {
     char *msg;
     switch (error_code) {
@@ -36,6 +45,10 @@ char* ui_decode_error(error error_code) {
     }
 }
 
+/**
+ * @brief the function generate a pop-up with the error.
+ * @param error_code type of the error
+*/
 void ui_popup_error(error error_code) {
     ui_screen_clear();
     char *msg = ui_decode_error(error_code);
@@ -47,6 +60,10 @@ void ui_popup_error(error error_code) {
     exit(EXIT_FAILURE);
 }
 
+/**
+ * @brief convert a keybind in an action
+ * @return the type of the action
+*/
 action ui_get_input() {
     char ch = getchar();
     switch (ch) {
