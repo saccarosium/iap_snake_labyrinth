@@ -1,9 +1,0 @@
-<map id="ui_popup_error" name="ui_popup_error">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,112,80"/>
-<area shape="rect" id="node2" href="$ui__utils_8c.html#afbc9bfcb3efe29844303dd133c1d9bd3" title=" " alt="" coords="162,5,277,31"/>
-<area shape="rect" id="node3" href="$ui__win_8c.html#a7a7aecebadebf3f3f117656f6d56f56d" title=" " alt="" coords="173,55,266,80"/>
-<area shape="rect" id="node4" href="$ui__win_8c.html#ac710b0db33790eea643bd88ce4ef349d" title=" " alt="" coords="160,104,279,129"/>
-<area shape="rect" id="node5" href="$ui__win_8c.html#afc3e02a92429b8404d41f565a8231d46" title=" " alt="" coords="327,79,453,104"/>
-<area shape="rect" id="node6" href="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title=" " alt="" coords="357,128,423,153"/>
-<area shape="rect" id="node7" href="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title=" " alt="" coords="501,128,572,153"/>
-</map>

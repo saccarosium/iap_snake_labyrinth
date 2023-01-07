@@ -1,0 +1,4 @@
+<map id="ui_win_clear" name="ui_win_clear">
+<area shape="rect" id="node1" title="Clear the contents of a specific window." alt="" coords="5,5,99,31"/>
+<area shape="rect" id="node2" href="$d__ui__win_8c.html#aa6e62b9162954bc54aa649ec00eec942" title="set the border of the window" alt="" coords="147,5,248,31"/>
+</map>

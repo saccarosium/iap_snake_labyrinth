@@ -1,0 +1,6 @@
+<map id="ui_win_term_info" name="ui_win_term_info">
+<area shape="rect" id="node1" title="Gets the current terminal info." alt="" coords="5,31,124,56"/>
+<area shape="rect" id="node2" href="$d__ui__win_8c.html#a305088bbee63f82980687782e2da5ee9" title="Calculate the center of a spcific window." alt="" coords="172,5,299,31"/>
+<area shape="rect" id="node3" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="202,55,269,80"/>
+<area shape="rect" id="node4" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="347,55,417,80"/>
+</map>

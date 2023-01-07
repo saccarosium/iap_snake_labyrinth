@@ -1,0 +1,6 @@
+<map id="queue_push_head" name="queue_push_head">
+<area shape="rect" id="node1" title="increase the queue lenght." alt="" coords="5,5,132,31"/>
+<area shape="rect" id="node2" href="$d__queue_8c.html#a3dc1445d48a39aa8d58d9399556f15ed" title="allocate the momery for the position of the queue." alt="" coords="180,5,315,31"/>
+<area shape="rect" id="node3" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="363,5,429,31"/>
+<area shape="rect" id="node4" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="477,5,548,31"/>
+</map>

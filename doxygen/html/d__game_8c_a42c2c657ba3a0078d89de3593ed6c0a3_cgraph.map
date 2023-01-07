@@ -1,0 +1,5 @@
+<map id="game_update_score" name="game_update_score">
+<area shape="rect" id="node1" title="function that update the score of the game." alt="" coords="5,31,144,56"/>
+<area shape="rect" id="node2" href="$d__game_8c.html#a12f92a9c4cd1b6901eba91c254069093" title="function that get information about the player." alt="" coords="192,5,313,31"/>
+<area shape="rect" id="node3" href="$d__map_8c.html#a8c80d137d2a24e25e7b9c65b190abc80" title="Get a node from the map Given a map and a set of coordinates, the fuctions returs the pointer to the ..." alt="" coords="199,55,306,80"/>
+</map>

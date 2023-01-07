@@ -1,0 +1,9 @@
+<map id="random_solve" name="random_solve">
+<area shape="rect" id="node1" title="generate a random moveset." alt="" coords="5,56,107,81"/>
+<area shape="rect" id="node2" href="$d__map_8c.html#a8c80d137d2a24e25e7b9c65b190abc80" title="Get a node from the map Given a map and a set of coordinates, the fuctions returs the pointer to the ..." alt="" coords="155,5,261,31"/>
+<area shape="rect" id="node3" href="$d__path_8c.html#a15a4233aa30be8c657d7b511b8e91773" title="alloc the path pointer." alt="" coords="311,57,401,83"/>
+<area shape="rect" id="node6" href="$d__path_8c.html#a312d2b5d69205c8ec0e7b61460fe4bc8" title="update information of the path" alt="" coords="167,107,249,132"/>
+<area shape="rect" id="node4" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="451,83,517,108"/>
+<area shape="rect" id="node5" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="565,83,636,108"/>
+<area shape="rect" id="node7" href="$d__path_8c.html#aff92e587423d8e459058a5c1bc60e64f" title="alloc the node pointer" alt="" coords="309,107,403,132"/>
+</map>

@@ -1,0 +1,52 @@
+<map id="ui_splash_init" name="ui_splash_init">
+<area shape="rect" id="node1" title="function to start the menù" alt="" coords="5,347,107,373"/>
+<area shape="rect" id="node2" href="$d__ui__win_8c.html#a0d45246ea5071b703e53a7a24002ed38" title="clear the screen" alt="" coords="1098,94,1211,119"/>
+<area shape="rect" id="node3" href="$d__ui_8c.html#a63f13ef35987069c01168aee1687f24f" title="function to print the font of the map." alt="" coords="155,499,264,525"/>
+<area shape="rect" id="node4" href="$d__ui__win_8c.html#a5925f4a2991e0fe8e232b1d26aed8057" title="Create a window an returns a pointer to it." alt="" coords="732,195,833,221"/>
+<area shape="rect" id="node7" href="$d__ui__win_8c.html#add8b0c5cf2cec5c907cdafe2c48aecb6" title="Print a string at the center of the screen both in the x and y axes." alt="" coords="1081,373,1228,398"/>
+<area shape="rect" id="node12" href="$d__ui__win_8c.html#a1fa360ea5b8678001044bf9fb0be9993" title="Stack to windows on top of each other." alt="" coords="161,297,258,322"/>
+<area shape="rect" id="node5" href="$d__ui__utils_8c.html#a4b76ccc1ba4270b28d9ae2543011e596" title="the function generate a pop&#45;up with the error." alt="" coords="919,297,1026,322"/>
+<area shape="rect" id="node8" href="$d__ui__win_8c.html#ac710b0db33790eea643bd88ce4ef349d" title="Gets the current terminal info." alt="" coords="1095,195,1214,221"/>
+<area shape="rect" id="node9" href="$d__ui__win_8c.html#a305088bbee63f82980687782e2da5ee9" title="Calculate the center of a spcific window." alt="" coords="1276,170,1403,195"/>
+<area shape="rect" id="node10" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="1306,650,1373,675"/>
+<area shape="rect" id="node6" href="$d__ui__utils_8c.html#afbc9bfcb3efe29844303dd133c1d9bd3" title="function that control if the player do something wrong or the map have some error" alt="" coords="1097,297,1212,322"/>
+<area shape="rect" id="node11" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="1451,650,1521,675"/>
+<area shape="rect" id="node13" href="$d__main_8c.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="353,801,403,826"/>
+<area shape="rect" id="node50" href="$d__ui__win_8c.html#a81f002862bc83bb81660ddf243d54fc6" title="Updates position a window." alt="" coords="312,131,444,157"/>
+<area shape="rect" id="node14" href="$d__backtracking_8c.html#a35a829bf859e66b61f8b577c36bd64e6" title="fuction to resolve the shortest way." alt="" coords="507,751,639,777"/>
+<area shape="rect" id="node18" href="$d__path_8c.html#a15a4233aa30be8c657d7b511b8e91773" title="alloc the path pointer." alt="" coords="737,650,828,675"/>
+<area shape="rect" id="node19" href="$d__path_8c.html#a312d2b5d69205c8ec0e7b61460fe4bc8" title="update information of the path" alt="" coords="741,601,824,626"/>
+<area shape="rect" id="node25" href="$d__game_8c.html#a842433d25b0d10f7ab03ff7b89b0a6f9" title="function that check if the player finish the game." alt="" coords="735,1297,831,1322"/>
+<area shape="rect" id="node27" href="$d__game_8c.html#a08672122e450c8a2c6c9ae34abded3ae" title="free memori used by the game." alt="" coords="531,899,614,925"/>
+<area shape="rect" id="node28" href="$d__game_8c.html#a5e225fe3f1528fea232d7776f4564613" title="function that load the map in a new pointer." alt="" coords="533,1346,612,1371"/>
+<area shape="rect" id="node30" href="$d__game_8c.html#a7020006a77c943220c7acc04879c8696" title="function that updates the score of the game." alt="" coords="523,1447,623,1473"/>
+<area shape="rect" id="node33" href="$d__map_8c.html#a4e064fd2a3d1587d52a141cd4f21e56e" title="Load map from a give file path The function loads a map from file given via the given path cheking fo..." alt="" coords="506,801,639,826"/>
+<area shape="rect" id="node34" href="$d__map_8c.html#aa37bfc7ee8f222615e074fc250905fd2" title="Load map from a stdin The function loads a map from stdin cheking for possible allocation/formatting ..." alt="" coords="500,850,645,875"/>
+<area shape="rect" id="node35" href="$d__path_8c.html#affbf0a3d01bed5da9128bcde86980de8" title="dealloc memory of the path." alt="" coords="535,949,610,974"/>
+<area shape="rect" id="node36" href="$d__path_8c.html#a6c7ef668001c5d989e86139c8549c599" title="function for the next path" alt="" coords="743,1049,822,1074"/>
+<area shape="rect" id="node37" href="$d__path_8c.html#a3d04f998ef43728fcf531941faa91a07" title="generate an array for the path moves." alt="" coords="529,1297,616,1322"/>
+<area shape="rect" id="node38" href="$d__random_8c.html#a399a01302f4960366ec7a1bfd12f0b45" title="generate a random moveset." alt="" coords="522,601,623,626"/>
+<area shape="rect" id="node39" href="$d__right_8c.html#aeca84be90bb19a3967a9a91317499528" title="the function calculate the path for have always a wall at right" alt="" coords="531,650,614,675"/>
+<area shape="rect" id="node40" href="$d__ui_8c.html#a367ef9d8fb0af32c6ccd29199fa2391a" title="the function for the end of the game" alt="" coords="543,998,603,1023"/>
+<area shape="rect" id="node41" href="$d__ui__utils_8c.html#ae0c637fbbe064bcde86dd3f913868abe" title="convert a keybind in a node type." alt="" coords="737,298,829,323"/>
+<area shape="rect" id="node42" href="$d__ui_8c.html#aa6f50ea564e0ba7375ce590a5196f12f" title="the function fo the start of the game" alt="" coords="545,1099,601,1125"/>
+<area shape="rect" id="node43" href="$d__ui_8c.html#a722c59ae85b1ad2825f5d810e810cf10" title="dealloc memory for the menù" alt="" coords="521,1149,624,1174"/>
+<area shape="rect" id="node44" href="$d__ui_8c.html#a46654a7ee6ed9737090585180def52ce" title="menage the game history information" alt="" coords="523,297,622,322"/>
+<area shape="rect" id="node45" href="$d__ui_8c.html#a816ceefe73d981cdb12104bff96f6005" title="Print map onto the given window." alt="" coords="735,347,831,373"/>
+<area shape="rect" id="node46" href="$d__ui_8c.html#a2aaa1c47cb61f69e15c8ecf9bbf1e467" title="menage the infomation of the level" alt="" coords="733,499,833,525"/>
+<area shape="rect" id="node47" href="$d__ui_8c.html#a22231b76f80192a88df5809769584267" title="function to start the selected option" alt="" coords="512,195,633,221"/>
+<area shape="rect" id="node48" href="$d__ui__win_8c.html#abf9955e68c1d939673f5e246194a623b" title="Clear the contents of a specific window." alt="" coords="526,1198,619,1223"/>
+<area shape="rect" id="node49" href="$d__ui__win_8c.html#a778046287138b372545307bc675eefa5" title="Print a string at the center of the screen only in the x axe." alt="" coords="492,1247,653,1273"/>
+<area shape="rect" id="node15" href="$d__backtracking_8c.html#af779bda974c07172b11cdbb7308f7fc2" title="function that assingns the direction of movement based on the next position." alt="" coords="701,749,864,774"/>
+<area shape="rect" id="node16" href="$d__map_8c.html#a0930b161df18ef70edfb1c40a214db49" title="Create a map filled with walls." alt="" coords="927,750,1018,775"/>
+<area shape="rect" id="node17" href="$d__map_8c.html#a1e40937d5df78e26bca4d5553814979c" title="Frees memory used by the map Frees memory used by the map by freing all the nodes,..." alt="" coords="745,973,820,998"/>
+<area shape="rect" id="node20" href="$d__queue_8c.html#af8084a085cc985175e44c1ac5bde35d3" title="alloc the memory for the tail." alt="" coords="733,1098,833,1123"/>
+<area shape="rect" id="node21" href="$d__queue_8c.html#abf604398920042a8056f257d292fe8a3" title="dealloc the memory of the queue pointer." alt="" coords="740,923,825,949"/>
+<area shape="rect" id="node22" href="$d__backtracking_8c.html#afe089b185e698479a2f723e1540a359e" title="clear the visited coordinates." alt="" coords="736,699,829,725"/>
+<area shape="rect" id="node23" href="$d__backtracking_8c.html#a040545c1ead3f342b9951491c2e0fb42" title="function for the shortest way." alt="" coords="759,874,807,899"/>
+<area shape="rect" id="node24" href="$d__queue_8c.html#a5ac2b2c1a4bf61db818176014d545d2c" title="increas the queue lenght." alt="" coords="927,1246,1019,1271"/>
+<area shape="rect" id="node26" href="$d__game_8c.html#a12f92a9c4cd1b6901eba91c254069093" title="function that get information about the player." alt="" coords="912,1447,1033,1473"/>
+<area shape="rect" id="node29" href="$d__game_8c.html#ab8e0e8c8666b602eac4e29bf7abec0f6" title="assing the position on the x and y axis to a node." alt="" coords="717,1346,849,1371"/>
+<area shape="rect" id="node31" href="$d__game_8c.html#ac3a14cae1c6eec5ce1f40f7d0802d9fc" title="function that take the next move." alt="" coords="721,1498,844,1523"/>
+<area shape="rect" id="node32" href="$d__game_8c.html#a42c2c657ba3a0078d89de3593ed6c0a3" title="function that update the score of the game." alt="" coords="713,1547,852,1573"/>
+</map>
