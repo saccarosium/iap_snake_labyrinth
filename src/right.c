@@ -64,8 +64,12 @@ path *right_solve(map *m) {
             movement = next_inside[movement];
         }
 
-        pos = next_move(pos, movement);
-        path_push(p, movement);
+        posahead = next_move(pos, movement);
+        nodeahead = map_get_node(m, posahead.y, posahead.x);
+        if (nodeahead != NULL && nodeahead->type != WALL) {
+            pos = next_move(pos, movement);
+            path_push(p, movement);
+        }
     }
 
     return p;
