@@ -1,5 +1,5 @@
 <map id="map" name="map">
-<area shape="rect" id="node1" title="Struct defining the map dimentions, its contents andthe strating and finishing position." alt="" coords="111,108,158,133"/>
+<area shape="rect" id="node1" title="Struct defining the map dimentions, its contents andthe strating and finishing position." alt="" coords="78,108,125,133"/>
 <area shape="rect" id="node2" href="$structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="5,5,56,31"/>
-<area shape="rect" id="node3" href="$structvec2.html" title="struct defining the position" alt="" coords="145,5,193,31"/>
+<area shape="rect" id="node3" href="$structvec2.html" title="struct that store a 2d point" alt="" coords="146,5,195,31"/>
 </map>

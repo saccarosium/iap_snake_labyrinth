@@ -1,8 +1,8 @@
 <map id="game" name="game">
-<area shape="rect" id="node1" title=" " alt="" coords="113,303,168,328"/>
-<area shape="rect" id="node2" href="$structqueue.html" title=" " alt="" coords="69,215,127,240"/>
-<area shape="rect" id="node3" href="$structqueue_node.html" title=" " alt="" coords="5,110,92,135"/>
-<area shape="rect" id="node4" href="$structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="27,5,78,31"/>
-<area shape="rect" id="node5" href="$structmap.html" title="Struct defining the map dimentions, its contents andthe strating and finishing position." alt="" coords="169,110,216,135"/>
-<area shape="rect" id="node6" href="$structvec2.html" title="struct defining the position" alt="" coords="169,5,217,31"/>
+<area shape="rect" id="node1" title="struct defining the necessary informations for the game" alt="" coords="115,303,170,328"/>
+<area shape="rect" id="node2" href="$structqueue.html" title="a linked list for storing a series of nodes" alt="" coords="71,215,129,240"/>
+<area shape="rect" id="node3" href="$structqueueNode.html" title="the linked list node representing map node" alt="" coords="5,110,93,135"/>
+<area shape="rect" id="node4" href="$structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="28,5,79,31"/>
+<area shape="rect" id="node5" href="$structmap.html" title="Struct defining the map dimentions, its contents andthe strating and finishing position." alt="" coords="171,110,218,135"/>
+<area shape="rect" id="node6" href="$structvec2.html" title="struct that store a 2d point" alt="" coords="170,5,219,31"/>
 </map>

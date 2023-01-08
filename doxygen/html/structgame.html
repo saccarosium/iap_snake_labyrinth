@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: game Struct Reference</title>
+<title>Snake Labyrinth: game Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">Snake Labyrinth
    </div>
   </td>
  </tr>
@@ -75,18 +75,21 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="d__game_8h_source.html">d_game.h</a>&gt;</code></p>
+<p>struct defining the necessary informations for the game  
+ <a href="structgame.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="game_8h_source.html">game.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for game:</div>
 <div class="dyncontent">
 <div class="center"><img src="structgame__coll__graph.png" border="0" usemap="#agame_coll__map" alt="Collaboration graph"/></div>
 <map name="agame_coll__map" id="agame_coll__map">
-<area shape="rect" title=" " alt="" coords="113,303,168,328"/>
-<area shape="rect" href="structqueue.html" title=" " alt="" coords="69,215,127,240"/>
-<area shape="rect" href="structqueue_node.html" title=" " alt="" coords="5,110,92,135"/>
-<area shape="rect" href="structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="27,5,78,31"/>
-<area shape="rect" href="structmap.html" title="Struct defining the map dimentions, its contents andthe strating and finishing position." alt="" coords="169,110,216,135"/>
-<area shape="rect" href="structvec2.html" title="struct defining the position" alt="" coords="169,5,217,31"/>
+<area shape="rect" title="struct defining the necessary informations for the game" alt="" coords="115,303,170,328"/>
+<area shape="rect" href="structqueue.html" title="a linked list for storing a series of nodes" alt="" coords="71,215,129,240"/>
+<area shape="rect" href="structqueueNode.html" title="the linked list node representing map node" alt="" coords="5,110,93,135"/>
+<area shape="rect" href="structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="28,5,79,31"/>
+<area shape="rect" href="structmap.html" title="Struct defining the map dimentions, its contents andthe strating and finishing position." alt="" coords="171,110,218,135"/>
+<area shape="rect" href="structvec2.html" title="struct that store a 2d point" alt="" coords="170,5,219,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -102,18 +105,19 @@ Data Fields</h2></td></tr>
 <tr class="separator:acf4d33ee4cff36f69b924471174dcb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39ecde5ff5894f7fdf91a593dd27eacc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmap.html">map</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgame.html#a39ecde5ff5894f7fdf91a593dd27eacc">map</a></td></tr>
 <tr class="separator:a39ecde5ff5894f7fdf91a593dd27eacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b91a7ea8120e37549f98786df0ad9d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="d__game_8h.html#a5d069ca8708a30d3ae09a065989ec1f7">game_mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgame.html#a9b91a7ea8120e37549f98786df0ad9d4">mode</a></td></tr>
+<tr class="memitem:a9b91a7ea8120e37549f98786df0ad9d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#a5d069ca8708a30d3ae09a065989ec1f7">game_mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgame.html#a9b91a7ea8120e37549f98786df0ad9d4">mode</a></td></tr>
 <tr class="separator:a9b91a7ea8120e37549f98786df0ad9d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="params"><dt>Parameters</dt><dd>
+<div class="textblock"><p>struct defining the necessary informations for the game </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">player</td><td>pointer of the player </td></tr>
-    <tr><td class="paramname">score</td><td>point of the game </td></tr>
-    <tr><td class="paramname">drill</td><td>number of drill </td></tr>
-    <tr><td class="paramname">level</td><td>number of the level </td></tr>
-    <tr><td class="paramname">map</td><td>poiter of the map </td></tr>
-    <tr><td class="paramname">mode</td><td>type of the game </td></tr>
+    <tr><td class="paramname">player</td><td>player positions from head to end </td></tr>
+    <tr><td class="paramname">score</td><td>current score of the game </td></tr>
+    <tr><td class="paramname">drill</td><td>drill count that can be used </td></tr>
+    <tr><td class="paramname">level</td><td>current level </td></tr>
+    <tr><td class="paramname">map</td><td>pointer to the map informations </td></tr>
+    <tr><td class="paramname">mode</td><td>current mode of the game </td></tr>
   </table>
   </dd>
 </dl>
@@ -167,7 +171,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="d__game_8h.html#a5d069ca8708a30d3ae09a065989ec1f7">game_mode</a> mode</td>
+          <td class="memname"><a class="el" href="game_8h.html#a5d069ca8708a30d3ae09a065989ec1f7">game_mode</a> mode</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -203,7 +207,7 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="d__game_8h_source.html">d_game.h</a></li>
+<li>include/<a class="el" href="game_8h_source.html">game.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

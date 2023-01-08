@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: path Struct Reference</title>
+<title>Snake Labyrinth: path Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">Snake Labyrinth
    </div>
   </td>
  </tr>
@@ -75,36 +75,36 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>node of snake  
+<p>a linked list for storing a series of actions  
  <a href="structpath.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="d__path_8h_source.html">d_path.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="path_8h_source.html">path.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for path:</div>
 <div class="dyncontent">
 <div class="center"><img src="structpath__coll__graph.png" border="0" usemap="#apath_coll__map" alt="Collaboration graph"/></div>
 <map name="apath_coll__map" id="apath_coll__map">
-<area shape="rect" title="node of snake" alt="" coords="21,123,67,148"/>
-<area shape="rect" href="structpath_node.html" title="menage node of moves" alt="" coords="5,5,83,31"/>
+<area shape="rect" title="a linked list for storing a series of actions" alt="" coords="21,123,68,148"/>
+<area shape="rect" href="structpathNode.html" title="the linked list node representing an action" alt="" coords="5,5,84,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9c840adfecda9b71dd7181725a07a1c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpath_node.html">pathNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpath.html#a9c840adfecda9b71dd7181725a07a1c4">head</a></td></tr>
+<tr class="memitem:a9c840adfecda9b71dd7181725a07a1c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpathNode.html">pathNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpath.html#a9c840adfecda9b71dd7181725a07a1c4">head</a></td></tr>
 <tr class="separator:a9c840adfecda9b71dd7181725a07a1c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae51dcfb0441af0539d75d68685554b91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpath_node.html">pathNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpath.html#ae51dcfb0441af0539d75d68685554b91">tail</a></td></tr>
+<tr class="memitem:ae51dcfb0441af0539d75d68685554b91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpathNode.html">pathNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpath.html#ae51dcfb0441af0539d75d68685554b91">tail</a></td></tr>
 <tr class="separator:ae51dcfb0441af0539d75d68685554b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b71affc67e9cc79e3471a249af6752d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpath_node.html">pathNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpath.html#a7b71affc67e9cc79e3471a249af6752d">curr</a></td></tr>
+<tr class="memitem:a7b71affc67e9cc79e3471a249af6752d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpathNode.html">pathNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpath.html#a7b71affc67e9cc79e3471a249af6752d">curr</a></td></tr>
 <tr class="separator:a7b71affc67e9cc79e3471a249af6752d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>node of snake </p>
+<div class="textblock"><p>a linked list for storing a series of actions </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">head</td><td>snake head node pointer </td></tr>
-    <tr><td class="paramname">tail</td><td>snake tail node poiter </td></tr>
-    <tr><td class="paramname">curr</td><td>current pointer </td></tr>
+    <tr><td class="paramname">head</td><td>the first element of the list </td></tr>
+    <tr><td class="paramname">tail</td><td>the last element of the list </td></tr>
+    <tr><td class="paramname">curr</td><td>the current element of the list </td></tr>
   </table>
   </dd>
 </dl>
@@ -116,7 +116,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structpath_node.html">pathNode</a>* curr</td>
+          <td class="memname"><a class="el" href="structpathNode.html">pathNode</a>* curr</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -130,7 +130,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structpath_node.html">pathNode</a>* head</td>
+          <td class="memname"><a class="el" href="structpathNode.html">pathNode</a>* head</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -144,7 +144,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structpath_node.html">pathNode</a>* tail</td>
+          <td class="memname"><a class="el" href="structpathNode.html">pathNode</a>* tail</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -152,7 +152,7 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="d__path_8h_source.html">d_path.h</a></li>
+<li>include/<a class="el" href="path_8h_source.html">path.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

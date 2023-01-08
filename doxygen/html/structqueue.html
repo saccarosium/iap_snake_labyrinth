@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: queue Struct Reference</title>
+<title>Snake Labyrinth: queue Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">Snake Labyrinth
    </div>
   </td>
  </tr>
@@ -75,30 +75,41 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="d__queue_8h_source.html">d_queue.h</a>&gt;</code></p>
+<p>a linked list for storing a series of nodes  
+ <a href="structqueue.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="queue_8h_source.html">queue.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for queue:</div>
 <div class="dyncontent">
 <div class="center"><img src="structqueue__coll__graph.png" border="0" usemap="#aqueue_coll__map" alt="Collaboration graph"/></div>
 <map name="aqueue_coll__map" id="aqueue_coll__map">
-<area shape="rect" title=" " alt="" coords="20,200,77,225"/>
-<area shape="rect" href="structqueue_node.html" title=" " alt="" coords="5,95,92,121"/>
-<area shape="rect" href="structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="23,5,74,31"/>
+<area shape="rect" title="a linked list for storing a series of nodes" alt="" coords="21,200,78,225"/>
+<area shape="rect" href="structqueueNode.html" title="the linked list node representing map node" alt="" coords="5,95,93,121"/>
+<area shape="rect" href="structnode.html" title="Struct defining the position, cost and type of node." alt="" coords="24,5,75,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a035de4b04cf372eb363c0d433d48e373"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueue_node.html">queueNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue.html#a035de4b04cf372eb363c0d433d48e373">head</a></td></tr>
+<tr class="memitem:a035de4b04cf372eb363c0d433d48e373"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueueNode.html">queueNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue.html#a035de4b04cf372eb363c0d433d48e373">head</a></td></tr>
 <tr class="separator:a035de4b04cf372eb363c0d433d48e373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab53b473f8eb76f0c8d1763e94757ecfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueue_node.html">queueNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue.html#ab53b473f8eb76f0c8d1763e94757ecfb">tail</a></td></tr>
+<tr class="memitem:ab53b473f8eb76f0c8d1763e94757ecfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueueNode.html">queueNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue.html#ab53b473f8eb76f0c8d1763e94757ecfb">tail</a></td></tr>
 <tr class="separator:ab53b473f8eb76f0c8d1763e94757ecfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf755936f91db3e22274097e7aa89ae4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue.html#abf755936f91db3e22274097e7aa89ae4">lenght</a></td></tr>
 <tr class="separator:abf755936f91db3e22274097e7aa89ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dbb80ee4185a04c1799c8c95afb2795"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue.html#a6dbb80ee4185a04c1799c8c95afb2795">priority</a></td></tr>
-<tr class="separator:a6dbb80ee4185a04c1799c8c95afb2795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>a linked list for storing a series of nodes </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">head</td><td>the start of the list </td></tr>
+    <tr><td class="paramname">tail</td><td>the end of the list </td></tr>
+    <tr><td class="paramname">length</td><td>the size of the list </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a035de4b04cf372eb363c0d433d48e373" name="a035de4b04cf372eb363c0d433d48e373"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a035de4b04cf372eb363c0d433d48e373">&#9670;&#160;</a></span>head</h2>
 
@@ -106,7 +117,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structqueue_node.html">queueNode</a>* head</td>
+          <td class="memname"><a class="el" href="structqueueNode.html">queueNode</a>* head</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -127,20 +138,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a6dbb80ee4185a04c1799c8c95afb2795" name="a6dbb80ee4185a04c1799c8c95afb2795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dbb80ee4185a04c1799c8c95afb2795">&#9670;&#160;</a></span>priority</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool priority</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ab53b473f8eb76f0c8d1763e94757ecfb" name="ab53b473f8eb76f0c8d1763e94757ecfb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab53b473f8eb76f0c8d1763e94757ecfb">&#9670;&#160;</a></span>tail</h2>
 
@@ -148,7 +145,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structqueue_node.html">queueNode</a>* tail</td>
+          <td class="memname"><a class="el" href="structqueueNode.html">queueNode</a>* tail</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -156,7 +153,7 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="d__queue_8h_source.html">d_queue.h</a></li>
+<li>include/<a class="el" href="queue_8h_source.html">queue.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

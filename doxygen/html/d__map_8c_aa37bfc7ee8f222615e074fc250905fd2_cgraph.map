@@ -1,9 +1,0 @@
-<map id="map_load_from_stdin" name="map_load_from_stdin">
-<area shape="rect" id="node1" title="Load map from a stdin The function loads a map from stdin cheking for possible allocation/formatting ..." alt="" coords="5,55,151,80"/>
-<area shape="rect" id="node2" href="$d__map_8c.html#a2e415ac6f5bd30a0c5d0e4cba43e48f5" title="menage the interaction the player has with the map element" alt="" coords="199,55,315,80"/>
-<area shape="rect" id="node3" href="$d__map_8c.html#a4c6923db51a2e62c5224dbec0d5a5b08" title="Convert char to respective enum type Given a character, the functions returns the corresponding nodeT..." alt="" coords="363,5,496,31"/>
-<area shape="rect" id="node4" href="$d__map_8c.html#a0930b161df18ef70edfb1c40a214db49" title="Create a map filled with walls." alt="" coords="384,55,475,80"/>
-<area shape="rect" id="node7" href="$d__map_8c.html#a1e40937d5df78e26bca4d5553814979c" title="Frees memory used by the map Frees memory used by the map by freing all the nodes,..." alt="" coords="392,104,467,129"/>
-<area shape="rect" id="node5" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="544,55,611,80"/>
-<area shape="rect" id="node6" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="659,55,729,80"/>
-</map>

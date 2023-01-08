@@ -1,6 +1,0 @@
-<map id="game_free" name="game_free">
-<area shape="rect" id="node1" title="free memori used by the game." alt="" coords="5,31,88,56"/>
-<area shape="rect" id="node2" href="$d__map_8c.html#a1e40937d5df78e26bca4d5553814979c" title="Frees memory used by the map Frees memory used by the map by freing all the nodes,..." alt="" coords="141,5,216,31"/>
-<area shape="rect" id="node3" href="$d__queue_8c.html#abf604398920042a8056f257d292fe8a3" title="dealloc the memory of the queue pointer." alt="" coords="136,55,221,80"/>
-<area shape="rect" id="node4" href="$d__queue_8c.html#a0996aa6c72e422580a4b2556b4773a05" title="dealloc the memory of the node tail pointer." alt="" coords="269,55,361,80"/>
-</map>

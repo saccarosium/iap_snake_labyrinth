@@ -1,8 +1,0 @@
-<map id="path_string" name="path_string">
-<area shape="rect" id="node1" title="generate an array for the path moves." alt="" coords="5,80,92,105"/>
-<area shape="rect" id="node2" href="$d__path_8c.html#aea5f14db583d9d2a745b0bad67e5f18d" title="convert the action to a keybind." alt="" coords="140,5,279,31"/>
-<area shape="rect" id="node3" href="$d__path_8c.html#a6c7ef668001c5d989e86139c8549c599" title="function for the next path" alt="" coords="170,55,249,80"/>
-<area shape="rect" id="node4" href="$d__path_8c.html#a62d09e82df05ad0c33c862f28e6e053f" title="reset the path." alt="" coords="168,104,251,129"/>
-<area shape="rect" id="node5" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="176,153,243,179"/>
-<area shape="rect" id="node6" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="327,153,397,179"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="queue_create" name="queue_create">
-<area shape="rect" id="node1" title="alloc the memory for the tail." alt="" coords="5,5,105,31"/>
-<area shape="rect" id="node2" href="$d__alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b" title="alloc memory for a pointer." alt="" coords="153,5,220,31"/>
-<area shape="rect" id="node3" href="$d__alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f" title="check if the the malloc allocate the memory." alt="" coords="268,5,339,31"/>
-</map>

@@ -1,4 +1,4 @@
 <map id="path" name="path">
-<area shape="rect" id="node1" title="node of snake" alt="" coords="21,123,67,148"/>
-<area shape="rect" id="node2" href="$structpath_node.html" title="menage node of moves" alt="" coords="5,5,83,31"/>
+<area shape="rect" id="node1" title="a linked list for storing a series of actions" alt="" coords="21,123,68,148"/>
+<area shape="rect" id="node2" href="$structpathNode.html" title="the linked list node representing an action" alt="" coords="5,5,84,31"/>
 </map>
