@@ -116,7 +116,7 @@ map *load_from_buffer(char *buffer, int height, int width, error *error) {
 
             m->grid[i * width + j].type = character;
             if (character == COIN) {
-                m->grid[i * width + j].cost = 0;
+                m->grid[i * width + j].cost = -10;
             } else if (character == UNEVENT) {
                 m->grid[i * width + j].cost = 100;
             }

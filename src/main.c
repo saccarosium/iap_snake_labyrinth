@@ -1,4 +1,3 @@
-#include "../include/astar.h"
 #include "../include/backtracking.h"
 #include "../include/game.h"
 #include "../include/path.h"
@@ -36,7 +35,7 @@ int main(int argc, char *argv[]) {
     }
 
     action quit = NONE;
-    int level = 4;
+    int level = 3;
 
     ui_init();
     ui_splash_init();
