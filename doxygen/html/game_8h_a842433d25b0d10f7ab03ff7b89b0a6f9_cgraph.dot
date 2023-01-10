@@ -1,0 +1,11 @@
+digraph "game_ended"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="game_ended",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="function that check if the player has reached the end"];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="game_get_player",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$game_8c.html#a12f92a9c4cd1b6901eba91c254069093",tooltip="function that get the position of the player"];
+}

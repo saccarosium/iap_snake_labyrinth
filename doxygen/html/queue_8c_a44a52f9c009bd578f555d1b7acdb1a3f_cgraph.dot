@@ -1,0 +1,15 @@
+digraph "queue_push_head"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="queue_push_head",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="add a node to the start of the queue."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="queue_node_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$queue_8c.html#a3dc1445d48a39aa8d58d9399556f15ed",tooltip="allocate the memory for the position of the queue."];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="xmalloc",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b",tooltip="alloc memory for a pointer."];
+  Node3 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="checked",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f",tooltip="check if the the malloc allocate the memory."];
+}

@@ -1,0 +1,22 @@
+digraph "random_solve"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="random_solve",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="generate a random moveset."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="map_get_node",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$map_8c.html#a8c80d137d2a24e25e7b9c65b190abc80",tooltip="Get a node from the map Given a map and a set of coordinates, the fuctions returs the pointer to the ..."];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="path_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html#a15a4233aa30be8c657d7b511b8e91773",tooltip="alloc the path pointer."];
+  Node3 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="xmalloc",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b",tooltip="alloc memory for a pointer."];
+  Node4 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="checked",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f",tooltip="check if the the malloc allocate the memory."];
+  Node1 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="path_push",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html#a312d2b5d69205c8ec0e7b61460fe4bc8",tooltip="append an action to the end of the path"];
+  Node6 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="node_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html#aff92e587423d8e459058a5c1bc60e64f",tooltip="alloc the node pointer"];
+  Node7 -> Node4 [color="steelblue1",style="solid"];
+}

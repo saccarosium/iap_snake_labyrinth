@@ -1,0 +1,11 @@
+digraph "visited_clear"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="visited_clear",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="clear the visited coordinates"];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="map_get_node",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$map_8c.html#a8c80d137d2a24e25e7b9c65b190abc80",tooltip="Get a node from the map Given a map and a set of coordinates, the fuctions returs the pointer to the ..."];
+}

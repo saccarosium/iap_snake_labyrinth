@@ -1,0 +1,19 @@
+digraph "path_string"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="path_string",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="generate an array for the path moves."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="path_action_to_char",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html#aea5f14db583d9d2a745b0bad67e5f18d",tooltip="convert the action to a string rapresentation"];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="path_next",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html#a6c7ef668001c5d989e86139c8549c599",tooltip="get the next action in the path"];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="path_reset",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html#a62d09e82df05ad0c33c862f28e6e053f",tooltip="reset the path."];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="xmalloc",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b",tooltip="alloc memory for a pointer."];
+  Node5 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="checked",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f",tooltip="check if the the malloc allocate the memory."];
+}

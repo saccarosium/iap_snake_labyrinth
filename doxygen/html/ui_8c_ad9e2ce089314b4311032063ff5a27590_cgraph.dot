@@ -1,0 +1,25 @@
+digraph "ui_init_colors"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="ui_init_colors",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="function set the menù colour"];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="ui_popup_error",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__utils_8c.html#a4b76ccc1ba4270b28d9ae2543011e596",tooltip="the function generate a pop-up with the error."];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="ui_decode_error",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__utils_8c.html#afbc9bfcb3efe29844303dd133c1d9bd3",tooltip="function that control if the player do something wrong or the map have some error"];
+  Node2 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="ui_screen_clear",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__win_8c.html#a0d45246ea5071b703e53a7a24002ed38",tooltip="clear the screen"];
+  Node2 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="ui_win_print_centered",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__win_8c.html#add8b0c5cf2cec5c907cdafe2c48aecb6",tooltip="Print a string at the center of the screen both in the x and y axes."];
+  Node2 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="ui_win_term_info",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__win_8c.html#ac710b0db33790eea643bd88ce4ef349d",tooltip="Gets the current terminal info."];
+  Node6 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="ui_win_get_center",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__win_8c.html#a305088bbee63f82980687782e2da5ee9",tooltip="Calculate the center of a spcific window."];
+  Node6 -> Node8 [color="steelblue1",style="solid"];
+  Node8 [label="xmalloc",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b",tooltip="alloc memory for a pointer."];
+  Node8 -> Node9 [color="steelblue1",style="solid"];
+  Node9 [label="checked",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f",tooltip="check if the the malloc allocate the memory."];
+}

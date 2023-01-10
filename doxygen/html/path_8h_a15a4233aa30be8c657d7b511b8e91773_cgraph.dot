@@ -1,0 +1,13 @@
+digraph "path_create"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="path_create",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="alloc the path pointer."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="xmalloc",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a0803c926e3d15b7ca7758c9fe3e5ce7b",tooltip="alloc memory for a pointer."];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="checked",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html#a59b81da0ba228faf2f8da90c0990c21f",tooltip="check if the the malloc allocate the memory."];
+}

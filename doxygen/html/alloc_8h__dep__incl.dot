@@ -1,0 +1,22 @@
+digraph "include/alloc.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="include/alloc.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="src/alloc.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$alloc_8c.html",tooltip="function that check if memory is allocate."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="src/game.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$game_8c.html",tooltip="File that countains the function relating to the player information."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="src/map.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$map_8c.html",tooltip="File that contains the funcion to define map elements and get the possible location."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="src/path.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8c.html",tooltip="contain the function to control the path."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="src/queue.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$queue_8c.html",tooltip="contain function that control the tail."];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="src/ui.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui_8c.html",tooltip="this file contains the function for the menù."];
+  Node1 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node8 [label="src/ui_win.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ui__win_8c.html",tooltip="contain function for manage the window"];
+}

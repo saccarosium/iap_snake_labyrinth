@@ -1,0 +1,20 @@
+digraph "include/queue.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="include/queue.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="contain functions that control the queue"];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="map.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$map_8h.html",tooltip="File containing all most of the functions used with the map."];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="path.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$path_8h.html",tooltip=" "];
+  Node3 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="stdbool.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="utils.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$utils_8h.html",tooltip="this file contains useful extra structs and enums"];
+  Node2 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="stdio.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="stdlib.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+}
