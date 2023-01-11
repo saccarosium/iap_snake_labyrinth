@@ -1,0 +1,23 @@
+PREREQUISITE
+============
+
+* UNIX like enviroment
+* gcc (compatible with C99)
+* Ncurses
+
+The application is mainly been tested on UNIX systems and WSL.
+It may run on Windows but wasn't tested.
+
+DEPENDENCIES
+============
+
+For installing ncurses you have two options:
+1. installing it with your package manager
+2. run `make ncurses`
+
+USAGE
+=====
+
+```
+make && ./build/maze
+```
