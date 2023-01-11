@@ -98,8 +98,14 @@ int main(int argc, char *argv[]) {
         ui_map_print(lay->map, g->map, g->player);
         ui_win_clear(lay->legend->id, true);
         ui_win_print_centered_x(lay->legend, 0, " MOVES ");
-        ui_win_print_centered(lay->legend, path_string(p));
-        wrefresh(lay->legend->id);
+        if (strlen(path_string(p)) < lay->legend->width) {
+            ui_win_print_centered(lay->legend, path_string(p));
+            wrefresh(lay->legend->id);
+        } else {
+            ui_screen_clear();
+            win_t *term = ui_win_term_info();
+            ui_win_print_centered(term, path_string(p));
+        }
         getch();
     }
 
